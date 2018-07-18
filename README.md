@@ -1,299 +1,285 @@
 # Persistance
 User Stories
-MVP
+------------
+
+### <span id="anchor"></span>MVP
+
 As a user:
-I want to be able to see the state of the game at all times
-I want to be able to create a room and play the resistance with my friends
-I want to have game information displayed in realtime in a chat window where I can talk to other players
-I want to be able to mouseover a player and show what missions they have been on
-I want to be able to see clearly where the game is up to and what I need to do
-Stretch
-I want to see an individual player story
-I want to increase tension with dramatic mission and game outcome reveals
-I want to be to put the heat on people through heinous accusations
-I want to have mission flavour
-I want to be able to create a password protected room that only my friends can join
 
-Views (Client Side)
-name
-purpose
-Login
-View for user to enter their login credentials
-Register
-View for user to sign up for the App
-Lobby
-View for user to create room and decide when there are enough players before starting the game
-History
-Ugly Spreadsheet of votes and other information
-GameScreen
-Main view for game play, displaying board, missions, players, chat/log
-WinScreen
-Show the results of the game (stretch)
-Reducers (Client Side)
-name
-purpose
-auth
-Store information regarding user logins, auth status and auth errors
-game
-Store information regarding game status
-users
-store the list of players who can join games
+-   I want to be able to see the state of the game at all times
+-   I want to be able to create a room and play the resistance with my friends
+-   I want to have game information displayed in realtime in a chat window where I can talk to other players
+-   I want to be able to mouseover a player and show what missions they have been on
+-   I want to be able to see clearly where the game is up to and what I need to do
 
+### <span id="anchor-1"></span>Stretch
 
-Actions
+-   I want to see an individual player story
+-   I want to increase tension with dramatic mission and game outcome reveals
+-   I want to be to put the heat on people through heinous accusations
+-   I want to have mission flavour
+-   I want to be able to create a password protected room that only my friends can join
 
+<span id="anchor-2"></span>Views (Client Side)
+----------------------------------------------
+
+||
+||
+||
+||
+||
+||
+||
+||
+
+<span id="anchor-3"></span>Reducers (Client Side)
+-------------------------------------------------
+
+||
+||
+||
+||
+||
+||
+
+<span id="anchor-4"></span>Actions
 games
-type
-data
-purpose
-START_GAME
-Players, inProgress
-Initialize game state 
+----------------------------------
 
+||
+||
+||
+||
 
+### users
 
-users
-type
-data
-purpose
-RECEIVE_USERS
-users
-retreive the users from the server
-rounds
-type
-data
-purpose
-START_ROUND
-round_number, leader_id,
-a round has started, set initial round state
-END_ROUND
-votes
-Calculate result of votes
+||
+||
+||
 
+### rounds
 
+||
+||
+||
+||
+||
+||
 
+### missions
 
+||
+||
+||
+||
+||
+||
 
+### intentions
 
-missions
-type
-data
-purpose
-START_MISSION
-round
-a meeting has started, set initial meeting state
-END_MISSION
-Intentions result
-Work out result of mission update win count
+||
+||
+||
+||
 
+### votes
 
+||
+||
+||
+||
 
+<span id="anchor-5"></span>API (Client - Server)
+------------------------------------------------
 
+||
+||
+||
+||
+||
+||
+||
+||
 
+<span id="anchor-6"></span>DB (Server Side)
+-------------------------------------------
 
-intentions
-type
-data
-purpose
-
-
-
-
-
-
-votes
-type
-data
-purpose
-
-
-
-
-
-
-API (Client - Server)
-Method
-Endpoint
-Protected
-Usage
-Response
-Post
-/api/auth/login
-Yes
-Log In a User
-The Users JWT Token
-Post
-/api/auth/register
-Yes
-Register a User
-The Users JWT Token
-Get
-/api/meetings
-Yes
-Get a Users Meeting Histroy
-An Array of Meetings
-Post
-/api/meetings
-Yes
-Save a completed meeting
-The Meeting that has been saved in db read format
-Get
-/api/meetings/:id/users
-Yes
-Get the attendees of a Meeting
-An Array of User objects
-Get
-/api/users
-Yes
-Get the users of the app
-An Array of User Objects
-DB (Server Side)
 Game settings in seperate JSON file
-There should be three tables for MVP
-Users
-Column Name
-Data Type
-id
-Integer
-user_name
-String
-display_name
-String
-image
-text
-hash
-text
-Games
-Column Name
-Data Type
-id
-Integer
-player_number
-integer
-in_progress
-boolean
-time_stamp
-integer
-Missions
-Column Name
-Data Type
-id
-Integer
-outcome
-boolean
-game_id
-integer
-Rounds
-Column Name
-Data Type
-id
-Integer
-game_id
-integer
-round_number
-integer
-mission_id
-integer
-leader_id
-integer
-Intentions
-Column Name
-Data Type
-id
-Integer
-game_id
-Integer
-mission_id
-integer
-Intention
-boolean
-player_id
-integer
-Votes
-Column Name
-Data Type
-id
-Integer
-round_id
-integer
-nomination_id
-integer
-player_id
-integer
-Vote
-boolean
-Nomnomnom
-Column Name
-Data Type
-id
-Integer
-round_id
-Integer
-player_id
-integer
-Players Chicken Tendies (Join Table M2M)
-Many Users play Many Games
-Column Name
-Data Type
-user_id
-Integer
-game_id
-Integer
-Round Votes (Join Table)
-Rounds have multiple votes
-Column Name
-Data Type
-vote_id
-Integer
-round_id
-Integer
-Round Nominations (Join Table)
-Rounds have multiple nominated players
-Column Name
-Data Type
-nomination_id
-Integer
-round_id
-Integer
 
-Setup
+There should be three tables for MVP
+
+### Users
+
+||
+||
+||
+||
+||
+||
+||
+
+### Games
+
+||
+||
+||
+||
+||
+||
+
+### Missions
+
+||
+||
+||
+||
+||
+
+### Rounds
+
+||
+||
+||
+||
+||
+||
+||
+
+### Intentions
+
+||
+||
+||
+||
+||
+||
+||
+
+### Votes
+
+||
+||
+||
+||
+||
+||
+||
+
+### Nomnomnom
+
+||
+||
+||
+||
+||
+
+### Players Chicken Tendies (Join Table M2M)
+
+Many Users play Many Games
+
+||
+||
+||
+||
+
+### **Round Votes (Join Table)**
+
+Rounds have multiple votes
+
+||
+||
+||
+||
+
+### Round Nominations (Join Table)
+
+Rounds have multiple nominated players
+
+||
+||
+||
+||
+
+<span id="anchor-7"></span>Setup
+--------------------------------
+
 Run the following commands in your terminal:
+
 yarn install
+
 yarn knex migrate:latest
+
 yarn knex seed:run
-mv .env_example .env
+
+mv .env\_example .env
+
 To run in development:
+
 yarn dev
+
  - or -
+
 npm run dev
+
 To run in production:
+
 yarn start
-  - or -
+
+ - or -
+
 npm start
-Heroku!!!
-Creating your app
-Create your app with heroku create [name]
-You can check that this was successful by running heroku apps to view a list of your apps
-Adding postgres
-Add postgresql (hobby dev) to your app at https://dashboard.heroku.com/apps/[APP NAME HERE]/resources
-Check that pg has been added by running heroku addons to ensure the postgresql db is on your app
-Deploying!
+
+<span id="anchor-8"></span>Heroku!!!
+------------------------------------
+
+### <span id="anchor-9"></span>Creating your app
+
+Create your app with **heroku create \[name\]**
+
+You can check that this was successful by running **heroku apps** to view a list of your apps
+
+### <span id="anchor-10"></span>Adding postgres
+
+Add postgresql (hobby dev) to your app at **https://dashboard.heroku.com/apps/\[APP NAME HERE\]/resources**
+
+Check that pg has been added by running **heroku addons** to ensure the postgresql db is on your app
+
+### <span id="anchor-11"></span>Deploying!
+
 I have created several npm scripts that will be useful for deploying your app to heroku easily.
+
 To push your local master branch to your heroku app:
+
 yarn h:deploy
-  - or -
+
+ - or -
+
 npm run h:deploy
+
 Run heroku migrations:
+
 yarn h:migrate
-  - or -
+
+ - or -
+
 npm run h:migrate
+
 Run heroku seeds:
+
 yarn h:seed
-  - or -
+
+ - or -
+
 npm run h:seed
+
 If ever you need to rollback, you can also:
+
 yarn h:rollback
-  - or -
+
+ - or -
+
 npm run h:rollback
-Ta-Da!
+
+### <span id="anchor-12"></span>Ta-Da!
+
 Your app should be deployed!
