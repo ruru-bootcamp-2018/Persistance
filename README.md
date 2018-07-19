@@ -1,64 +1,225 @@
-# A starter webpack project for React, Redux, Express and Knex, Auth
+# Persistence
+User Stories
+------------
 
-This is a rad base for starting a new full-stack project + Auth, or just as reference for how to do things the Harrison way (which is with absolutely no test folder, I'll leave that one to Alan)
+### <span id="anchor"></span>MVP
 
-## Init
+As a user:
 
-* Fork this repo to your github
-* Rename your repo according to the app you're building
+-   I want to be able to see the state of the game at all times
+-   I want to be able to create a room and play the resistance with my friends
+-   I want to have game information displayed in realtime in a chat window where I can talk to other players
+-   I want to be able to mouseover a player and show what missions they have been on
+-   I want to be able to see clearly where the game is up to and what I need to do
 
-To start a new project:
-  * Make a new repo on github
-  * `git clone https://github.com/harrison-symes/auth-plates.git <NEW REPO NAME HERE>`
-  * `git remote remove origin`
-  * `git remote add origin <NEW REPO URL HERE`
-  * `git remote -v` to see your remotes
-  * `git push origin master` to push the boilerplate code to your new repo
+### <span id="anchor-1"></span>Stretch
 
-## Setup
+-   I want to see an individual player story
+-   I want to increase tension with dramatic mission and game outcome reveals
+-   I want to be to put the heat on people through heinous accusations
+-   I want to have mission flavour
+-   I want to be able to create a password protected room that only my friends can join
+
+
+## Views (Client Side)
+  | name | purpose |
+  | --- | --- |
+  | Login | View for user to enter their login credentials |
+  | Register | View for user to sign up for the App |
+  | Lobby | View for user to create room and decide when there are enough players before starting the game |
+  | History | Ugly spreadsheet of votes and other information |
+  | GameScreen | Main view for game play, displaying board, missions, players, chat/log |
+  | WinScreen | Show the results of the game (stretch) |
+
+
+
+## Reducers (Client Side)
+
+  | name | purpose |
+  | --- | --- |
+  | auth | Store information regarding user logins, auth status and auth errors |
+  | game | Track meeting progress such as current cost and current duration |
+  | users | store the list of players who can join games |
+
+ ## Actions
+
+ ### meetings
+
+ | type | data | purpose |
+ | --- | --- | --- |
+ | START_GAME | Players, inProgress | initialize game state |
+
+
+ ### users
+ | type | data | purpose |
+ | --- | --- | --- |
+ | RECEIVE_USERS | users | retreive the users from the server |
+
+ ### rounds
+  | type | data | purpose |
+| --- | --- | --- |
+| START_ROUND | round_number, leader_id, | a round has started, set initial round state |
+| END_ROUND | votes | Calculate result of votes |  
+
+ ### missions
+   | type | data | purpose |
+| --- | --- | --- |
+| START_MISSION | round | a meeting has started, set initial meeting state |
+| END_MISSION | Intentions result | Work out result of mission update win count |  
+
+### intentions
+   | type | data | purpose |
+| --- | --- | --- |
+
+
+
+## API (Client - Server)
+
+| Method | Endpoint | Protected | Usage | Response |
+| --- | --- | --- | --- | --- |
+| Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
+| Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
+| Get | /api/meetings | Yes | Get a Users Meeting Histroy | An Array of Meetings |
+| Post | /api/meetings | Yes | Save a completed meeting | The Meeting that has been saved in db read format |
+| Get | /api/meetings/:id/users | Yes | Get the attendees of a Meeting | An Array of User objects |
+| Get | /api/users | Yes | Get the users of the app | An Array of User Objects |
+
+## DB (Server Side)
+  Game settings in seperate JSON file
+  Theere should be three tables for MVP
+
+### Users
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | user_name | String |
+  | first_name | String |
+  | last_name | String |
+  | hash | text |
+
+### Games
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | player_number | Integer |
+  | in_progress | Boolean |
+  | time_stamp | Integer |
+
+### Missions
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | outcome | Boolean |
+  | game_id | Integer |
+
+  ### Rounds
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | game_id | Boolean |
+  | round_number | Integer |
+  | mission_id | Integer |
+  | leader_id | Integer |
+
+  ### Intentions
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | game_id | Integer |
+  | intention | Boolean |
+  | mission_id | Integer |
+  | player_id | Integer |
+
+  ### Votes
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | round_id | Integer |
+  | nomination_id | Integer |
+  | vote | Boolean |
+  | player_id | Integer |
+
+  ### Nominations
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | round_id | Integer |
+  | player_id | Integer |
+
+ ===========================================================================
+
+### Players Chicken Tendies (Join Table M2M)
+
+  Many Users play Many Games
+
+ | Column Name | Data Type |
+ | --- | --- |
+ | user_id | Integer |
+ | game_id | Integer |
+
+ ### Round Votes (Join Table)
+
+ Rounds have multiple votes
+
+ | Column Name | Data Type |
+ | --- | --- |
+ | vote_id | Integer |
+ | round_id | Integer |
+
+ ### Round Nominations (Join Table)
+
+ Rounds have multiple nominated players
+
+ | Column Name | Data Type |
+ | --- | --- |
+ | nomination_id | Integer |
+ | round_id | Integer |
+
+<span id="anchor-7"></span>Setup
+--------------------------------
 
 Run the following commands in your terminal:
 
-```sh
 yarn install
+
 yarn knex migrate:latest
+
 yarn knex seed:run
-mv .env_example .env
-```
+
+mv .env\_example .env
 
 To run in development:
-```sh
+
 yarn dev
+
  - or -
+
 npm run dev
 
-```
-
 To run in production:
-```sh
+
 yarn start
-  - or -
+
+ - or -
+
 npm start
-```
 
+<span id="anchor-8"></span>Heroku!!!
+------------------------------------
 
-## Heroku!!!
+### <span id="anchor-9"></span>Creating your app
 
-### Creating your app
+Create your app with **heroku create \[name\]**
 
-Create your app with `heroku create [name]`
+You can check that this was successful by running **heroku apps** to view a list of your apps
 
-You can check that this was successful by running `heroku apps` to view a list of your apps
+### <span id="anchor-10"></span>Adding postgres
 
+Add postgresql (hobby dev) to your app at **https://dashboard.heroku.com/apps/\[APP NAME HERE\]/resources**
 
-### Adding postgres
+Check that pg has been added by running **heroku addons** to ensure the postgresql db is on your app
 
-Add postgresql (hobby dev) to your app at `https://dashboard.heroku.com/apps/[APP NAME HERE]/resources`
-
-Check that pg has been added by running `heroku addons` to ensure the postgresql db is on your app
-
-
-### Deploying!
+### <span id="anchor-11"></span>Deploying!
 
 I have created several npm scripts that will be useful for deploying your app to heroku easily.
 
