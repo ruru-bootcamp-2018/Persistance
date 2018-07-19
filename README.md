@@ -80,7 +80,6 @@ As a user:
 | Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
 | Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
 | Get | /api/meetings | Yes | Get a Users Meeting Histroy | An Array of Meetings |
-| Post | /api/meetings | Yes | Save a completed meeting | The Meeting that has been saved in db read format |
 | Get | /api/meetings/:id/users | Yes | Get the attendees of a Meeting | An Array of User objects |
 | Get | /api/users | Yes | Get the users of the app | An Array of User Objects |
 
@@ -101,7 +100,7 @@ As a user:
   | Column Name | Data Type |
   | --- | --- |
   | id | Integer |
-  | player_number | Integer |
+  | is_finished | Boolean |
   | in_progress | Boolean |
   | time_stamp | Integer |
 
@@ -116,7 +115,6 @@ As a user:
   | Column Name | Data Type |
   | --- | --- |
   | id | Integer |
-  | game_id | Boolean |
   | round_number | Integer |
   | mission_id | Integer |
   | leader_id | Integer |
@@ -124,8 +122,6 @@ As a user:
   ### Intentions
   | Column Name | Data Type |
   | --- | --- |
-  | id | Integer |
-  | game_id | Integer |
   | intention | Boolean |
   | mission_id | Integer |
   | player_id | Integer |
@@ -133,18 +129,22 @@ As a user:
   ### Votes
   | Column Name | Data Type |
   | --- | --- |
-  | id | Integer |
   | round_id | Integer |
-  | nomination_id | Integer |
   | vote | Boolean |
   | player_id | Integer |
 
   ### Nominations
   | Column Name | Data Type |
   | --- | --- |
-  | id | Integer |
   | round_id | Integer |
   | player_id | Integer |
+  
+  ### Players/Roles
+  | Column Name | Data Type |
+  | --- | --- |
+  | game_id | Integer |
+  | user_id | Integer |
+  | role | String |
 
  ===========================================================================
 
