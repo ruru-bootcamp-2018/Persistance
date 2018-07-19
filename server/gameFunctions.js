@@ -1,13 +1,13 @@
 
-
+//assign Roles Functions
 function assignRoles(roles){
-  const spyNum = howManySpies(roles.length)
+  const spyNum = howManySpies(roles.length)  
   for (let i = 0; i < spyNum; i++){
     assignRandomSpy(roles)
   }
   roles.forEach(role => {
-  if (role.role != 'spy') role.role = 'good'
-})
+  if (!role.role) role.role = 'good'  
+  })  
 }
 
 function howManySpies(num){  
@@ -27,11 +27,21 @@ function howManySpies(num){
 }
 
 function assignRandomSpy(roles){
-  let idx = Math.floor(Math.random()*roles.length)
-  if (roles[idx] == 'spy') assignRandomSpy(roles)
+  let idx = Math.floor(Math.random()*roles.length)  
+  if (roles[idx].role == 'spy') assignRandomSpy(roles)
   else roles[idx].role = 'spy'
 }
 
+//new Round functions
+function initRound(game_id){
+  // db.getMissions(game_id).then(missions => {
+  //   db.getRounds(mission_id)
+  // })
+  
+
+}
+
 module.exports = {
-  assignRoles
+  assignRoles,
+  initRound
 }

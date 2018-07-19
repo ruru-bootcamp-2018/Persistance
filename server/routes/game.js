@@ -2,6 +2,8 @@ const db = require('../db/game')
 const {assignRoles} = require('../gameFunctions')
 var router = require('express').Router()
 
+let currentGame = {}
+
 router.post('/new', (req, res) => {
   const {game_name} = req.body
   db.createGame(game_name).then(ids => {
@@ -34,7 +36,7 @@ router.post('/start', (req, res) => {
           })
         })        
       })
-    })    
+    })       
   })
 })
 
