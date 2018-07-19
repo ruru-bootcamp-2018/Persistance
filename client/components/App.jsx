@@ -1,9 +1,12 @@
 import React from 'react'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 
-import Login from './Login'
-import Register from './Register'
+import Login from './Auth/Login'
+import Register from './Auth/Register'
 import Nav from './Nav'
+import Lobby from './Lobby/Lobby'
+import Game from './Game/Game'
+
 
 const App = () => (
   <Router>
@@ -12,6 +15,8 @@ const App = () => (
       <Route path="/" component={Nav} />
       <Route path="/login" component={Login} />
       <Route path="/Register" component={Register} />
+      <Route path="/lobby" component={Lobby} />
+      <Route exact path="/game/:id" component={Game} />
     </div>
   </Router>
 )
