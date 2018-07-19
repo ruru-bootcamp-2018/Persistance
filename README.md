@@ -124,7 +124,7 @@ As a user:
   | --- | --- |
   | intention | Boolean |
   | mission_id | Integer |
-  | player_id | Integer |
+  | user_id | Integer |
 
   ### Votes (Join Table)
 
@@ -134,7 +134,7 @@ As a user:
   | --- | --- |
   | round_id | Integer |
   | vote | Boolean |
-  | player_id | Integer |
+  | user_id | Integer |
 
   ### Nominations (Join Table)
 
@@ -143,7 +143,7 @@ As a user:
   | Column Name | Data Type |
   | --- | --- |
   | round_id | Integer |
-  | player_id | Integer |
+  | user_id | Integer |
   
   ### Players/Roles
   | Column Name | Data Type |
