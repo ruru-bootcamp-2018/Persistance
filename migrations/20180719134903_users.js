@@ -6,6 +6,7 @@ return knex.schema.createTable('users', (table) => {
   table.string('display_name')
   table.text('img')
   table.text('hash')
+ }) 
 };
 
 exports.down = function(knex, Promise) {
