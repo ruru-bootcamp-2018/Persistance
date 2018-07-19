@@ -1,4 +1,4 @@
-# Persistance
+# Persistence
 User Stories
 ------------
 
