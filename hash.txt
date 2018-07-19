@@ -1,0 +1,4 @@
+'$2a$12$0TCu9Z.27eFdghknmuPTwO0X//k.qbiVlPaH1hn5oeUEu4I6jAHBm
+
+user: b  
+pass b
