@@ -5,6 +5,7 @@ return knex.schema.createTable('games', (table) => {
   table.boolean('is_finished')
   table.boolean('in_progress')
   table.integer('time_stamp')
+})
 };
 
 exports.down = function(knex, Promise) {

@@ -1,12 +1,13 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('missions').del()
+  return knex('nominations').del()
     .then(function () {
       // Inserts seed entries
-      return knex('missions').insert([
-        {id: 1, game_id: 1, outcome: false},
-        
+      return knex('nominations').insert([
+        {round_id: 1, user_id:1},
+        {round_id: 1, user_id:2} 
+
       ]);
     });
 };
