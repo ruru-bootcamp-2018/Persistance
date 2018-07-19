@@ -31,7 +31,6 @@ class Game extends React.Component {
   }
 }
 
-
 const mapStateToProps = (state) => ({
 
   id: 9,
@@ -40,7 +39,6 @@ const mapStateToProps = (state) => ({
   is_finished: false
 
 })
-
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {
