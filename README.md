@@ -126,14 +126,20 @@ As a user:
   | mission_id | Integer |
   | player_id | Integer |
 
-  ### Votes
+  ### Votes (Join Table)
+
+ Rounds have multiple votes
+ 
   | Column Name | Data Type |
   | --- | --- |
   | round_id | Integer |
   | vote | Boolean |
   | player_id | Integer |
 
-  ### Nominations
+  ### Nominations (Join Table)
+
+ Rounds have multiple nominated players
+ 
   | Column Name | Data Type |
   | --- | --- |
   | round_id | Integer |
@@ -157,23 +163,6 @@ As a user:
  | user_id | Integer |
  | game_id | Integer |
 
- ### Round Votes (Join Table)
-
- Rounds have multiple votes
-
- | Column Name | Data Type |
- | --- | --- |
- | vote_id | Integer |
- | round_id | Integer |
-
- ### Round Nominations (Join Table)
-
- Rounds have multiple nominated players
-
- | Column Name | Data Type |
- | --- | --- |
- | nomination_id | Integer |
- | round_id | Integer |
 
 <span id="anchor-7"></span>Setup
 --------------------------------
