@@ -1,9 +1,9 @@
 const conn = require('./connection')
 
-function createGame(testDb){
+function createGame(game_name, testDb){
   db = testDb || conn
   db('games')
-    .insert({is_finished: false, in_progress: true, time_stamp: Date.now()})
+    .insert({game_name, is_finished: false, in_progress: true, time_stamp: Date.now()})
 }
 
 function setRole(game_id, user_id, role, testDb){
