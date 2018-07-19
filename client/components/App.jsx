@@ -1,11 +1,11 @@
 import React from 'react'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 
 import Login from './Auth/Login'
 import Register from './Auth/Register'
 import Nav from './Nav'
 import Lobby from './Lobby/Lobby'
-import WaitingRoom from './WaitingRoom/WaitingRoom'
+import Game from './Game/Game'
 
 
 const App = () => (
@@ -16,7 +16,7 @@ const App = () => (
       <Route path="/login" component={Login} />
       <Route path="/Register" component={Register} />
       <Route path="/lobby" component={Lobby} />
-      <Route exact path = "/game/:id" component={WaitingRoom} />
+      <Route exact path="/game/:id" component={Game} />
     </div>
   </Router>
 )

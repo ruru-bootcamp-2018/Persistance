@@ -1,39 +1,53 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import GameBoard from './GameBoard'
-import WaitingRoom from '../WaitingRoom/WaitingRoom'
 
 // this is the head component for both game and waitingRoom- it decides what to render- based
 // on game start, game won etc!!! 
 
 class Game extends React.Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-         players: [1,2,3,4,5],
-         ready: false
-      }
-      this.startGame = this.startGame.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
     }
-    
-    startGame() {
-        
-    }
+    this.startGame = this.startGame.bind(this)
+  }
 
-    endGame() {
-        
-    }
+  startGame() {
+  }
 
-    render() {
-        return (
-            <div>
-                {this.state.ready && <GameBoard />}
-            </div>
-        )
-    }
+  endGame() {
+  }
+
+  render() {
+    const { playerNumber } = this.props
+    return (
+      <div>
+         <h2>Waiting!!</h2>
+        <ReadyButton />
+        <GameBoard />
+      </div>
+    )
+  }
 }
 
-const mapStateToProps = ({ playerNumber }) => ({playerNumber : 5 })
 
+const mapStateToProps = (state) => ({
+
+  id: 9,
+  playerNumber: 5,
+  in_progress: false,
+  is_finished: false
+
+})
+
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     startGame: creds => {
+//       return dispatch(loginUser(creds))
+//     }
+//   }
+// }
 
 export default connect(mapStateToProps)(Game)

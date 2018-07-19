@@ -29,14 +29,9 @@ class NewGameForm extends React.Component {
     return (
       <div>
         <form className="Login container" onSubmit={this.submit}>
-          <label>Game Name:
+          <label>Start A New Game:
           <input className="input" type="text" name="gameName" onChange={this.updateDetails} />
           </label><br />
-          <label>Player Amount:
-            <select className="input" onChange={this.updateDetails} name="playerNumber">
-              {Array(6).fill(0).map((e, i) => <option value={i + 5}>{i + 5}</option>)}
-            </select>
-          </label>
           <input className="input" type="submit"/>
         </form>
       </div>
