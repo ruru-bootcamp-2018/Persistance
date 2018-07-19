@@ -1,9 +1,8 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('votes', (table)=>{
-    table.increments('id')
-    table.increments('roundid') //previously we have used round number do we need to identify this too?
-    table.increments('playerid')
+    table.integer('round_id') //previously we have used round number do we need to identify this too?
+    table.integer('user_id')
     table.string('vote')
   })
 };
