@@ -18,4 +18,13 @@ function register (req, res, next) {
 
 router.post('/login', token.issue)
 
+
+// router.get('/protected', token.decode, (req, res) => {
+//   req.user === the user token info
+// })
+
+// router.post('/game', token.deocde, (req, res) => {
+//   gamesDb.createGame(req.user.id, req.body)
+// })
+
 module.exports = router

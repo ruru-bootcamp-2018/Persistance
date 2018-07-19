@@ -7,6 +7,6 @@ return knex.schema.createTable('roles', (table) => {
 })
 };
 
-exports.down = function(knex, Promise) {
-return knex.schema.dropTable('roles')
+exports.down = function (knex, Promise) {
+  return knex.schema.dropTable('roles')
 };

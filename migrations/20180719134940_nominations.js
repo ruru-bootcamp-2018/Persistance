@@ -6,6 +6,6 @@ return knex.schema.createTable('nominations', (table) => {
 })
 };
 
-exports.down = function(knex, Promise) {
-return knex.schema.dropTable('nominations')
+exports.down = function (knex, Promise) {
+  return knex.schema.dropTable('nominations')
 };

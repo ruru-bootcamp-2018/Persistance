@@ -14,7 +14,8 @@ function Nav (props) {
             <Link className="nav-item" to="/login">Login</Link>&nbsp;
             <Link className="nav-item" to="/register">Register</Link>
           </div>
-        }
+        //This is how you do/don't display info based on login
+      } 
       </div>
 
     </div>
