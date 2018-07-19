@@ -20,186 +20,161 @@ As a user:
 -   I want to have mission flavour
 -   I want to be able to create a password protected room that only my friends can join
 
-<span id="anchor-2"></span>Views (Client Side)
-----------------------------------------------
 
-||
-||
-||
-||
-||
-||
-||
-||
+## Views (Client Side)
+  | name | purpose |
+  | --- | --- |
+  | Login | View for user to enter their login credentials |
+  | Register | View for user to sign up for the App |
+  | Lobby | View for user to create room and decide when there are enough players before starting the game |
+  | History | Ugly spreadsheet of votes and other information |
+  | GameScreen | Main view for game play, displaying board, missions, players, chat/log |
+  | WinScreen | Show the results of the game (stretch) |
 
-<span id="anchor-3"></span>Reducers (Client Side)
--------------------------------------------------
 
-||
-||
-||
-||
-||
-||
 
-<span id="anchor-4"></span>Actions
-games
-----------------------------------
+## Reducers (Client Side)
 
-||
-||
-||
-||
+  | name | purpose |
+  | --- | --- |
+  | auth | Store information regarding user logins, auth status and auth errors |
+  | game | Track meeting progress such as current cost and current duration |
+  | users | store the list of players who can join games |
 
-### users
+ ## Actions
 
-||
-||
-||
+ ### meetings
 
-### rounds
+ | type | data | purpose |
+ | --- | --- | --- |
+ | START_GAME | Players, inProgress | initialize game state |
 
-||
-||
-||
-||
-||
-||
 
-### missions
+ ### users
+ | type | data | purpose |
+ | --- | --- | --- |
+ | RECEIVE_USERS | users | retreive the users from the server |
 
-||
-||
-||
-||
-||
-||
+ ### rounds
+  | type | data | purpose |
+| --- | --- | --- |
+| START_ROUND | round_number, leader_id, | a round has started, set initial round state |
+| END_ROUND | votes | Calculate result of votes |  
+
+ ### missions
+   | type | data | purpose |
+| --- | --- | --- |
+| START_MISSION | round | a meeting has started, set initial meeting state |
+| END_MISSION | Intentions result | Work out result of mission update win count |  
 
 ### intentions
+   | type | data | purpose |
+| --- | --- | --- |
 
-||
-||
-||
-||
 
-### votes
 
-||
-||
-||
-||
+## API (Client - Server)
 
-<span id="anchor-5"></span>API (Client - Server)
-------------------------------------------------
+| Method | Endpoint | Protected | Usage | Response |
+| --- | --- | --- | --- | --- |
+| Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
+| Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
+| Get | /api/meetings | Yes | Get a Users Meeting Histroy | An Array of Meetings |
+| Post | /api/meetings | Yes | Save a completed meeting | The Meeting that has been saved in db read format |
+| Get | /api/meetings/:id/users | Yes | Get the attendees of a Meeting | An Array of User objects |
+| Get | /api/users | Yes | Get the users of the app | An Array of User Objects |
 
-||
-||
-||
-||
-||
-||
-||
-||
-
-<span id="anchor-6"></span>DB (Server Side)
--------------------------------------------
-
-Game settings in seperate JSON file
-
-There should be three tables for MVP
+## DB (Server Side)
+  Game settings in seperate JSON file
+  Theere should be three tables for MVP
 
 ### Users
-
-||
-||
-||
-||
-||
-||
-||
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | user_name | String |
+  | first_name | String |
+  | last_name | String |
+  | hash | text |
 
 ### Games
-
-||
-||
-||
-||
-||
-||
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | player_number | Integer |
+  | in_progress | Boolean |
+  | time_stamp | Integer |
 
 ### Missions
-
-||
-||
-||
-||
-||
-
-### Rounds
-
-||
-||
-||
-||
-||
-||
-||
-
-### Intentions
-
-||
-||
-||
-||
-||
-||
-||
-
-### Votes
-
-||
-||
-||
-||
-||
-||
-||
-
-### Nomnomnom
-
-||
-||
-||
-||
-||
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | outcome | Boolean |
+  | game_id | Integer |
+  
+  ### Rounds
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | game_id | Boolean |
+  | round_number | Integer |
+  | mission_id | Integer |
+  | leader_id | Integer |
+  
+  ### Intentions
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | game_id | Integer |
+  | intention | Boolean |
+  | mission_id | Integer |
+  | player_id | Integer |
+  
+  ### Votes
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | round_id | Integer |
+  | nomination_id | Integer |
+  | vote | Boolean |
+  | player_id | Integer |
+  
+  ### Nominations
+  | Column Name | Data Type |
+  | --- | --- |
+  | id | Integer |
+  | round_id | Integer |
+  | player_id | Integer |
+ 
+ ===========================================================================
 
 ### Players Chicken Tendies (Join Table M2M)
 
-Many Users play Many Games
+  Many Users play Many Games
 
-||
-||
-||
-||
+ | Column Name | Data Type |
+ | --- | --- |
+ | user_id | Integer |
+ | game_id | Integer |
+ 
+ ### Round Votes (Join Table)
+ 
+ Rounds have multiple votes
+ 
+ | Column Name | Data Type |
+ | --- | --- |
+ | vote_id | Integer |
+ | round_id | Integer |
 
-### **Round Votes (Join Table)**
-
-Rounds have multiple votes
-
-||
-||
-||
-||
-
-### Round Nominations (Join Table)
-
-Rounds have multiple nominated players
-
-||
-||
-||
-||
-
+ ### Round Nominations (Join Table)
+ 
+ Rounds have multiple nominated players
+ 
+ | Column Name | Data Type |
+ | --- | --- |
+ | nomination_id | Integer |
+ | round_id | Integer |
+ 
 <span id="anchor-7"></span>Setup
 --------------------------------
 
