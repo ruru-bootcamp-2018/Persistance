@@ -65,8 +65,40 @@ function initRound(game_id){
 //check votes functions
 function checkVotes(round_id){
   db.getVotes(round_id).then(votes => {
-
+    if (votes.length == currentGame.roles.length) {
+      if (countVotes(votes)) {
+        approveMission(currentGame.currentMission.id)
+      }
+      else {
+        if (currentGame.currentRound.round_num < 5) initRound(currentGame.game.id)
+        else missionFails()
+      }
+    }
   })
+}
+
+function countVotes(votes){
+  const approve = votes.reduce((acc, vote) => {
+    if (vote.vote) acc++
+    return acc
+  }, 0)
+  const reject = votes.length - approve
+  return (approve > reject)
+}
+
+// mission functions
+function approveMission(){
+
+}
+
+function missionSucceeds(mission_id){
+  db.finishMission(mission_id, true)
+  initMission(currentGame.game.id)
+}
+
+function missionFails(mission_id){
+  db.finishMission(mission_id, false)
+  initMission(currentGame.game.id)
 }
 
 module.exports = {
