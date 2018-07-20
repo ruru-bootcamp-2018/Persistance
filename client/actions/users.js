@@ -1,9 +1,9 @@
 import request from '../utils/api'
 
-export function receiveGames(game){
+export function receiveGames(games){
     return {
-        type: 'RECEIVE_GAME',
-        game
+        type: 'RECEIVE_GAMES',
+        games
     }
 }
 
@@ -14,9 +14,9 @@ export function getPlayersForGame(players) {
     }
 }
 
-export function getSingleGame(game_id) { //probs rename to match actual function
+export function getGames() { //probs rename to match actual function
     return (dispatch) => {
-        return request('get', `temporary/${game_id}`) 
+        return request('get', `temporary/games`) 
         .then((res) => {
             dispatch(receiveGames(res.body))
         })
@@ -38,4 +38,3 @@ export function getPlayers(game_id) {
         })
     }
 }
-
