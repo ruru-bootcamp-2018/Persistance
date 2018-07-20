@@ -12,7 +12,7 @@ const state = {
         { id, is_finished, is_progress, timestamp, game_name, host_id }
     ],
     currentGame: {
-        game: { id, is_finished, is_progress, timestamp, game_name, host_id },
+        game:  { id, is_finished, is_progress, timestamp, game_name, host_id },
         players: [
             { id, user_name, display_name, img, game_id, role }
         ],
@@ -24,7 +24,19 @@ const state = {
             id, mission_id, leader_id, round_num
         },
         mission_params: [ //could be one level up?
-            { id /*need this?*/, players_total, team_total, mission_num, fails_needed }],
+            { id /*need this?*/, players_total, team_total, mission_num, fails_needed }
+        ],
+        missions: [
+        {id, game_id, outcome, rounds: [
+          {id, mission_id, leader_id, round_num,
+          nominations: [{round_id, user_id }], //nominated player => user_id
+          votes: [{round_id, user_id, vote}] //vote caster => user_id
+          }
+        ], intentions: [{mission_id, user_id, intention}]
+       }
+      ],
 
     }
 }
+
+console.log(state);
