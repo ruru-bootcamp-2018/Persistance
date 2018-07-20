@@ -4,16 +4,34 @@ import GameBoard from './GameBoard'
 import ReadyButton from './ReadyButton'
 import StatusBar from './StatusBar'
 
+
 //
 class Game extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
     }
+
+    this.startGame = this.startGame.bind(this)
+  }
+
+
+
+  startGame() {
+  }
+
+  endGame() {
+  }
+
+  render() {
+    const { playerNumber } = this.props
+
+
   }
 
   render() {
     const { playerNumber, host_id, user_id } = this.props
+
     return (
       <div>
         <StatusBar />
