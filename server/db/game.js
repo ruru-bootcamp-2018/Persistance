@@ -67,6 +67,14 @@ function getRounds(mission_id, testDb){
   return db('rounds').where('mission_id', mission_id)
 }
 
+function getAllRounds(game_id, testDb){
+  db = testDb || conn
+  return db('rounds')    
+    .join('missions', 'rounds.mission_id', 'missions.id')
+    .select('rounds.id', 'rounds.mission_id', 'rounds.leader_id', 'rounds.round_num', 'missions.game_id')
+    .where('game_id', game_id)
+}
+
 function castNomination(round_id, user_id, testDb){
   db = testDb || conn
   return db('nominations')
@@ -108,6 +116,7 @@ module.exports = {
   startGame,
   getMissions,
   getMissionParams,
-  getRounds
+  getRounds,
+  getAllRounds
 
 }
