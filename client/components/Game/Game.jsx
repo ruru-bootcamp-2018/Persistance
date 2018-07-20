@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import GameBoard from './GameBoard'
+import ReadyButton from './ReadyButton'
 
 // this is the head component for both game and waitingRoom- it decides what to render- based
 // on game start, game won etc!!! 
@@ -13,6 +14,8 @@ class Game extends React.Component {
     this.startGame = this.startGame.bind(this)
   }
 
+
+
   startGame() {
   }
 
@@ -21,6 +24,7 @@ class Game extends React.Component {
 
   render() {
     const { playerNumber } = this.props
+
     return (
       <div>
          <h2>Waiting!!</h2>
