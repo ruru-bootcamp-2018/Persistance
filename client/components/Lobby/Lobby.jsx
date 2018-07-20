@@ -11,7 +11,7 @@ class Lobby extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    
     const games = this.props.games
 
     return (

@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import GameBoard from './GameBoard'
 import ReadyButton from './ReadyButton'
+import StatusBar from './StatusBar'
 
-
+//
 class Game extends React.Component {
   constructor(props) {
     super(props)
@@ -12,10 +13,10 @@ class Game extends React.Component {
   }
 
   render() {
-    const { playerNumber, host_id, user_id} = this.props
+    const { playerNumber, host_id, user_id } = this.props
     return (
       <div>
-         <h2>Waiting!!</h2>
+        <StatusBar />
         {playerNumber >= 5 && user_id == host_id && <ReadyButton />}
         <GameBoard />
       </div>

@@ -11,17 +11,26 @@ class Game extends React.Component {
 
   render() {
     const { users, game, missions } = this.props
+    let top = Math.round(users.length / 2)
+ 
+    
     return (
-      <div>
+      <div className="gameBoard">
         <div className="level">
-          {users.map(user => {
-            return <p className="is-level-item is-size-4">{user.display_name || user.user_name}</p>
+          {users.slice(0, top).map((user, i )=> {
+            return <p key={`i:${i}`} className="is-level-item is-size-4">{user.display_name || user.user_name}</p>
           })}
         </div>
         <p className="is-size-4">Missions</p>
+        <div className="level missionDisplay">
+          {missions.map((mission, j) => {
+            return < Mission key={`j:${j}`} mission={mission} />
+          })}
+        </div>
+        <br/>
         <div className="level">
-          {missions.map((mission) => {
-            return <Mission mission={mission} />
+          {users.slice(top ).map((user, k )=> {
+            return <p key={`k:${k}`} className="is-level-item is-size-4">{user.display_name || user.user_name}</p>
           })}
         </div>
 

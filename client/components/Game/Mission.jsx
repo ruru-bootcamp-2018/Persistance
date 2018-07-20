@@ -12,7 +12,7 @@ class Mission extends React.Component {
     const { mission_number, outcome } = this.props.mission
     return (
       <div>
-        <h2 className="level-item has-text-centered is-size-2">
+        <h2 className="level-item has-text-centered is-size-2 mission">
           {mission_number}
           <br />
           {outcome && outcome}
