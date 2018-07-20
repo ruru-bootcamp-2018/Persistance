@@ -38,8 +38,10 @@ function assignRandomSpy(roles){
 //new Mission functions
 function initMission(game_id){
   db.newMission(game_id).then(ids => {
-    currentGame.currentMission = {id: ids[0]}
-    initRound(game_id)    
+    db.getMissions(game_id).then(missions => {
+      currentGame.currentMission = {id: ids[0], mission_num: missions.length, approved: false}
+      initRound(game_id)
+    })        
   }) 
 }
 
@@ -88,7 +90,26 @@ function countVotes(votes){
 
 // mission functions
 function approveMission(){
+  currentGame.currentMission.approved = true
+}
 
+function checkIntentions(mission_id){
+  const mission = currentGame.currentMission
+  const {team_total, fails_needed} = currentGame.missionParams[mission.mission_num]
+  db.getIntentions(mission_id).then(intentions => {
+    if (intentions.length == team_total){
+      if (checkIntentions(intentions, fails_needed)) missionSucceeds(mission_id)
+      else missionFails(mission_id)
+    }
+  })
+}
+
+function checkIntentions(intentions, fails_needed){
+  const fails = intentions.reduce((acc, intention) => {
+    if (!intention.intention) acc++
+    return acc
+  }, 0)
+  return (fails < fails_needed)
 }
 
 function missionSucceeds(mission_id){
@@ -105,5 +126,6 @@ module.exports = {
   assignRoles,
   initMission,
   initRound,
-  checkVotes
+  checkVotes,
+  checkIntentions
 }

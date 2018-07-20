@@ -32,11 +32,14 @@ router.post('/start', (req, res) => {
       db.setRoles(roles).then(() => {
         db.startGame(game_id).then(() => {
           currentGame.game.in_progress = true
-          db.getRoles(game_id).then(roles => { 
-            //emit game from io???
-            currentGame.roles = roles            
-            initMission(game_id)
-            res.json(roles)
+          db.getRoles(game_id).then(roles => {             
+            currentGame.roles = roles
+            db.getMissionParams(roles.length).then(missionParams => {
+              currentGame.missionParams = missionParams
+              initMission(game_id)
+              //emit game from io???
+              res.json(roles)
+            })           
           })
         })        
       })
@@ -64,7 +67,13 @@ router.post('/vote', (req, res) => {
   })
 })
 
-
-
+router.post('/intention', (req, res) => {
+  const user_id = req.body.user.id
+  const intention = req.body.intention
+  const mission_id = currentGame.currentMission.id
+  db.castIntention(mission_id, user_id, intention).then(() => {
+    checkIntentions(mission_id)
+  })
+})
 
 module.exports = router
