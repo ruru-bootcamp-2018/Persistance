@@ -12,8 +12,8 @@ class Game extends React.Component {
   render() {
     const { users, game, missions } = this.props
     let top = Math.round(users.length / 2)
- 
-    
+
+
     return (
       <div className="gameBoard">
         <div className="level">
@@ -33,13 +33,13 @@ class Game extends React.Component {
             return <p key={`k:${k}`} className="is-level-item is-size-4">{user.display_name || user.user_name}</p>
           })}
         </div>
-
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+console.log(state)
   return {
     users: [
       { id: 3, user_name: "plaguemulch", display_name: "Plague" },
