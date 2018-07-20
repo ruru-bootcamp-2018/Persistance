@@ -1,11 +1,12 @@
 const db = require('./db/game')
+const currentGame = require('./currentGame')
 
 
 //assign Roles Functions
 function assignRoles(roles){
   const spyNum = howManySpies(roles.length)  
   for (let i = 0; i < spyNum; i++){
-    //assignRandomSpy(roles)
+    assignRandomSpy(roles)
   }
   roles.forEach(role => {
   if (!role.role) role.role = 'good'  
@@ -36,8 +37,9 @@ function assignRandomSpy(roles){
 
 //new Mission functions
 function initMission(game_id){
-  db.newMission(game_id).then(() => {
-    initRound(game_id)
+  db.newMission(game_id).then(ids => {
+    currentGame.currentMission = {id: ids[0]}
+    initRound(game_id)    
   }) 
 }
 
@@ -52,18 +54,24 @@ function initRound(game_id){
         let lastLeader = roles.findIndex(role => ((allRounds.length > 0 ? allRounds[allRounds.length-1].leader_id : 0) == role.user_id))        
         const nextLeader = (lastLeader+1 > roles.length-1) ? 0 : lastLeader+1                
         const leader_id = (roles[nextLeader].user_id) || roles[0].user_id
-        db.newRound(mission_id, leader_id, round_num).then(ids => {
-          console.log('Current Round id: '+ ids[0])
+        db.newRound(mission_id, leader_id, round_num).then(ids => {          
+          currentGame.currentRound = {id: ids[0]}          
         })
       })      
     })
   })
-  
+}
 
+//check votes functions
+function checkVotes(round_id){
+  db.getVotes(round_id).then(votes => {
+
+  })
 }
 
 module.exports = {
   assignRoles,
   initMission,
-  initRound
+  initRound,
+  checkVotes
 }

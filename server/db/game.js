@@ -19,7 +19,7 @@ function startGame(game_id, testDb){
 
 function getGame(id, testDb){
   db = testDb || conn
-  return db('games').where('id', id)
+  return db('games').where('id', id).first()
 }
 
 function roleEntry(game_id, user_id, testDb){
@@ -81,10 +81,20 @@ function castNomination(round_id, user_id, testDb){
     .insert({round_id, user_id})
 }
 
+function getNominations(round_id, testDb){
+  db = testDb || conn
+  return db('nominations').where('round_id', round_id)
+}
+
 function castVote(round_id, user_id, vote, testDb){
   db = testDb || conn
   return db('votes')
     .insert(round_id, user_id, vote)
+}
+
+function getVotes(round_id, testDb){
+  db = testDb || conn
+  return db('votes').where('round_id', round_id)
 }
 
 function castIntention(mission_id, user_id, intention, testDb){
@@ -117,6 +127,8 @@ module.exports = {
   getMissions,
   getMissionParams,
   getRounds,
-  getAllRounds
+  getAllRounds,
+  getNominations,
+  getVotes
 
 }
