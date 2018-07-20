@@ -6,6 +6,7 @@ return knex.schema.createTable('games', (table) => {
   table.boolean('in_progress')
   table.integer('time_stamp')
   table.string('game_name')
+  table.integer('host_id')
 })
 };
 
