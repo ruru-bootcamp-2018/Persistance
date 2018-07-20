@@ -1,5 +1,5 @@
 const db = require('../db/game')
-const {assignRoles} = require('../gameFunctions')
+const {assignRoles, initMission} = require('../gameFunctions')
 var router = require('express').Router()
 
 let currentGame = {}
@@ -32,6 +32,7 @@ router.post('/start', (req, res) => {
         db.startGame(game_id).then(() => {
           db.getRoles(game_id).then(roles => { 
             //emit game from io???
+            initMission(game_id)
             res.json(roles)
           })
         })        
@@ -39,6 +40,7 @@ router.post('/start', (req, res) => {
     })       
   })
 })
+
 
 
 

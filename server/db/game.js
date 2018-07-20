@@ -1,5 +1,10 @@
 const conn = require('./connection')
 
+function getMissionParams(players_total, testDb){
+  db = testDb || conn
+  return db('missionParams').where({players_total})
+}
+
 function createGame(game_name, testDb){
   db = testDb || conn
   return db('games')
@@ -46,10 +51,20 @@ function newMission(game_id, testDb){
     .insert({game_id})
 }
 
+function getMissions(game_id, testDb){
+  db = testDb || conn
+  return db('missions').where('game_id', game_id)
+}
+
 function newRound(mission_id, leader_id, round_num, testDb){
   db = testDb || conn
   return db('rounds')
     .insert({mission_id, leader_id, round_num})
+}
+
+function getRounds(mission_id, testDb){
+  db = testDb || conn
+  return db('rounds').where('mission_id', mission_id)
 }
 
 function castNomination(round_id, user_id, testDb){
@@ -90,6 +105,9 @@ module.exports = {
   roleEntry,
   getRoles,
   delRoles,
-  startGame
+  startGame,
+  getMissions,
+  getMissionParams,
+  getRounds
 
 }
