@@ -93,6 +93,11 @@ function getAllRounds(game_id, testDb){
     .where('game_id', game_id)
 }
 
+function getRound(round_id, testDb){
+  db = testDb || conn
+  return db('rounds').where('id', round_id).first()
+}
+
 function castNomination(round_id, user_id, testDb){
   db = testDb || conn
   return db('nominations')
@@ -107,7 +112,7 @@ function getNominations(round_id, testDb){
 function castVote(round_id, user_id, vote, testDb){
   db = testDb || conn
   return db('votes')
-    .insert(round_id, user_id, vote)
+    .insert({round_id, user_id, vote})
 }
 
 function getVotes(round_id, testDb){
@@ -119,6 +124,11 @@ function castIntention(mission_id, user_id, intention, testDb){
   db = testDb || conn
   return db('intentions')
     .insert({mission_id, user_id, intention})
+}
+
+function getIntentions(mission_id, testDb){
+  db = testDb || conn
+  return db('intentions').where('mission_id', mission_id)
 }
 
 function finishMission(mission_id, outcome, testDb){
@@ -149,6 +159,8 @@ module.exports = {
   getNominations,
   getVotes,
   getPlayers,
-  getOpenGames
+  getOpenGames,
+  getRound,
+  getIntentions
 
 }

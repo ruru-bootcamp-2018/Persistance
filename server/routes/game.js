@@ -1,5 +1,5 @@
 const db = require('../db/game')
-const {assignRoles, initMission, checkVotes} = require('../gameFunctions')
+const {assignRoles, initMission, checkVotes, checkIntentions} = require('../gameFunctions')
 var router = require('express').Router()
 
 const currentGame = require('../currentGame')
@@ -36,6 +36,7 @@ router.post('/start', (req, res) => {
             currentGame.roles = roles
             db.getMissionParams(roles.length).then(missionParams => {
               currentGame.missionParams = missionParams
+              //console.log(currentGame.missionParams)
               initMission(game_id)
               //emit game from io???
               res.json(roles)
@@ -63,7 +64,9 @@ router.post('/vote', (req, res) => {
   const vote = req.body.vote
   const round_id = currentGame.currentRound.id
   db.castVote(round_id, user_id, vote).then(() => {
+    console.log('vote recieved')
     checkVotes(round_id)
+    res.sendStatus(200)
   })
 })
 
@@ -73,6 +76,7 @@ router.post('/intention', (req, res) => {
   const mission_id = currentGame.currentMission.id
   db.castIntention(mission_id, user_id, intention).then(() => {
     checkIntentions(mission_id)
+    res.sendStatus(200)
   })
 })
 

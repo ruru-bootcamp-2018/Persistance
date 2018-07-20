@@ -40,6 +40,7 @@ function initMission(game_id){
   db.newMission(game_id).then(ids => {
     db.getMissions(game_id).then(missions => {
       currentGame.currentMission = {id: ids[0], mission_num: missions.length, approved: false}
+      console.log('Mission:', currentGame.currentMission)
       initRound(game_id)
     })        
   }) 
@@ -57,7 +58,11 @@ function initRound(game_id){
         const nextLeader = (lastLeader+1 > roles.length-1) ? 0 : lastLeader+1                
         const leader_id = (roles[nextLeader].user_id) || roles[0].user_id
         db.newRound(mission_id, leader_id, round_num).then(ids => {          
-          currentGame.currentRound = {id: ids[0]}          
+          db.getRound(ids[0]).then(round => {
+            currentGame.currentRound = round
+            console.log('Round:', currentGame.currentRound)
+          })
+                    
         })
       })      
     })
@@ -72,7 +77,10 @@ function checkVotes(round_id){
         approveMission(currentGame.currentMission.id)
       }
       else {
-        if (currentGame.currentRound.round_num < 5) initRound(currentGame.game.id)
+        if (currentGame.currentRound.round_num < 5) {
+          initRound(currentGame.game.id)
+          console.log('rejected')
+        }
         else missionFails()
       }
     }
@@ -91,20 +99,21 @@ function countVotes(votes){
 // mission functions
 function approveMission(){
   currentGame.currentMission.approved = true
+  console.log('mission goes ahead')
 }
 
 function checkIntentions(mission_id){
   const mission = currentGame.currentMission
-  const {team_total, fails_needed} = currentGame.missionParams[mission.mission_num]
+  const {team_total, fails_needed} = currentGame.missionParams[mission.mission_num]  
   db.getIntentions(mission_id).then(intentions => {
     if (intentions.length == team_total){
-      if (checkIntentions(intentions, fails_needed)) missionSucceeds(mission_id)
+      if (countIntentions(intentions, fails_needed)) missionSucceeds(mission_id)
       else missionFails(mission_id)
     }
   })
 }
 
-function checkIntentions(intentions, fails_needed){
+function countIntentions(intentions, fails_needed){
   const fails = intentions.reduce((acc, intention) => {
     if (!intention.intention) acc++
     return acc
@@ -115,11 +124,13 @@ function checkIntentions(intentions, fails_needed){
 function missionSucceeds(mission_id){
   db.finishMission(mission_id, true)
   initMission(currentGame.game.id)
+  console.log('SUCCESS')
 }
 
 function missionFails(mission_id){
   db.finishMission(mission_id, false)
   initMission(currentGame.game.id)
+  console.log("FAILURE")
 }
 
 module.exports = {
