@@ -8,6 +8,7 @@ import Lobby from './Lobby/Lobby'
 import Game from './Game/Game'
 
 
+
 const App = () => (
   <Router>
     <div className='app-container has-text-centered'>
@@ -16,7 +17,7 @@ const App = () => (
       <Route path="/login" component={Login} />
       <Route path="/Register" component={Register} />
       <Route path="/lobby" component={Lobby} />
-      <Route exact path="/:id" component={Game} />
+      <Route exact path="/game/:id" component={Game} />
     </div>
   </Router>
 )

@@ -65,6 +65,7 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-test-renderer": "^15.5.4",
+    "react-tippy": "^1.2.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^7.0.3",
