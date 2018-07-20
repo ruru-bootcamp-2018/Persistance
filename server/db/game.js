@@ -22,6 +22,11 @@ function getGame(id, testDb){
   return db('games').where('id', id).first()
 }
 
+function getOpenGames(testDb){
+  db = testDb || conn
+  return db('games').where({in_progress: false, is_finished: false} ).first()
+}
+
 function roleEntry(game_id, user_id, testDb){
   db = testDb || conn
   return db('roles')
@@ -31,6 +36,19 @@ function roleEntry(game_id, user_id, testDb){
 function getRoles(game_id, testDb){
   db = testDb || conn
   return db('roles').where('game_id', game_id)
+}
+
+function getPlayers(game_id, testDb){
+  db = testDb || conn
+  return db('roles')
+    .where('game_id', game_id)
+    .join('users', 'user.id', 'roles.user_id')
+    .then(players => {
+      return players.map(player => {
+        delete player.hash
+        return player
+      })
+    })
 }
 
 function delRoles(game_id, testDb){
@@ -129,6 +147,8 @@ module.exports = {
   getRounds,
   getAllRounds,
   getNominations,
-  getVotes
+  getVotes,
+  getPlayers,
+  getOpenGames
 
 }
