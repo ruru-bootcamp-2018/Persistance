@@ -20,6 +20,7 @@ function startGame(game_id, testDb){
 function getGame(id, testDb){
   const db = testDb || conn
   return db('games').where('id', id)
+}
 
 function getOpenGames(testDb){
   const db = testDb || conn
