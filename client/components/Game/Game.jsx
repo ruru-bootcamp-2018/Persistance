@@ -16,7 +16,6 @@ class Game extends React.Component {
   }
 
 
-
   startGame() {
   }
 
