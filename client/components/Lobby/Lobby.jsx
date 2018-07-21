@@ -14,21 +14,23 @@ class Lobby extends React.Component {
   }
 
   render() {
-    
+
     const games = this.props.games
 
     return (
       <div>
-        <h1 className="is-size-1">I am a lobby</h1>
+        <h1 className="is-size-1">Welcome to the lobby</h1>
         <NewGameForm />
         <br />
-        <p className="is-size-5">Join a game</p>
+        <p className="is-size-4">Join a game</p>
+        <div className="tile is-parent">
         {games.filter(game => {
           return !game.in_progress && !game.is_finished && game.player_num < 10
         })
         .map(game => {
-          return <Link className="button" to={`/game/${game.id}`}>{game.name}</Link>
+          return <Link className="button is-medium is-fullwidth is-primary is-outlined tile is-child" to={`/game/${game.id}`}>{game.name}</Link>
         })}
+        </div>
       </div>
     )
   }

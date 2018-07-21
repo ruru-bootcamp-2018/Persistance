@@ -4,7 +4,9 @@
 
 
 .player {
-    border: 1px solid black 
+    width: 15vw;
+    height: 8.5vw;
+    border: 1px solid black
 }
 
 .playerImage {
@@ -24,6 +26,7 @@
     font-style: italic;
 }
 
+
 .tinyThumbRight {
     margin-left: 3px;
     margin-top: 9px;
@@ -36,5 +39,7 @@
     margin-left: 3px;
     margin-right: 5px;
     width: 30px
-    
+
+.hero {
+    margin: 0.5vw;
 }

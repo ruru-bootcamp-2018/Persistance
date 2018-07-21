@@ -15,33 +15,38 @@ class Player extends React.Component {
     super(props)
     this.state = {
     }
+
   }
 
   handleClick() {
     alert("This should do nothing unless nomming. If nomming, should nom this player")
   }
 
-  render() {
-    const { display_name, user_name, img } = this.props.player
-    return (
-      <Tooltip
-        // options
-        position="bottom"
-        trigger="mouseenter"
-        html={(
-          <PlayerToolTip player={this.props.player} />
-        )}
-      >
-        <div onClick={this.handleClick.bind(this)} className="player" >
-          <p> {display_name || user_name} </p>
-          <img style={roundStyleObj} src={img} />
-        </div>
-      </Tooltip>
-    )
-  }
+    render() {
+        const { display_name, user_name, img } = this.props.player
+        return (
+            <Tooltip
+                // options
+                position="bottom"
+                trigger="mouseenter"
+                html={(
+                    <PlayerToolTip player={this.props.player}/>
+                )}
+            >
+
+                <div onClick={this.handleClick} className="player" >
+                <p className="is-size-5"> {display_name || user_name} </p>
+                <img style={roundStyleObj} src={img} />
+            </div>
+
+
+            </Tooltip>
+        )
+
+    }
+
 }
 
 const mapStateToProps = (state) => state
 
 export default connect(mapStateToProps)(Player)
-

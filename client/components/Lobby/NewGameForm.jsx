@@ -27,15 +27,18 @@ class NewGameForm extends React.Component {
 
   render() {
     return (
-      <form className="Login container" onSubmit={this.submit}>
-        <label className="is-size-5">Start A New Game:
-        <input className="input" type="text" name="gameName" onChange={this.updateDetails} />
-        </label>
-        <br />
-        <input className="input" type="submit" />
-      </form>
+      <div classname="columns">
+        <form className="column is-5 Login container" onSubmit={this.submit}>
+          <label className="is-size-4">Start A New Game:
+          <input style={{margin: '1vw'}} className="input is-rounded" type="text" name="gameName" onChange={this.updateDetails} />
+          </label>
+          <br />
+          <input style={{margin: '1vw'}} className="button is-medium is-link is-outlined" type="submit" />
+        </form>
+      </div>
     )
   }
 }
+
 
 export default NewGameForm
