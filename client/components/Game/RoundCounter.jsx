@@ -1,33 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
-class RoundCounter extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
-    }
-
-    componentDidMount() {
-
-    }
-
-    render(){
-        const fakeround = { round_num:1 , mission_id:2 , leader_id:4 }
-        return (
-            <div>
-            <h4 className="level-item has-text-centered is-size-5 mission">
-                Round Counter:
-            </h4>
-
-            </div>
-
-
-        )
-    }
-
+const RoundCounter = props => {
+    const {number, round_num} = props
+    console.log(round_num)
+    return (
+        <div>
+            <p className={number === round_num ? "glow is-size-3 column" : " column is-size-3" }>{number}</p>
+        </div>
+    )
 }
-
-const mapStateToProps = (state) => state
 
 export default RoundCounter

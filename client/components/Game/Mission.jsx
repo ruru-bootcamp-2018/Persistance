@@ -1,34 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import RoundCounter from './RoundCounter';
+import MissionToolTip from './MissionToolTip'
+import {Tooltip} from 'react-tippy'
 
-class Mission extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    }
-  }
+const Mission = props => {
+  // mission_number instead of id
+  const { id, outcome } = props.mission
+  return (
 
-  render() {
-    //console.log(this.props.mission)
-    const {mission_number, outcome} = this.props.mission
-    if (mission_number == 3 ) {//
-       console.log( this.props.mission)
-    }
-    return (
-      <div>
-        <h2 className="level-item has-text-centered is-size-2 mission">
-          {mission_number}
-          <br />
-          {outcome && outcome}
-          
-        </h2>
-      </div>
-    )
-  }
+    <Tooltip
+      // options
+      position="bottom"
+      trigger="mouseenter"
+      html={(
+        <MissionToolTip mission={props.mission} players={props.currentGame.players} />
+      )}
+    >
+      <h2 className="level-item has-text-centered is-size-2 mission">{props.number + 1}</h2>
+      <br />
+      {outcome ? <p>goodies win</p> : <p>baddies win</p>}
+    </Tooltip>
+  )
 }
 
-const mapStateToProps = (state) => state
 
+const mapStateToProps = (state) => state
 
 export default connect(mapStateToProps)(Mission)
