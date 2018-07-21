@@ -21,10 +21,10 @@ class Game extends React.Component {
     const { players, game, missions } = this.props.currentGame
     const { mission_num } = this.props.currentMission
     const { round_num } = this.props.currentRound
-  
+
 
     const halfPlayersIndex = Math.round(players.length / 2)
-    
+
     const missionDisplay = Array(5).fill(0).map((x, i) => {
       return missions[i] ? missions[i] : {outcome: null}
     })
@@ -48,7 +48,7 @@ class Game extends React.Component {
         <div className="columns is-centered">
                  {Array(5).fill(0).map((x, i) => {
           return <RoundCounter number={i + 1} round_num={round_num}/>
-         })} 
+         })}
         </div>
 
         <br />

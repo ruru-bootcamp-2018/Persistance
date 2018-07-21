@@ -12,7 +12,6 @@ import Game from './Game/Game'
 const App = () => (
   <Router>
     <div className='app-container has-text-centered'>
-      <h1 className="title is-1">Persistence</h1>
       <Route path="/" component={Nav} />
       <Route path="/login" component={Login} />
       <Route path="/Register" component={Register} />

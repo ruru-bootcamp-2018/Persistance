@@ -40,7 +40,7 @@ class Player extends React.Component {
                     <PlayerToolTip player={this.props.player}/>
                 )}
             >
-                
+
                 <div onClick={this.handleClick} className="player" >
                 <p> {display_name || user_name} </p>
                 <img style={roundStyleObj} src={img} />
@@ -57,4 +57,3 @@ class Player extends React.Component {
 const mapStateToProps = (state) => state
 
 export default connect(mapStateToProps)(Player)
-
