@@ -30,7 +30,7 @@ class Player extends React.Component {
     }
 
     render() {
-        console.log(this.props.player)
+        //console.log(this.props.player)
         const { display_name, user_name, img } = this.props.player
         return (
             <Tooltip

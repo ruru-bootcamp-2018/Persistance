@@ -13,9 +13,10 @@ class PlayerToolTip extends React.Component {
     }
 
     render(){
-        const { display_name, user_name} = this.props.player
+        const { id, display_name, user_name} = this.props.player
         return (<div className="playerToolTip">
             <p> User: {user_name} </p>
+            <p> ID: {id} </p>
             {display_name && <p> DisplayName: {display_name}</p>}
         </div>)
     }
