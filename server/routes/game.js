@@ -2,7 +2,7 @@ const db = require('../db/game')
 const {assignRoles, initMission, checkVotes, checkIntentions} = require('../gameFunctions')
 var router = require('express').Router()
 
-const currentGame = require('../currentGame')
+const {currentGame, initalGame} = require('../currentGame')
 const mission2 = require('../fakeData/mission2')
 
 router.get('/open', (req, res) => {
@@ -22,6 +22,8 @@ router.get('/fake', (req, res) => {
 
 router.post('/new', (req, res) => {
   const {game_name} = req.body
+  Object.assign(currentGame, initalGame)
+  currentGame.missions = []
   db.createGame(game_name).then(ids => {
     db.getGame(ids[0]).then(game => {
       //emit game from io???
@@ -45,7 +47,7 @@ router.post('/join', (req, res) => {
 })
 
 router.post('/start', (req, res) => {
-  const game_id = req.body.game.id  
+  const game_id = req.body.game.id   
   db.getRoles(game_id).then(roles => {        
     assignRoles(roles)    
     db.delRoles(game_id).then(() => {

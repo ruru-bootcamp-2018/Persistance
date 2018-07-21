@@ -1,5 +1,5 @@
 const db = require('./db/game')
-const currentGame = require('./currentGame')
+const {currentGame} = require('./currentGame')
 
 
 //assign Roles Functions
@@ -25,7 +25,7 @@ function howManySpies(num){
     case 10:
       return 4
     default:
-      return 2
+      return 0
   }
 }
 
@@ -114,6 +114,7 @@ function countVotes(votes){
 // mission functions
 function approveMission(){
   currentGame.currentMission.approved = true
+  currentGame.gameStage = "intentions"
   console.log('mission goes ahead')
 }
 
@@ -141,7 +142,7 @@ function missionSucceeds(mission_id){
   const mission_num = currentGame.currentMission.mission_num
   currentGame.missions[mission_num-1].outcome = true
   db.finishMission(mission_id, true)
-  initMission(currentGame.game.id)
+  isGameFinished(currentGame.game.id)
   console.log('SUCCESS')
 }
 
@@ -149,12 +150,29 @@ function missionFails(mission_id){
   const mission_num = currentGame.currentMission.mission_num
   currentGame.missions[mission_num-1].outcome = false
   db.finishMission(mission_id, false)
-  initMission(currentGame.game.id)
+  isGameFinished(currentGame.game.id)
   console.log("FAILURE")
 }
 
 function isGameFinished(game_id){
+  db.getMissions(game_id).then(missions => {
+    const successes = missions.reduce((acc, mission) => {
+      if (mission.outcome) acc++
+      return acc
+    }, 0)
+    const fails = missions.length - successes
+    if (successes == 3) goodiesWin()
+    else if (fails == 3) spiesWin()
+    else initMission(game_id)
+  })  
+}
 
+function goodiesWin(){
+  console.log('Goodies Win')
+}
+
+function spiesWin(){
+  console.log('Spies Win')
 }
 
 module.exports = {
