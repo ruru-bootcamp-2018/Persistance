@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
 
+//this is a mess but al good we on it!!!!!!
+
+
 class Lobby extends React.Component {
   constructor(props) {
     super(props)

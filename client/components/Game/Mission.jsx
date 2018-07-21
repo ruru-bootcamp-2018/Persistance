@@ -1,14 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import RoundCounter from './RoundCounter';
+import RoundCounter from './RoundCounter'
 import MissionToolTip from './MissionToolTip'
 import {Tooltip} from 'react-tippy'
 
 const Mission = props => {
-  // mission_number instead of id
   const { id, outcome } = props.mission
   return (
-
     <Tooltip
       // options
       position="bottom"
@@ -19,7 +17,11 @@ const Mission = props => {
     >
       <h2 className="level-item has-text-centered is-size-2 mission">{props.number + 1}</h2>
       <br />
+
+      {outcome == null? "not played" : outcome ? <p>goodies win</p> : <p>baddies win</p>}
+
       {outcome ? <p className="is-size-5">Goodies win</p> : <p className="is-size-5">Baddies win</p>}
+
     </Tooltip>
   )
 }
