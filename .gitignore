@@ -5,4 +5,5 @@ dev.sqlite3
 bundle.js
 bundle.js.map
 yarn.lock
-
+yarn-error.log
+.env
