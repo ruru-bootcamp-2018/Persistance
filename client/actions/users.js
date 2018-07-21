@@ -1,11 +1,5 @@
 import request from '../utils/api'
 
-export function receiveGames(games){
-    return {
-        type: 'RECEIVE_GAMES',
-        games
-    }
-}
 
 export function getPlayersForGame(players) {
     return {
@@ -13,19 +7,6 @@ export function getPlayersForGame(players) {
         players
     }
 }
-
-export function getGames() { //probs rename to match actual function
-    return (dispatch) => {
-        return request('get', `temporary/games`) 
-        .then((res) => {
-            dispatch(receiveGames(res.body))
-        })
-        .catch(err =>{
-            //dispatch(error(err.message))
-            console.log('Err in actions/games.js', err.message)
-        })
-    }
-} 
 
 export function getPlayers(game_id) {
     return (dispatch) => {
