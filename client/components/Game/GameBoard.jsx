@@ -3,14 +3,19 @@ import { connect } from 'react-redux'
 import Mission from './Mission'
 import Player from './Player'
 import RoundCounter from './RoundCounter'
-
-import { getSingleGame } from '../../actions/games'
+import {getSingleGame, getPlayers, receiveGames} from '../../actions/games'
 
 class Game extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      users: [],
+      games: []
     }
+  }
+  componentDidMount(){
+    this.props.dispatch(getSingleGame(1))
+    this.props.dispatch(getPlayers(1))
   }
 
   componentDidMount() {
@@ -20,7 +25,6 @@ class Game extends React.Component {
   render() {
     const { users, game, missions, currentMission } = this.props
     let top = Math.round(users.length / 2)
-    console.log("Props is:", this.props)
 
     return (
       <div className="gameBoard">
@@ -46,13 +50,14 @@ class Game extends React.Component {
             return <Player key={i} player={player} />
           })}
         </div>
-
       </div>
     )
   }
 }
 
+
 const mapStateToProps = (state) => {
+console.log(state)
   return {
     ...state,
     users: [
@@ -86,5 +91,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-
-  export default connect(mapStateToProps)(Game)
+export default connect(mapStateToProps)(Game)
