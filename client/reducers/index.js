@@ -13,5 +13,8 @@ export default combineReducers({
   users,
   game,
   currentGame,
-  socket
+  currentMission,
+  currentRound,
+  socket,
+  missionParams
 })
