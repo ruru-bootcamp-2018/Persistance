@@ -1,5 +1,4 @@
 import request from '../utils/api'
-export const GET_GAMES = 'GET_GAMES'
 
 export function receiveGames(game){
     return {
