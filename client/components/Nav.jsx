@@ -6,7 +6,7 @@ import { logoutUser } from '../actions/logout'
 function Nav(props) {
 const buttonStyle = 'button is-medium is-link is-inverted is-outlined'
   return (
-    <div className="navbar-menu hero is-info">
+    <div className="navbar-menu hero is-small is-info">
       <div className="hero-body">
         <h1 className="title is-1">Persistence</h1>
 

@@ -42,10 +42,10 @@ class Player extends React.Component {
             >
 
                 <div onClick={this.handleClick} className="player" >
-                <p> {display_name || user_name} </p>
+                <p className="is-size-5"> {display_name || user_name} </p>
                 <img style={roundStyleObj} src={img} />
             </div>
-        
+
 
             </Tooltip>
         )

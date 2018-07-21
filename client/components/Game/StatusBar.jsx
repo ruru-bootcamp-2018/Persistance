@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const StatusBar = props =>  {
-    
+
     const { gameStage } = props.currentGame
     let displayText = ""
-    
+
     //depends on who you are what you see
 
     switch(gameStage) {
-        case "voting": 
+        case "voting":
         displayText = "Do you approve of this mission?"
         break
         case "nominating":
@@ -20,7 +20,7 @@ const StatusBar = props =>  {
     }
 
     return (
-    <div className='is-size-3 statusBar' > 
+    <div className='is-size-3 statusBar' >
         <p>{displayText}</p>   
     </div>
     )
