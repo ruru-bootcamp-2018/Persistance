@@ -1,5 +1,5 @@
 Arguments: 
-  /home/student/.nvm/versions/node/v8.10.0/bin/node /usr/share/yarn/bin/yarn.js
+  /home/student/.nvm/versions/node/v8.10.0/bin/node /usr/share/yarn/bin/yarn.js add socket-io-client
 
 PATH: 
   /home/student/.nvm/versions/node/v8.10.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
@@ -73,6 +73,7 @@ npm manifest:
       "jsx-loader": "^0.13.2",
       "jwt-decode": "^2.2.0",
       "knex": "^0.13.0",
+      "nock": "^9.4.2",
       "node-sass": "^4.9.2",
       "passport": "^0.4.0",
       "pg": "^7.4.3",
@@ -7919,17 +7920,14 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: sh
-  Arguments: -c webpack && knex migrate:latest
-  Directory: /home/student/workspace/Persistance
-  Output:
-  
-      at ProcessTermError.MessageError (/usr/share/yarn/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/share/yarn/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/share/yarn/lib/cli.js:30281:17)
+  Error: https://registry.yarnpkg.com/socket-io-client: Not found
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:65019:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:132430:22)
       at emitTwo (events.js:126:13)
-      at ChildProcess.emit (events.js:214:7)
-      at maybeClose (internal/child_process.js:925:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:133413:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:133333:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)

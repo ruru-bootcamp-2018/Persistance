@@ -4,20 +4,32 @@ import { Link } from 'react-router-dom'
 import { logoutUser } from '../actions/logout'
 
 function Nav(props) {
+const buttonStyle = 'button is-medium is-link is-inverted is-outlined'
   return (
-    <div className="Nav hero is-small is-info">
+    <div className="navbar-menu hero is-small is-info">
       <div className="hero-body">
-        <Link className="is-size-6 is-pulled-left" to="/lobby">Home</Link>
-        
-        {props.auth.isAuthenticated && <p className="nav-item is-pulled-right">you are logged in as {props.auth.user.user_name}</p>}
+       
+
         {props.auth.isAuthenticated
-          ? <button className="nav-item is-pulled-left" onClick={() => props.dispatch(logoutUser())}>Logout</button>
-          : <div className="columns nav-menu">
-            <Link className="nav-item" to="/login">Login</Link>&nbsp;
-            <Link className="nav-item" to="/register">Register</Link>
-          </div>
+          ?
+            <div className="navbar-start">
+            <h1 className="title is-1">Persistence</h1>
+            <div className="navbar-end">
+            <p className="nav-item is-size-5">You are logged in as {props.auth.user.user_name}</p>
+            <button style={{marginLeft: '1vw'}} className={buttonStyle} onClick={() => props.dispatch(logoutUser())}>Logout</button>
+            <Link className={buttonStyle} to="/lobby">Home</Link>
+            </div>
+            </div>
+          : <div className="navbar-start">
+            <h1 className="title is-1">Persistence</h1>
+            <div className="navbar-end">
+            <Link className={buttonStyle} to="/lobby">Home</Link>
+            <Link className={buttonStyle} to="/login">Login</Link>&nbsp;
+            <Link className={buttonStyle} to="/register">Register</Link>
+            </div>
+            </div>
         //This is how you do/don't display info based on login
-      } 
+      }
       </div>
 
     </div>

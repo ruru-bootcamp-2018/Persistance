@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-export function updateCurrentGame (currentGame) {
+export function updateCurrentGame () {
     return {
         type: 'UPDATE_GAME',
         currentGame
