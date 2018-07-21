@@ -6,6 +6,9 @@ import users from './users'
 import game from './game'
 import currentGame from './currentGame'
 import socket from './socket'
+import currentMission from './currentMission'
+import currentRound from './currentRound'
+import missionParams from './missionParams'
 
 export default combineReducers({
   auth,

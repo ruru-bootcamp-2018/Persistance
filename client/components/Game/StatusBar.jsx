@@ -1,24 +1,32 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-class StatusBar extends React.Component {
-    constructor(props) {
-        super(props)
+const StatusBar = props =>  {
+
+    const { gameStage } = props.currentGame
+    let displayText = ""
+
+    //depends on who you are what you see
+
+    switch(gameStage) {
+        case "voting":
+        displayText = "Do you approve of this mission?"
+        break
+        case "nominating":
+        displayText = "Nominate your team"
+        break
+        default:
+        displayText = "No game stage!!"
     }
 
-    render() {
-        return (<div className='is-size-3 statusBar' > 
-            <p>{this.props.displayMessage}</p>
-            <p> waiting </p>       
-        
-        </div>)
-    }
+    return (
+    <div className='is-size-3 statusBar' >
+        <p>{displayText}</p>   
+    </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        displayMessage: "I am the status bar"
-    }
-} 
+
+const mapStateToProps = ({currentGame}) =>  ({currentGame})
 
 export default connect(mapStateToProps)(StatusBar)
