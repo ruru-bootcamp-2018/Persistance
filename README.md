@@ -38,40 +38,28 @@ As a user:
   | name | purpose |
   | --- | --- |
   | auth | Store information regarding user logins, auth status and auth errors |
-  | game | Track meeting progress such as current cost and current duration |
+  | game | Store info about game name, time started, host and whether finished or in progress |
   | users | store the list of players who can join games |
 
  ## Actions
 
- ### meetings
+ ### currentGame
 
  | type | data | purpose |
  | --- | --- | --- |
  | START_GAME | Players, inProgress | initialize game state |
-
+  
+ ### games
+ 
+ | type | data | purpose |
+ | --- | --- | --- |
+ | RECEIVE_GAMES | games | retrieve list of games for the lobby |
 
  ### users
  | type | data | purpose |
  | --- | --- | --- |
  | RECEIVE_USERS | users | retreive the users from the server |
-
- ### rounds
-  | type | data | purpose |
-| --- | --- | --- |
-| START_ROUND | round_number, leader_id, | a round has started, set initial round state |
-| END_ROUND | votes | Calculate result of votes |  
-
- ### missions
-   | type | data | purpose |
-| --- | --- | --- |
-| START_MISSION | round | a meeting has started, set initial meeting state |
-| END_MISSION | Intentions result | Work out result of mission update win count |  
-
-### intentions
-   | type | data | purpose |
-| --- | --- | --- |
-
-
+ 
 
 ## API (Client - Server)
 
@@ -79,9 +67,9 @@ As a user:
 | --- | --- | --- | --- | --- |
 | Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
 | Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
-| Get | /api/meetings | Yes | Get a Users Meeting Histroy | An Array of Meetings |
-| Get | /api/meetings/:id/users | Yes | Get the attendees of a Meeting | An Array of User objects |
-| Get | /api/users | Yes | Get the users of the app | An Array of User Objects |
+| Post | /api/game/new | Yes | Create a new game and populate with host | Game object |
+| Post | /api/game/join | Yes | Add player to a game | The user id and game id |
+| Post | /api/game/start | Yes | Begin a game | The game object |
 
 ## DB (Server Side)
   Game settings in seperate JSON file
