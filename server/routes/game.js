@@ -55,6 +55,7 @@ router.post('/start', (req, res) => {
   })
 })
 
+
 router.post('/nominate', (req, res) => {
   //const game_id = req.body.game.id
   const user_id = req.body.nomination.user.id
