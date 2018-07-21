@@ -13,7 +13,7 @@ const initalGame = {
   players: [],
   currentMission: {},
   currentRound: {},
-  gameStage: "",
+  gameStage: "waiting",
   missionParams: [],
   missions: []
 }
