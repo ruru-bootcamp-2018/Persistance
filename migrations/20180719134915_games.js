@@ -12,4 +12,5 @@ return knex.schema.createTable('games', (table) => {
 
 exports.down = function (knex, Promise) {
   return knex.schema.dropTable('games')
-};
+}
+
