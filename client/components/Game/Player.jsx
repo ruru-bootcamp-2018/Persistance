@@ -9,8 +9,8 @@ import PlayerToolTip from './PlayerToolTip'
 
 const roundStyleObj = {
     borderRadius: "50%",
-    height: "100px",
-    width: "100px"
+    height: "120px",
+    width: "120px"
 }
 
 class Player extends React.Component {
@@ -30,12 +30,10 @@ class Player extends React.Component {
     }
 
     render() {
-        //console.log(this.props.player)
         const { display_name, user_name, img } = this.props.player
         return (
             <Tooltip
                 // options
-                title="Welcome to React"
                 position="bottom"
                 trigger="mouseenter"
                 html={(
@@ -43,9 +41,9 @@ class Player extends React.Component {
                 )}
             >
                 
-                <div style={{ border: "1px solid black" }} onClick={this.handleClick} className="player" >
+                <div onClick={this.handleClick} className="player" >
                 <p> {display_name || user_name} </p>
-                <img className="disgonberound" style={roundStyleObj} src={img} />
+                <img style={roundStyleObj} src={img} />
             </div>
         
 

@@ -2,7 +2,24 @@
 @import '~react-tippy/dist/tippy.css';
 
 
-.playerToolTip {
-    color: red;
-    background-color: grey
+
+.player {
+    border: 1px solid black 
+}
+
+.playerImage {
+    border-radius: "50%";
+    height: "100px";
+    width: "100px";
+}
+
+.glow {
+    color: yellow;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.voteTrack {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    font-style: italic;
 }
