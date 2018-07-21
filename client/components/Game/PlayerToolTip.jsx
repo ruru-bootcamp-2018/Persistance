@@ -13,6 +13,10 @@ class PlayerToolTip extends React.Component {
     }
 
     render(){
+        /* Tooltip needs to display information about players,
+            but when leader is nominating, it MUST show that a click will nominate
+            irreversably. 
+        */
         const { id, display_name, user_name} = this.props.player
         return (<div className="playerToolTip">
             <p> User: {user_name} </p>
