@@ -10,9 +10,8 @@ class Mission extends React.Component {
   }
 
   render() {
-    //console.log(this.props.mission)
     const {mission_number, outcome} = this.props.mission
-    if (mission_number == 3 ) {//
+    if (mission_number == 3 ) {
        console.log( this.props.mission)
     }
     return (

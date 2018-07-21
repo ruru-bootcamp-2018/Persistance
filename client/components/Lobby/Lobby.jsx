@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
+import ChatWindow from '../Game/ChatWindow'
 
 class Lobby extends React.Component {
   constructor(props) {
@@ -26,6 +27,9 @@ class Lobby extends React.Component {
         .map(game => {
           return <Link className="button" to={`/game/${game.id}`}>{game.name}</Link>
         })}
+
+        <ChatWindow />
+
       </div>
     )
   }
