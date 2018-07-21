@@ -42,13 +42,14 @@ function getPlayers(game_id, testDb){
   db = testDb || conn
   return db('roles')
     .where('game_id', game_id)
-    .join('users', 'user.id', 'roles.user_id')
-    .then(players => {
-      return players.map(player => {
-        delete player.hash
-        return player
-      })
-    })
+    .join('users', 'users.id', 'roles.user_id')
+    .select('users.id', 'users.user_name', 'users.display_name', 'users.img', 'roles.role')
+    // .then(players => {
+    //   return players.map(player => {
+    //     delete player.hash
+    //     return player
+    //   })
+    // })
 }
 
 function delRoles(game_id, testDb){

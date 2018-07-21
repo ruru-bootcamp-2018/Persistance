@@ -32,8 +32,9 @@ router.post('/start', (req, res) => {
       db.setRoles(roles).then(() => {
         db.startGame(game_id).then(() => {
           currentGame.game.in_progress = true
-          db.getRoles(game_id).then(roles => {             
+          db.getPlayers(game_id).then(roles => {             
             currentGame.roles = roles
+            console.log(roles)
             db.getMissionParams(roles.length).then(missionParams => {
               currentGame.missionParams = missionParams
               //console.log(currentGame.missionParams)
