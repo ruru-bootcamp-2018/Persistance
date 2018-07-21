@@ -1,12 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
+import request from '../../utils/api'
 
 class NewGameForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      playerNumber: 5,
       gameName: ""
     }
     this.updateDetails = this.updateDetails.bind(this)
@@ -17,28 +15,27 @@ class NewGameForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  // remove [0] on merge
   submit(e) {
     e.preventDefault()
-    let id = 9
-    document.location = `/#/game/${id}`
+    request('post', './game/new', {game_name: this.state.gameName}).then((res) => {
+     let id = res.body[0].id 
+     document.location = `/#/game/${id}`
+    })
+    
   }
 
   render() {
     return (
-      <div>
-        <form className="Login container" onSubmit={this.submit}>
-          <label className="is-size-5">Start A New Game:
-          <input className="input" type="text" name="gameName" onChange={this.updateDetails} />
-          </label>
-          <br />
-          <input className="input" type="submit" />
-        </form>
-      </div>
+      <form className="Login container" onSubmit={this.submit}>
+        <label className="is-size-5">Start A New Game:
+        <input className="input" type="text" name="gameName" onChange={this.updateDetails} />
+        </label>
+        <br />
+        <input className="input" type="submit" />
+      </form>
     )
   }
 }
 
-const mapStateToProps = state => state
-
-
-export default connect(mapStateToProps)(NewGameForm)
+export default NewGameForm

@@ -1,32 +1,30 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-const StatusBar = props =>  {
-    
-    const { gameStage } = props.currentGame
-    let displayText = ""
-    
-    //depends on who you are what you see
+const StatusBar = props => {
+  const { gameStage } = props.currentGame
+  let displayText = ""
 
-    switch(gameStage) {
-        case "voting": 
-        displayText = "Do you approve of this mission?"
-        break
-        case "nominating":
-        displayText = "Nominate your team"
-        break
-        default:
-        displayText = "No game stage!!"
-    }
+  //depends on who you are what you see
 
-    return (
-    <div className='is-size-3 statusBar' > 
-        <p>{displayText}</p>   
+  switch (gameStage) {
+    case "voting":
+      displayText = "Do you approve of this mission?"
+      break
+    case "nominating":
+      displayText = "Nominate your team"
+      break
+    default:
+      displayText = "No game stage!!"
+  }
+
+  return (
+    <div className='is-size-3 statusBar' >
+      <p>{displayText}</p>
     </div>
-    )
+  )
 }
 
-
-const mapStateToProps = ({currentGame}) =>  ({currentGame})
+const mapStateToProps = ({ currentGame }) => ({ currentGame })
 
 export default connect(mapStateToProps)(StatusBar)
