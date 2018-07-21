@@ -24,7 +24,7 @@ function getGame(id, testDb){
 
 function getOpenGames(testDb){
   db = testDb || conn
-  return db('games').where({in_progress: false, is_finished: false} ).first()
+  return db('games').where({in_progress: false, is_finished: false} )
 }
 
 function roleEntry(game_id, user_id, testDb){

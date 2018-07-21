@@ -4,6 +4,12 @@ var router = require('express').Router()
 
 const currentGame = require('../currentGame')
 
+router.get('/open', (req, res) => {
+  db.getOpenGames().then(games => {
+    res.json(games)
+  })
+})
+
 router.post('/new', (req, res) => {
   const {game_name} = req.body
   db.createGame(game_name).then(ids => {
