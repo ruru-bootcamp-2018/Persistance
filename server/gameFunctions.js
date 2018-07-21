@@ -39,8 +39,11 @@ function assignRandomSpy(roles){
 function initMission(game_id){
   db.newMission(game_id).then(ids => {
     db.getMissions(game_id).then(missions => {
+      let mission = missions[missions.length - 1] 
+      mission.rounds = []
+      mission.intentions = []
+      currentGame.missions.push(mission)
       currentGame.currentMission = {id: ids[0], mission_num: missions.length, approved: false}
-      console.log('Mission:', currentGame.currentMission)
       initRound(game_id)
     })        
   }) 
@@ -60,19 +63,31 @@ function initRound(game_id){
         db.newRound(mission_id, leader_id, round_num).then(ids => {          
           db.getRound(ids[0]).then(round => {
             currentGame.currentRound = round
-            console.log('Round:', currentGame.currentRound)
+            currentGame.gameStage = "nominating"
+            currentGame.missions[missions.length - 1].rounds.push({...round, nominations: [], votes: []})
           })
-                    
         })
       })      
     })
   })
 }
 
+function checkNominations(round_id) {
+  const missionParams = currentGame.missionParams[currentGame.currentMission.mission_num - 1]
+  db.getNominations(round_id).then(nominations => {
+    if (nominations.length === missionParams.team_total) {
+      currentGame.gameStage = "voting"
+    }
+  })
+}
+
 //check votes functions
 function checkVotes(round_id){
+  const round_num = currentGame.currentRound.round_num
+  const mission_num = currentGame.currentMission.mission_num
   db.getVotes(round_id).then(votes => {
-    if (votes.length == currentGame.roles.length) {
+    currentGame.missions[mission_num-1].rounds[round_num-1].votes = votes
+    if (votes.length == currentGame.players.length) {
       if (countVotes(votes)) {
         approveMission(currentGame.currentMission.id)
       }
@@ -103,9 +118,10 @@ function approveMission(){
 }
 
 function checkIntentions(mission_id){
-  const mission = currentGame.currentMission
-  const {team_total, fails_needed} = currentGame.missionParams[mission.mission_num]  
+  const mission_num = currentGame.currentMission.mission_num
+  const {team_total, fails_needed} = currentGame.missionParams[mission_num-1]  
   db.getIntentions(mission_id).then(intentions => {
+    currentGame.missions[mission_num-1].intentions = intentions
     if (intentions.length == team_total){
       if (countIntentions(intentions, fails_needed)) missionSucceeds(mission_id)
       else missionFails(mission_id)
@@ -122,15 +138,23 @@ function countIntentions(intentions, fails_needed){
 }
 
 function missionSucceeds(mission_id){
+  const mission_num = currentGame.currentMission.mission_num
+  currentGame.missions[mission_num-1].outcome = true
   db.finishMission(mission_id, true)
   initMission(currentGame.game.id)
   console.log('SUCCESS')
 }
 
 function missionFails(mission_id){
+  const mission_num = currentGame.currentMission.mission_num
+  currentGame.missions[mission_num-1].outcome = false
   db.finishMission(mission_id, false)
   initMission(currentGame.game.id)
   console.log("FAILURE")
+}
+
+function isGameFinished(game_id){
+
 }
 
 module.exports = {
@@ -138,5 +162,6 @@ module.exports = {
   initMission,
   initRound,
   checkVotes,
-  checkIntentions
+  checkIntentions,
+  checkNominations
 }
