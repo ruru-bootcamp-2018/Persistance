@@ -14,5 +14,6 @@ server.use(express.static(path.join(__dirname, '../public')))
 
 server.use('/api/auth', require('./routes/auth'))
 server.use('/api/game', require('./routes/game'))
+server.use('/api/temporary', require('./routes/temporary'))
 
 module.exports = server

@@ -7,7 +7,8 @@ function Nav(props) {
   return (
     <div className="Nav hero is-small is-info">
       <div className="hero-body">
-        <Link to="/lobby">Home</Link>
+        <Link className="is-size-6 is-pulled-left" to="/lobby">Home</Link>
+        
         {props.auth.isAuthenticated && <p className="nav-item is-pulled-right">you are logged in as {props.auth.user.user_name}</p>}
         {props.auth.isAuthenticated
           ? <button className="nav-item is-pulled-left" onClick={() => props.dispatch(logoutUser())}>Logout</button>
