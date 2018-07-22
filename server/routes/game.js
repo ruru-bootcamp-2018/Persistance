@@ -2,6 +2,10 @@ const db = require('../db/game')
 const {assignRoles, initMission, checkVotes, checkIntentions, checkNominations} = require('../gameFunctions')
 var router = require('express').Router()
 
+const io = require('socket.io-client')
+const socket = io('http://localhost:8000')
+
+
 const {currentGame, initalGame} = require('../currentGame')
 const mission2 = require('../fakeData/mission2')
 
@@ -26,7 +30,8 @@ router.post('/new', (req, res) => {
   currentGame.missions = []
   db.createGame(game_name, user.id).then(ids => {
     db.getGame(ids[0]).then(game => {
-      //emit game from io???
+      socket.emit('getGames', () => {
+      })
       console.log('new game')
       currentGame.game = game      
       res.json(game)
@@ -35,16 +40,18 @@ router.post('/new', (req, res) => {
 })
 
 router.post('/join', (req, res) => {
+  
   if (currentGame.gameStage !== 'waiting') return res.sendStatus(400)
   if (currentGame.players.length >= 10) return res.sendStatus(400)
   const game_id = req.body.game.id
   const user_id = req.body.user.id
   db.roleEntry(game_id, user_id).then(() => {
-    db.getPlayers(game_id).then(players => {
-      currentGame.players = players
-      console.log(players[players.length-1].user_name + ' joined the game')
-      //emit game from io???    
-      res.json(players)
+    db.getPlayers(game_id).then(playersList => {
+      currentGame.players = playersList
+      const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+      const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+      socket.to(game_id).emit('updateWaitingRoom', gameData)
+      res.json(playersList)
     })
     
   })
