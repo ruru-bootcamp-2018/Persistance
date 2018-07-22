@@ -24,6 +24,7 @@ class Player extends React.Component {
 
     render() {
         const { display_name, user_name, img } = this.props.player
+        const isLeader = (this.props.currentRound.leader_id == this.props.player.id)
         return (
             <Tooltip
                 // options
@@ -35,6 +36,7 @@ class Player extends React.Component {
             >
 
                 <div onClick={this.handleClick} className="player" >
+                {isLeader && <i className="fas fa-crown"></i>}
                 <p className="is-size-5"> {display_name || user_name} </p>
                 <img style={roundStyleObj} src={img} />
             </div>
