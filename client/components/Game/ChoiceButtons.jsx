@@ -12,7 +12,6 @@ class ChoiceButton extends React.Component {
   }
 
   handleClick(e) {
-    console.log(e.currentTarget)
     if (this.state.hasVoted) return
     //do somthing
     const user = {id: 1} //needs to be from auth
