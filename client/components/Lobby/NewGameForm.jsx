@@ -27,7 +27,7 @@ class NewGameForm extends React.Component {
 
   render() {
     return (
-      <div classname="columns">
+      <div className="columns">
         <form className="column is-5 Login container" onSubmit={this.submit}>
           <label className="is-size-4">Start A New Game:
           <input style={{margin: '1vw'}} className="input is-rounded" type="text" name="gameName" onChange={this.updateDetails} />

@@ -15,7 +15,7 @@ const Mission = props => {
         <MissionToolTip mission={props.mission} players={props.currentGame.players} />
       )}
     >
-      <h2 className="level-item has-text-centered is-size-2 mission">{props.number + 1}</h2>
+      <h2 className="level-item has-text-centered is-size-2 mission">{props.missionParams[props.number].team_total}</h2>
       <br />
 
       {outcome == null? "" : outcome ? <p className="is-size-5">Goodies win</p> : <p className="is-size-5">Baddies win</p>}
