@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import EmptyPlayer from './EmptyPlayer'
-import DataButton from './DataButton'
+import DataButtonW from './DataButtonW'
 import ReadyButton from './ReadyButton'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
@@ -29,7 +29,7 @@ class Waiting extends React.Component {
         <p>Waiting for Players</p>   
       </div>
       {(this.props.currentGame.game.host_id == 1) && <ReadyButton />}
-      <DataButton />
+      <DataButtonW />
       <div className="level">
         {players.map((player, i) => {
           return <EmptyPlayer key={i} player={player} />
