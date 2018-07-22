@@ -21,10 +21,10 @@ router.get('/fake', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  const {game_name} = req.body
+  const {game_name, user} = req.body
   Object.assign(currentGame, initalGame)
   currentGame.missions = []
-  db.createGame(game_name).then(ids => {
+  db.createGame(game_name, user.id).then(ids => {
     db.getGame(ids[0]).then(game => {
       //emit game from io???
       console.log('new game')

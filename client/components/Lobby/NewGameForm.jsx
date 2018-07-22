@@ -18,8 +18,8 @@ class NewGameForm extends React.Component {
   // remove [0] on merge
   submit(e) {
     e.preventDefault()
-    request('post', './game/new', {game_name: this.state.gameName}).then((res) => {
-     let id = res.body[0].id 
+    request('post', './game/new', {game_name: this.state.gameName, user: {id: 1}}).then((res) => {
+     let id = res.body.id 
      document.location = `/#/game/${id}`
     })
     
