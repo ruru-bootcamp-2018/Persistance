@@ -1,5 +1,5 @@
 export const initialState = {
-    game: { id: 4, is_finished: false, is_progress: true, timestamp: 6968856873, game_name: "THE BEST GAME OF ALL", host_id: 7 },
+    game: { id: 4, is_finished: false, is_progress: false, timestamp: 6968856873, game_name: "THE BEST GAME OF ALL", host_id: 7 },
     players: [
         { id: 1, user_name: "Rebdug", display_name: "REBDUG", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_iSlmFxI9FloA5xjYfwoujNED7PICOMCwGrBspLI2HnRSKChi", game_id: 4, role: "spy" },
         { id: 7, user_name: "Cate", display_name: "Plague the Great and Powerful", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_iSlmFxI9FloA5xjYfwoujNED7PICOMCwGrBspLI2HnRSKChi", game_id: 4, role: "spy" },
