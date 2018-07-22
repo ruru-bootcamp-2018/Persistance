@@ -40,7 +40,7 @@ class Player extends React.Component {
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
         if (this.state.isNominated && this.props.currentRound.id != this.state.roundId) this.setState({isNominated: false}) 
-        console.log(this.state.roundId, this.props.currentRound.id)
+
         return (
             <Tooltip
                 // options
