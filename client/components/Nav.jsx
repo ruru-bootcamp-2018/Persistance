@@ -8,7 +8,6 @@ const buttonStyle = 'button is-medium is-link is-inverted is-outlined'
   return (
     <div className="navbar-menu hero is-small is-info">
       <div className="hero-body">
-       
 
         {props.auth.isAuthenticated
           ?
@@ -31,7 +30,6 @@ const buttonStyle = 'button is-medium is-link is-inverted is-outlined'
         //This is how you do/don't display info based on login
       }
       </div>
-
     </div>
   )
 }

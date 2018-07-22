@@ -4,7 +4,7 @@ const RoundCounter = props => {
     const {number, round_num} = props
     return(
         <div>
-            <p className={number === round_num ? "glow is-size-3 column" : " column is-size-3" }>{number}</p>  
+            <p className={number === round_num ? "cake button-glow is-size-3 column" : " column is-size-3" }>{number}</p>
         </div>
     ) 
 }
