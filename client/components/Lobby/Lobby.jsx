@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
+import ChatWindow from '../Game/ChatWindow'
 import request from '../../utils/api'
+
 
 
 const buttonStyling = "button is-medium is-fullwidth is-primary is-outlined"
@@ -23,7 +25,9 @@ class Lobby extends React.Component {
   }
 
   render() {
+
     const games = this.state.games
+
     return (
       <div>
         <h1 className="is-size-1">Welcome to the lobby</h1>
@@ -40,6 +44,7 @@ class Lobby extends React.Component {
             )
           })}
         </div>
+        
       </div>
     )
   }

@@ -2,6 +2,7 @@ require('dotenv').config()
 
 var server = require('./server')
 var PORT = process.env.PORT || 3000
+const socket = require('./sockets')(server)
 
 // const beNice = process.env.NODE_ENV == 'production' ? null : require('../../terminal-sweetness')
 
@@ -10,3 +11,5 @@ server.listen(PORT, function () {
   // if (beNice) beNice();
 
 })
+
+socket.listen(8000)

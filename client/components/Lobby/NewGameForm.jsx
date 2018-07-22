@@ -1,5 +1,6 @@
 import React from 'react'
 import request from '../../utils/api'
+import {connect} from 'react-redux'
 
 class NewGameForm extends React.Component {
   constructor(props) {
@@ -21,15 +22,17 @@ class NewGameForm extends React.Component {
     if (this.state.gameName) {
     request('post', './game/new', {game_name: this.state.gameName, user: {id: 1}}).then((res) => {
      let id = res.body.id 
+     const localSocket = this.props.socket
+     localSocket.emit('createGame', id)
      document.location = `/#/game/${id}`
     })
-  }  
-    
+
+  }     
   }
 
   render() {
     return (
-      <div classname="columns">
+      <div className="columns">
         <form className="column is-5 Login container" onSubmit={this.submit}>
           <label className="is-size-4">Start A New Game:
           <input style={{margin: '1vw'}} className="input is-rounded" type="text" name="gameName" onChange={this.updateDetails} />
@@ -42,5 +45,6 @@ class NewGameForm extends React.Component {
   }
 }
 
+const mapCateToProps = (state) => state
 
-export default NewGameForm
+export default connect(mapCateToProps)(NewGameForm)
