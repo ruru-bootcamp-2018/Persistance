@@ -28,7 +28,7 @@ class Waiting extends React.Component {
       <div className='is-size-3 statusBar' >
         <p>Waiting for Players</p>   
       </div>
-      {(this.props.currentGame.game.host_id == 1) && <ReadyButton />}
+      {(this.props.currentGame.game.host_id == 8) && <ReadyButton />}
       <DataButtonW />
       <div className="level">
         {players.map((player, i) => {

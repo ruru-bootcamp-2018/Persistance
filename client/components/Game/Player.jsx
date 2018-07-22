@@ -24,19 +24,21 @@ class Player extends React.Component {
   handleClick() {
       if (this.state.isNominated) return
       //do somthing
-      const user = {id: 1} //needs to be from auth
+      const user = {id: this.props.auth.user.id} //needs to be from auth
       const nom = {user, game: this.props.currentGame.game, nomination: {user: this.props.player}}
       sendNomination(nom)
       this.setState({isNominated: true, roundId: this.props.currentRound.id})
   }
 
     render() {
-        const id = 1 // this needs to be auth user id
+        const authID = this.props.auth.user.id
+        //console.log(authID)
+        const id = authID // this needs to be auth user id
         const currentUser = this.props.currentGame.players.find(player => player.id == id)
         const userIsSpy = currentUser.role == 'spy'
         const { display_name, user_name, img } = this.props.player
         const isLeader = (this.props.currentRound.leader_id == this.props.player.id)
-        const isNominating = (this.props.currentRound.leader_id == 1 && this.props.currentGame.gameStage == 'nominating') 
+        const isNominating = (this.props.currentRound.leader_id == authID && this.props.currentGame.gameStage == 'nominating') 
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
         if (this.state.isNominated && this.props.currentRound.id != this.state.roundId) this.setState({isNominated: false}) 

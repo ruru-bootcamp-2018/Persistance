@@ -19,9 +19,9 @@ class NewGameForm extends React.Component {
   // remove [0] on merge
   submit(e) {
     e.preventDefault()
-    if (this.state.gameName) {
-    request('post', './game/new', {game_name: this.state.gameName, user: {id: 1}}).then((res) => {
-     let id = res.body.id 
+    if (this.state.gameName) {                                            ///////////////////////////
+    request('post', './game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}}).then((res) => {
+     let id = res.body.id                                                 /////////////////////////////
      const localSocket = this.props.socket
      localSocket.emit('createGame', id)
      document.location = `/#/game/${id}`
