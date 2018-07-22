@@ -11,12 +11,20 @@ class Waiting extends React.Component {
     super(props)
     this.state = {
     }
-  }  
+    this.checkStarted = this.checkStarted.bind(this)
+  }
+
+  checkStarted(){
+    if (this.props.currentGame.game.in_progress){
+      this.props.history.push(`/game/${this.props.match.params.id}`)
+    }
+  }
 
   render() {
     const { players } = this.props.currentGame
   return (
     <div>
+      {this.checkStarted()}
       <div className='is-size-3 statusBar' >
         <p>Waiting for Players</p>   
       </div>
