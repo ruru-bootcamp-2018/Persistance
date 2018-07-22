@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { logoutUser } from '../actions/logout'
 
 function Nav(props) {
-const buttonStyle = 'button is-medium is-link is-inverted is-outlined'
+const buttonStyle = 'button is-medium is-link is-inverted is-outlined homeButton'
   return (
     <div className="navbar-menu hero is-small is-info">
       <div className="hero-body">
