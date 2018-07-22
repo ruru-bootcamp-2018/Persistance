@@ -29,3 +29,13 @@ export function sendIntention(data){
       console.log('Error', err.message)
     })
 }
+
+export function startGame(data){
+  request('post', 'game/start', data)
+    .then(() => {
+      console.log('started')
+    })
+    .catch(err => {
+      console.log('Error', err.message)
+    })
+}

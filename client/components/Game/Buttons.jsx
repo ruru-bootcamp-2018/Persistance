@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ReadyButton from './ReadyButton'
+
 import ChoiceButtons from './ChoiceButtons'
 import IntentionButtons from './IntentionButtons'
 
@@ -18,8 +18,7 @@ const onTeam = noms.reduce((acc, nom) => {
   return (
     <div>
        {(gameStage == 'voting') && <ChoiceButtons />}
-       {(onTeam && gameStage == 'intentions') && <IntentionButtons />}
-       {(isLeader && gameStage == 'waiting') && <ReadyButton />}
+       {(onTeam && gameStage == 'intentions') && <IntentionButtons />}       
     </div>
   )
 }
