@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
+import ChatWindow from '../Game/ChatWindow'
 
 //this is a mess but al good we on it!!!!!!
 
@@ -30,7 +31,10 @@ class Lobby extends React.Component {
         .map(game => {
           return <Link className="button is-medium is-fullwidth is-primary is-outlined tile is-child" to={`/game/${game.id}`}>{game.name}</Link>
         })}
-        </div>
+
+        <ChatWindow />
+
+      </div>
       </div>
     )
   }
