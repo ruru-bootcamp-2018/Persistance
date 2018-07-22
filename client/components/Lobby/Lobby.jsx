@@ -4,6 +4,7 @@ import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
 import ChatWindow from '../Game/ChatWindow'
 
+
 //this is a mess but al good we on it!!!!!!
 
 
@@ -15,7 +16,7 @@ class Lobby extends React.Component {
   }
 
   render() {
-
+    
     const games = this.props.games
 
     return (
@@ -25,16 +26,18 @@ class Lobby extends React.Component {
         <br />
         <p className="is-size-4">Join a game</p>
         <div className="tile is-parent">
-        {games.filter(game => {
-          return !game.in_progress && !game.is_finished && game.player_num < 10
-        })
-        .map(game => {
-          return <Link className="button is-medium is-fullwidth is-primary is-outlined tile is-child" to={`/game/${game.id}`}>{game.name}</Link>
-        })}
+          {games.filter(game => {
+            return !game.in_progress && !game.is_finished && game.player_num < 10
+          })
+            .map(game => {
+              return <Link className="button is-medium is-fullwidth is-primary is-outlined tile is-child"
+              to={`/game/${game.id}`}>{game.name}</Link>
+            })}
 
-        <ChatWindow />
 
-      </div>
+
+        </div>
+        no more chat window here
       </div>
     )
   }
@@ -42,6 +45,8 @@ class Lobby extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    auth : state.auth,
+    socket : state.socket,
     games: [
       { name: "dog", id: 5, in_progress: true, is_finished: false, player_num: 5 },
       { name: "cat", id: 8, in_progress: false, is_finished: false, player_num: 7 },
