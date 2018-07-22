@@ -1,12 +1,36 @@
 @import './my_bulma.scss';
 @import '~react-tippy/dist/tippy.css';
 
+.background-image {
+  background-image: url('http://localhost:3000/Freedom.jpg');
+  background-repeat: no-repeat;
+  height: 21vw;
+  width: 70vw;
+  display: block;
+  margin: 0 auto;
+}
 
+.missionDisplay {
+  width: 65vw;
+  margin-left: 0.5vw;
+}
+
+.circles {
+  border-radius: 50%;
+  width: 5vw;
+  height: 5vw;
+  border: 7px outset rgba(131, 138, 139, 0.32);
+//original hex value #838a8b
+}
 
 .playerImage {
     border-radius: "50%";
     height: "100px";
     width: "100px";
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .glow {
@@ -25,8 +49,6 @@
     margin-left: 3px;
     margin-top: 9px;
     width: 30px
-
-    
 }
 
 .tinyThumbLeft {
@@ -40,7 +62,7 @@
 }
 
   .spy-glow {
-    box-shadow: 0 0 20px #FF1177;
+    box-shadow: 0 0 40px #b30000;
   }
 
   .button-glow {
@@ -58,16 +80,16 @@
     animation: neon3 1.5s ease-in-out infinite alternate;
     color: rgb(196, 166, 0);
   }
-  
+
 
   //neon test end
 
   @-webkit-keyframes neon3 {
     from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FFDD1B, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
     }
     to {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #FFDD1B, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
     }
   }
   @-moz-keyframes neon3 {
@@ -81,15 +103,13 @@
 
   @keyframes neon3 {
     from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
+      text-shadow: 0 0 10px #fff, 0 0 20px #FFDD1B, 0 0 30px #FFDD1B, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
     }
     to {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
+      text-shadow: 0 0 5px #fff, 0 0 10px #FFDD1B, 0 0 15px #FFDD1B, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
     }
   }
-
 
 .homeButton {
   margin: 3px
 }
-
