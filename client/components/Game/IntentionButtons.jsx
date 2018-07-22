@@ -21,10 +21,11 @@ class IntentionButtons extends React.Component {
 
 }
 render() {
+  const {hasCastIntention} = this.state.hasCastIntention
     return (
     <div>
-     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+     <button disabled={hasCastIntention} onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+     <button disabled={hasCastIntention} onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
      </div>
     )
   }
