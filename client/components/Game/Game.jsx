@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import GameBoard from './GameBoard'
-import ReadyButton from './ReadyButton'
+import Buttons from './Buttons'
 import StatusBar from './StatusBar'
 import ChatWindow from'./ChatWindow'
+
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
 const Game = props => {
@@ -15,7 +16,7 @@ const Game = props => {
     <div>
       <ChatWindow id={gameId}/> 
       <StatusBar />
-      <ReadyButton />
+      <Buttons />
       <GameBoard />
     </div>
   )
