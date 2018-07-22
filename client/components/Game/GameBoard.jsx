@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Mission from './Mission'
 import Player from './Player'
 import RoundCounter from './RoundCounter'
+import DataButton from './DataButton'
 import { getGames, getPlayers } from '../../actions/games'
 import { updateCurrentGame } from '../../actions/currentGame'
 
@@ -43,6 +44,7 @@ class Game extends React.Component {
 
         </div>
         <p className="voteTrack is-size-5">Vote Track</p>
+        <DataButton />
         <div className="columns is-centered">
                  {Array(5).fill(0).map((x, i) => {
           return <RoundCounter number={i + 1} round_num={round_num}/>

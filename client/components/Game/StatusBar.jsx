@@ -15,6 +15,9 @@ const StatusBar = props =>  {
         case "nominating":
         displayText = "Nominate your team"
         break
+        case "intentions":
+        displayText = "Cast your intention"
+        break
         default:
         displayText = "No game stage!!"
     }
