@@ -8,7 +8,9 @@ class Register extends React.Component {
     this.state = {
       user_name: '',
       password: '',
-      confirm_password: ''
+      confirm_password: '',
+      display_name: '',
+      img: ' '
     }
     this.updateDetails = this.updateDetails.bind(this)
     this.submit = this.submit.bind(this)
@@ -19,14 +21,20 @@ class Register extends React.Component {
   submit(e) {
     e.preventDefault()
     e.target.reset()
-    let {user_name, password, confirm_password} = this.state
-    if (password == confirm_password) this.props.dispatch(registerUserRequest({user_name, password}))
+    let {user_name, display_name, img, password, confirm_password} = this.state
+    if (password == confirm_password) this.props.dispatch(registerUserRequest({user_name, display_name, img, password}))
   }
   render() {
     return (
       <form className="Register container" onSubmit={this.submit}>
         <label className="is-size-4">Username:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="text" name="user_name" onChange={this.updateDetails}/>
+        </label><br/>
+        <label className="is-size-4">Display Name:
+          <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="text" name="display_name" onChange={this.updateDetails}/>
+        </label><br/>
+        <label className="is-size-4">Profile Image url:
+          <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="text" name="img" onChange={this.updateDetails}/>
         </label><br/>
         <label className="is-size-4">Password:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="password" name="password" onChange={this.updateDetails}/>
