@@ -25,7 +25,7 @@ export const initialState = {
                     { mission_id: 1, user_id: 3, intention: true }]     
         }],
     
-        gameStage: "voting"
+        gameStage: "nominating"
 
 }
 

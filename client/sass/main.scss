@@ -39,24 +39,13 @@
     margin: 0.5vw;
 }
 
-@keyframes glowing {
-    0% { box-shadow: 0 0 -10px #c4a300; }
-    40% { box-shadow: 0 0 20px #c4a300; }
-    60% { box-shadow: 0 0 20px #c4a300; }
-    100% { box-shadow: 0 0 -10px #c4a300; }
+  .spy-glow {
+    box-shadow: 0 0 20px #FF1177;
   }
-  
+
   .button-glow {
-    animation: glowing 5000ms infinite;
+    box-shadow: 0 0 40px #5bf52d;
   }
-
-
-  //neon header test
-@-webkit-keyframes neon1 {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;
-}
-}
 
 .cake {
     text-align: center;
