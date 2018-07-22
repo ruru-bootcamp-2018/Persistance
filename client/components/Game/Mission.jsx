@@ -1,13 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import RoundCounter from './RoundCounter'
 import MissionToolTip from './MissionToolTip'
 import {Tooltip} from 'react-tippy'
 
 
 const Mission = props => {
   const { id, outcome } = props.mission
-  const glow = (props.currentMission.mission_num == props.number) ? 'cake' : ''
+  const glow = (props.currentMission.mission_num == props.number + 1) ? 'cake' : ''
   return (
     <Tooltip
       // options

@@ -9,3 +9,23 @@ export function sendNomination(data){
       console.log('Error', err.message)
     })
 }
+
+export function sendVote(data){
+  request('post', 'game/vote', data)
+    .then(() => {
+      console.log('voted')
+    })
+    .catch(err => {
+      console.log('Error', err.message)
+    })
+}
+
+export function sendIntention(data){
+  request('post', 'game/intention', data)
+    .then(() => {
+      console.log('intented')
+    })
+    .catch(err => {
+      console.log('Error', err.message)
+    })
+}
