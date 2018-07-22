@@ -8,6 +8,7 @@ const Mission = props => {
   const textStyle = 'is-uppercase is-size-5'
   const { id, outcome } = props.mission
   const glow = (props.currentMission.mission_num == props.number + 1) ? 'cake' : ''
+  const missionNumber = props.number
   return (
     <Tooltip
       // options

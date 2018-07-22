@@ -16,7 +16,7 @@ const StatusBar = props =>  {
         displayText = "Nominate your team"
         break
         case "intentions":
-        displayText = "Cast your intention"
+        displayText = "Cast your intention for the mission"
         break
         default:
         displayText = "No game stage!!"
@@ -24,7 +24,7 @@ const StatusBar = props =>  {
 
     return (
     <div className='is-size-3 statusBar' >
-        <p>{displayText}</p>   
+        <p>{displayText}</p>
     </div>
   )
 }
