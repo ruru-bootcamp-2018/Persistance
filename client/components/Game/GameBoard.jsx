@@ -18,10 +18,10 @@ class Game extends React.Component {
     const { players, game, missions } = this.props.currentGame
     const { mission_num } = this.props.currentMission
     const { round_num } = this.props.currentRound
-  
+
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
-    
+
     // this stuff fixed a problem with mission array only being as long as mission exists
 
     const missionDisplay = Array(5).fill(0).map((x, i) => {
@@ -35,7 +35,9 @@ class Game extends React.Component {
             return <Player key={i} player={player} />
           })}
         </div>
-        <p className="is-size-4">Missions</p>
+
+        <div className="background-image">
+        <p className="is-size-3 has-text-white">Missions</p>
 
         <div className="level missionDisplay">
           {missionDisplay.map((mission, i) => {
@@ -43,7 +45,7 @@ class Game extends React.Component {
           })}
 
         </div>
-        <p className="voteTrack is-size-5">Vote Track</p>
+        <p className="voteTrack is-size-3 has-text-light-grey">Vote Track</p>
         <DataButton />
         <div className="columns is-centered">
                  {Array(5).fill(0).map((x, i) => {
@@ -51,6 +53,7 @@ class Game extends React.Component {
          })}
         </div>
 
+      </div>
         <br />
         <div className="level">
           {players.slice(halfPlayersIndex).map((player, i) => {

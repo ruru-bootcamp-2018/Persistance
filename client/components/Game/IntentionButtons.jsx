@@ -18,13 +18,13 @@ class IntentionButtons extends React.Component {
     const intention = {user, game: this.props.currentGame.game, intention: (e.target.value == 'pass')}
     sendIntention(intention)
     this.setState({hasCastIntention: true})
-  
+
 }
-render() {  
+render() {
     return (
     <div>
-     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-medium is-dark is-outlined"><i className="fas fa-check"></i></button>
-     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-medium is-dark is-outlined"><i className="fas fa-times"></i></button>
+     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
      </div>
     )
   }

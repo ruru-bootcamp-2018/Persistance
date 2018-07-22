@@ -1,12 +1,36 @@
 @import './my_bulma.scss';
 @import '~react-tippy/dist/tippy.css';
 
+.background-image {
+  background-image: url('http://localhost:3000/Freedom.jpg');
+  background-repeat: no-repeat;
+  height: 25vw;
+  width: 70vw;
+  display: block;
+  margin: 0 auto;
+}
 
+.missionDisplay {
+  width: 65vw;
+  margin-left: 0.5vw;
+}
+
+.circles {
+  border-radius: 50%;
+  width: 5vw;
+  height: 5vw;
+  border: 7px outset rgba(131, 138, 139, 0.32);
+//original hex value #838a8b
+}
 
 .playerImage {
     border-radius: "50%";
     height: "100px";
     width: "100px";
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .glow {
@@ -25,8 +49,6 @@
     margin-left: 3px;
     margin-top: 9px;
     width: 30px
-
-    
 }
 
 .tinyThumbLeft {
@@ -58,7 +80,7 @@
     animation: neon3 1.5s ease-in-out infinite alternate;
     color: rgb(196, 166, 0);
   }
-  
+
 
   //neon test end
 
@@ -88,8 +110,6 @@
     }
   }
 
-
 .homeButton {
   margin: 3px
 }
-

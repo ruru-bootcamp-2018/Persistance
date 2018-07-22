@@ -25,11 +25,11 @@ class ChatWindow extends React.Component {
         })
     }
 
-   
+
 
     addMsgToChat(msg) {
         let prevMsgs = this.state.msgs
-        
+
         const newMsg = `${new Date}: ${msg}`
         prevMsgs.push(newMsg)
         this.setState({
@@ -44,7 +44,7 @@ class ChatWindow extends React.Component {
         const userName = this.props.auth.user.user_name
         const newMsg = `${userName}: ${this.state.chatMessage}`
         const roomID = this.props.id;
-        
+
         console.log(newMsg)
         //this.addMsgToChat(`From Client: ${newMsg}`)
         this.state.localSocket.emit('chat-down', roomID, newMsg)
@@ -66,8 +66,8 @@ class ChatWindow extends React.Component {
                 <div className="chatDisplay" style={styleObj} >
                     {this.state.msgs.map((msg) => <p className="has-text-left"> {msg} </p>)}
                 </div>
-                <input type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
-                <input type="submit" value="Send a message!" />
+                <input className="input is-small column is-6 is-offset-3" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
+                <input className="button is-info is-outlined is-small" type="submit" value="Send a message!" />
 
             </form>
         )
