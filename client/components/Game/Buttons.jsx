@@ -18,7 +18,7 @@ const onTeam = noms.reduce((acc, nom) => {
   return (
     <div>
        {(gameStage == 'voting') && <ChoiceButtons />}
-       {(onTeam && gameStage == 'intentions') && <IntentionButtons />}       
+       {(onTeam && gameStage == 'intentions') && <IntentionButtons />}
     </div>
   )
 }

@@ -45,8 +45,7 @@ class Game extends React.Component {
           })}
 
         </div>
-        <p className="voteTrack is-size-3 has-text-light-grey">Vote Track</p>
-        <DataButton />
+        <p className="voteTrack is-size-3 has-text-white">Vote Track</p>
         <div className="columns is-centered">
                  {Array(5).fill(0).map((x, i) => {
           return <RoundCounter number={i + 1} round_num={round_num}/>
@@ -54,6 +53,7 @@ class Game extends React.Component {
         </div>
 
       </div>
+        <DataButton />
         <br />
         <div className="level">
           {players.slice(halfPlayersIndex).map((player, i) => {
