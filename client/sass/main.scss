@@ -20,10 +20,24 @@
     font-style: italic;
 }
 
+
+.tinyThumbRight {
+    margin-left: 3px;
+    margin-top: 9px;
+    width: 30px
+
+    
+}
+
+.tinyThumbLeft {
+    margin-left: 3px;
+    margin-right: 5px;
+    width: 30px
+}
+
 .hero {
     margin: 0.5vw;
 }
-
 
 @keyframes glowing {
     0% { box-shadow: 0 0 -10px #c4a300; }
@@ -84,3 +98,4 @@
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
     }
   }
+

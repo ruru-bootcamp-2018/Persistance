@@ -1,12 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
+import request from '../../utils/api'
 
 class NewGameForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      playerNumber: 5,
       gameName: ""
     }
     this.updateDetails = this.updateDetails.bind(this)
@@ -17,10 +15,14 @@ class NewGameForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  // remove [0] on merge
   submit(e) {
     e.preventDefault()
-    let id = 9
-    document.location = `/#/game/${id}`
+    request('post', './game/new', {game_name: this.state.gameName, user: {id: 1}}).then((res) => {
+     let id = res.body.id 
+     document.location = `/#/game/${id}`
+    })
+    
   }
 
   render() {
@@ -38,7 +40,5 @@ class NewGameForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => state
 
-
-export default connect(mapStateToProps)(NewGameForm)
+export default NewGameForm

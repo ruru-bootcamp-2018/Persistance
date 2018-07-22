@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 const StatusBar = props =>  {
 
@@ -23,10 +23,9 @@ const StatusBar = props =>  {
     <div className='is-size-3 statusBar' >
         <p>{displayText}</p>   
     </div>
-    )
+  )
 }
 
-
-const mapStateToProps = ({currentGame}) =>  ({currentGame})
+const mapStateToProps = ({ currentGame }) => ({ currentGame })
 
 export default connect(mapStateToProps)(StatusBar)
