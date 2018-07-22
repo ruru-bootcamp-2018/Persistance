@@ -18,9 +18,9 @@ const Mission = props => {
       <h2 className="level-item has-text-centered is-size-2 mission">{props.number + 1}</h2>
       <br />
 
-      {outcome == null? "not played" : outcome ? <p>goodies win</p> : <p>baddies win</p>}
+      {outcome == null? "" : outcome ? <p className="is-size-5">Goodies win</p> : <p className="is-size-5">Baddies win</p>}
 
-      {outcome ? <p className="is-size-5">Goodies win</p> : <p className="is-size-5">Baddies win</p>}
+     
 
     </Tooltip>
   )
