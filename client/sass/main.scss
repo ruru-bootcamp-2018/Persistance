@@ -3,12 +3,6 @@
 
 
 
-.player {
-    width: 15vw;
-    height: 8.5vw;
-    border: 1px solid black
-}
-
 .playerImage {
     border-radius: "50%";
     height: "100px";
@@ -29,6 +23,7 @@
 .hero {
     margin: 0.5vw;
 }
+
 
 @keyframes glowing {
     0% { box-shadow: 0 0 -10px #c4a300; }
