@@ -40,12 +40,12 @@ export function getGames() {
     }
 } 
 
-export function createGame (name) {
-    return (dispatch) => {
-        return request('post', `temporary/games`)
-      .send({name})
-      .catch(err =>{
-        console.log('Err cant create game, sorry about it')
-    })
-    }
-  }
+// export function createGame (name) {
+//     return (dispatch) => {
+//         return request('post', `temporary/games`)
+//       .send({name})
+//       .catch(err =>{
+//         console.log('Err cant create game, sorry about it')
+//     })
+//     }
+//   }
