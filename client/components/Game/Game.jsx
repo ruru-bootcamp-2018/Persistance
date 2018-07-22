@@ -14,7 +14,7 @@ const Game = props => {
   localSocket.emit('joinGame', gameId, user_name)
   return (
     <div>
-      <ChatWindow id={gameId}/> 
+      <ChatWindow id={gameId}/>
       <StatusBar />
       <Buttons />
       <GameBoard />
