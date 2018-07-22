@@ -2,34 +2,43 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
+import request from '../../utils/api'
 
-//this is a mess but al good we on it!!!!!!
 
+const buttonStyling = "button is-medium is-fullwidth is-primary is-outlined"
 
 class Lobby extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      games: []
     }
+  }
+  componentDidMount() {
+    request('get', './game/open').then((res) => {
+      this.setState({
+        games: res.body
+      })
+    })
   }
 
   render() {
-
-    const games = this.props.games
-
+    const games = this.state.games
     return (
       <div>
         <h1 className="is-size-1">Welcome to the lobby</h1>
         <NewGameForm />
         <br />
         <p className="is-size-4">Join a game</p>
-        <div className="tile is-parent">
-        {games.filter(game => {
-          return !game.in_progress && !game.is_finished && game.player_num < 10
-        })
-        .map(game => {
-          return <Link className="button is-medium is-fullwidth is-primary is-outlined tile is-child" to={`/game/${game.id}`}>{game.name}</Link>
-        })}
+        <br />
+        <div className="columns is-4 is-multiline">
+          {games.map(game => {
+            return (
+            <div className="column is-4">
+              <Link className={buttonStyling} to={`/game/${game.id}`}>{game.game_name}</Link>
+            </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -37,16 +46,7 @@ class Lobby extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    games: [
-      { name: "dog", id: 5, in_progress: true, is_finished: false, player_num: 5 },
-      { name: "cat", id: 8, in_progress: false, is_finished: false, player_num: 7 },
-      { name: "frog", id: 5, in_progress: false, is_finished: true, player_num: 9 },
-      { name: "bear", id: 8, in_progress: false, is_finished: true, player_num: 5 },
-      { name: "elephant", id: 5, in_progress: false, is_finished: false, player_num: 9 }
-    ]
-  }
-
+  return state
 }
 
 export default connect(mapStateToProps)(Lobby)
