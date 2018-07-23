@@ -46,6 +46,12 @@ exports.seed = function(knex, Promise) {
         {players_total: 2, team_total: 1 , mission_num:3, fails_needed: 1 },
         {players_total: 2, team_total: 1 , mission_num:4 , fails_needed: 1 },
         {players_total: 2, team_total: 1 , mission_num:5 , fails_needed: 1 },
+        // round for 3 players
+        {players_total: 3, team_total: 1 , mission_num:1 , fails_needed: 1 },
+        {players_total: 3, team_total: 1 , mission_num:2 , fails_needed: 1 },
+        {players_total: 3, team_total: 1 , mission_num:3, fails_needed: 1 },
+        {players_total: 3, team_total: 1 , mission_num:4 , fails_needed: 1 },
+        {players_total: 3, team_total: 1 , mission_num:5 , fails_needed: 1 },
         // round for 4 players
         {players_total: 4, team_total: 1 , mission_num:1 , fails_needed: 1 },
         {players_total: 4, team_total: 1 , mission_num:2 , fails_needed: 1 },

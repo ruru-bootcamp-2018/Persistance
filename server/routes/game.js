@@ -58,7 +58,7 @@ router.post('/join', (req, res) => {
 
 router.post('/start', (req, res) => {
   if (currentGame.gameStage !== 'waiting') return res.sendStatus(400)
-  if (currentGame.players.length < 1) return res.sendStatus(400)   // change back to five
+  if (currentGame.players.length < 2) return res.sendStatus(400)   // change back to five
   const game_id = req.body.game.id   
   db.getRoles(game_id).then(roles => {    
     assignRoles(roles)    
