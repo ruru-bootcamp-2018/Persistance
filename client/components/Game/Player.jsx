@@ -28,11 +28,11 @@ class Player extends React.Component {
       const user = {id: this.props.auth.user.id} //needs to be from auth
       const nom = {user, game: this.props.currentGame.game, nomination: {user: this.props.player}}
       sendNomination(nom)
-      this.setState({isNominated: true, roundId: this.props.currentRound.id})
+      this.setState({isNominated: true, roundId: this.props.currentGame.currentRound.id})
   }
 
   checkNewRound() {
-    if (this.state.isNominated && this.props.currentRound.id != this.state.roundId) this.setState({isNominated: false})
+    if (this.state.isNominated && this.props.currentGame.currentRound.id != this.state.roundId) this.setState({isNominated: false})
   }
 
     render() {
@@ -44,8 +44,8 @@ class Player extends React.Component {
         const currentUser = this.props.currentGame.players.find(player => player.id == id)
         const userIsSpy = currentUser.role == 'spy'
         const { display_name, user_name, img } = this.props.player
-        const isLeader = (this.props.currentRound.leader_id == this.props.player.id)
-        const isNominating = (this.props.currentRound.leader_id == authID && this.props.currentGame.gameStage == 'nominating') 
+        const isLeader = (this.props.currentGame.currentRound.leader_id == this.props.player.id)
+        const isNominating = (this.props.currentGame.currentRound.leader_id == authID && this.props.currentGame.gameStage == 'nominating') 
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
         this.checkNewRound() 

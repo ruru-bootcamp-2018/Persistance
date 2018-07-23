@@ -30,8 +30,8 @@ class Waiting extends React.Component {
     localSocket.emit('joinGame', gameId, user_name)
     localSocket.on('receiveUpdateWaiting', (gameData) => {
       const {dispatch} = this.props
-      dispatch(updateCurrentRound(gameData.currentRound))
-      dispatch(updateCurrentMission(gameData.currentMission))
+      // dispatch(updateCurrentRound(gameData.currentRound))
+      // dispatch(updateCurrentMission(gameData.currentMission))
       dispatch(updateMissionParams(gameData.missionParams))
       dispatch(updateCurrentGame(gameData.currentGame))
     })

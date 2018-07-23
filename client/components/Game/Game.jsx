@@ -21,9 +21,9 @@ class Game extends React.Component {
     localSocket.on('receiveUpdateGame', (gameData) => {
       const { dispatch } = this.props
       dispatch(updateCurrentGame(gameData.currentGame))
-      dispatch(updateCurrentRound(gameData.currentRound))
-      dispatch(updateCurrentMission(gameData.currentMission))
-      dispatch(updateMissionParams(gameData.missionParams))
+      // dispatch(updateCurrentMission(gameData.currentMission))
+      // dispatch(updateCurrentRound(gameData.currentRound))      
+      //dispatch(updateMissionParams(gameData.missionParams)) //can remove?
     })
 
   }

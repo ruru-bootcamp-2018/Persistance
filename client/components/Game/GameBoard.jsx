@@ -17,8 +17,8 @@ class Game extends React.Component {
 
   render() {
     const { players, game, missions } = this.props.currentGame
-    const { mission_num } = this.props.currentMission
-    const { round_num } = this.props.currentRound
+    const { mission_num } = this.props.currentGame.currentMission
+    const { round_num } = this.props.currentGame.currentRound
 
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
