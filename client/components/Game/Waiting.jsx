@@ -48,14 +48,7 @@ class Waiting extends React.Component {
         {this.checkStarted()}
         <div className='is-size-3 statusBar' >
           <p>Waiting for Players</p>
-        </div>
-        {(host_id == 1) && <ReadyButton />}
-        <DataButtonW />
-        <div className="level">
-          {players.map((player, i) => {
-            return <EmptyPlayer key={i} player={player} />
-          })}
-        </div>
+        </div>      
 
       
 
