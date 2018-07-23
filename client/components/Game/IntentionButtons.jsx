@@ -14,18 +14,23 @@ class IntentionButtons extends React.Component {
   handleClick(e) {
     if (this.state.hasCastIntention) return
     //do somthing
-    const user = {id: 1} //needs to be from auth
-    const intention = {user, game: this.props.currentGame.game, intention: (e.target.value == 'pass')}
+    const user = {id: this.props.auth.user.id} //needs to be from auth
+    const intention = {user, game: this.props.currentGame.game, intention: (e.currentTarget.value == 'pass')}
+    console.log(intention)
     sendIntention(intention)
     this.setState({hasCastIntention: true})
-
 }
+
 render() {
-  const {hasCastIntention} = this.state.hasCastIntention
-    return (
+    return this.state.hasCastIntention ? (
     <div>
-     <button disabled={hasCastIntention} onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-     <button disabled={hasCastIntention} onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+     <button disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+     <button disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+     </div>
+    ) : (
+      <div>
+     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
      </div>
     )
   }
