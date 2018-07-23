@@ -95,8 +95,9 @@ function checkVotes(round_id){
       }
       else {
         if (currentGame.currentRound.round_num < 5) {
-          initRound(currentGame.game.id)
           console.log('rejected')
+          return initRound(currentGame.game.id)
+          
         }
         else missionFails()
       }
