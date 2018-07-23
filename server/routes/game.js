@@ -3,7 +3,8 @@ const {assignRoles, initMission, checkVotes, checkIntentions, checkNominations} 
 var router = require('express').Router()
 
 const clientIo = require('socket.io-client')
-const socket = clientIo('http://localhost:8000')
+// const socket = clientIo('http://localhost:8000')
+const socket = clientIo('http://192.168.1.15:8000')
 
 
 const {currentGame, initalGame} = require('../currentGame')
@@ -39,7 +40,8 @@ router.post('/new', (req, res) => {
 })
 
 router.post('/join', (req, res) => {
-  
+  console.log('not waiting', currentGame.gameStage !== 'waiting')
+  console.log('too many players', currentGame.players.length >= 10)
   if (currentGame.gameStage !== 'waiting') return res.sendStatus(400)
   if (currentGame.players.length >= 10) return res.sendStatus(400)
   const game_id = req.body.game.id
