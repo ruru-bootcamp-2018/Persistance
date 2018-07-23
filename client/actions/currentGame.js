@@ -40,7 +40,7 @@ export function getGameState() {
             
         })
         .catch(err =>{
-            console.log('Err', err.message)
+            console.log('Err', err)
         })
     }
     

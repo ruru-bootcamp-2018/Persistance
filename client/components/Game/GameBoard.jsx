@@ -7,18 +7,20 @@ import DataButton from './DataButton'
 import { getGames, getPlayers } from '../../actions/games'
 import { updateCurrentGame } from '../../actions/currentGame'
 
-class Game extends React.Component {
+class GameBoard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
     }
   }
 
+
   render() {
     const { players, game, missions } = this.props.currentGame
-    const { mission_num } = this.props.currentMission
-    const { round_num } = this.props.currentRound
+    const { mission_num } = this.props.currentGame.currentMission
+    const { round_num, leader_id } = this.props.currentGame.currentRound
 
+    const leader = players.find(player => player.id == leader_id)
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
 
@@ -32,16 +34,17 @@ class Game extends React.Component {
       <div className="gameBoard">
         <div className="level">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} />
+            return <Player key={i} player={player} leader={leader_id}/>
           })}
         </div>
+        
+        <h1 className="is-size-3 has-text-black"><i className="fas fa-crown"></i>{`${leader.user_name} is the leader`}</h1>
 
         <div className="background-image">
         <p className="is-size-3 has-text-white">Missions</p>
-
         <div className="level missionDisplay">
           {missionDisplay.map((mission, i) => {
-            return <Mission key={i} mission={mission} number={i} />
+            return <Mission key={i} mission={mission} number={i}  />
           })}
 
         </div>
@@ -57,7 +60,7 @@ class Game extends React.Component {
         <br />
         <div className="level">
           {players.slice(halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} />
+            return <Player key={i} player={player} leader={leader_id}/>
           })}
         </div>
       </div>
@@ -66,12 +69,6 @@ class Game extends React.Component {
 }
 
 
-const mapStateToProps = ({ currentGame, currentMission, currentRound }) => {
-  return {
-    currentGame,
-    currentMission,
-    currentRound
-  }
-}
+const mapStateToProps = state => state
 
-export default connect(mapStateToProps)(Game)
+export default connect(mapStateToProps)(GameBoard)

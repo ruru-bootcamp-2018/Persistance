@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
 import ChatWindow from '../Game/ChatWindow'
-import request from '../../utils/api'
+import { joinGame } from '../../actions/playerInputs'
+
 
 
 
@@ -16,16 +17,24 @@ class Lobby extends React.Component {
       games: []
     }
   }
+
+
   componentDidMount() {
-    request('get', './game/open').then((res) => {
-      this.setState({
-        games: res.body
-      })
+    const { socket } = this.props
+    socket.emit('getGames', () => {
     })
+    socket.on('receiveGames', (games) => {
+      this.setState({
+        games: games
+      })
+  })
+}
+  clickJoinGame(game, user) {
+    joinGame({game, user})
   }
 
   render() {
-
+    const user = this.props.auth.user
     const games = this.state.games
 
     return (
@@ -39,7 +48,7 @@ class Lobby extends React.Component {
           {games.map(game => {
             return (
             <div className="column is-4">
-              <Link className={buttonStyling} to={`/game/${game.id}`}>{game.game_name}</Link>
+              <Link onClick={() => this.clickJoinGame(game, user)} className={buttonStyling} to={`/waiting/${game.id}`}>{game.game_name}</Link>
             </div>
             )
           })}
