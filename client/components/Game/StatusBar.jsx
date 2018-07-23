@@ -10,16 +10,16 @@ const StatusBar = props =>  {
 
     switch(gameStage) {
         case "voting":
-        displayText = "Do you approve of this mission?"
+        displayText = "It's time to vote on the nominated team"
         break
         case "nominating":
-        displayText = "Nominate your team"
+        displayText = "Team is being nominated"
         break
         case "intentions":
-        displayText = "Cast your intention for the mission"
+        displayText = "Intentions are being case for the mission"
         break
         default:
-        displayText = "No game stage!!"
+        displayText = "404 this is not the page you were looking for - game stage not correctly defined"
     }
 
     return (

@@ -13,7 +13,7 @@ export const initialState = {
             id: 2, game_id: 4, outcome: true, rounds: [
                 {
                     id: 1, mission_id: 1, leader_id: 8, round_num: 1,
-                    nominations: [{ round_id: 1, user_id: 3 },
+                    nominations: [{ round_id: 1, user_id: 8},
                     { round_id: 1, user_id: 1 }], //nominated player => user_id
                     votes: [{ round_id: 1, user_id: 1, vote: true },
                     { round_id: 1, user_id: 7, vote: true },
@@ -25,7 +25,7 @@ export const initialState = {
                     { mission_id: 1, user_id: 3, intention: true }]     
         }],
     
-        gameStage: "voting"
+        gameStage: "intentions"
 
 }
 

@@ -11,7 +11,7 @@ export function sendNomination(data){
 }
 
 export function sendVote(data){
-  request('post', 'game/vote', data)
+  return request('post', 'game/vote', data)
     .then(() => {
       console.log('voted')
     })
@@ -21,7 +21,7 @@ export function sendVote(data){
 }
 
 export function sendIntention(data){
-  request('post', 'game/intention', data)
+  return request('post', 'game/intention', data)
     .then(() => {
       console.log('intented')
     })
