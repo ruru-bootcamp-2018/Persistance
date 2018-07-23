@@ -17,7 +17,7 @@ router.get('/open', (req, res) => {
 
 router.get('/current', (req, res) => {
   const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-  res.json({currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams})
+  res.json({currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams})
 })
 
 router.get('/fake', (req, res) => {
@@ -48,7 +48,7 @@ router.post('/join', (req, res) => {
     db.getPlayers(game_id).then(playersList => {
       currentGame.players = playersList
       const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-      const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+      const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
       socket.emit('updateWaitingRoom', gameData, game_id)
       res.json(playersList)
     })
@@ -73,7 +73,7 @@ router.post('/start', (req, res) => {
               initMission(game_id).then(() => {
                 console.log('game started')
                 const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-                const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+                const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
                 socket.emit('updateWaitingRoom', gameData, game_id)
                 res.json(playersList)
               })
@@ -99,7 +99,7 @@ router.post('/nominate', (req, res) => {
       checkNominations(round_id).then(() => {
         currentGame.missions[mission_num-1].rounds[round_num-1].nominations = nominations
         const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-        const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+        const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
         socket.emit('updateGameRoom', gameData, game_id)
         res.json(nominations)
       })
@@ -118,7 +118,7 @@ router.post('/vote', (req, res) => {
     console.log('vote recieved')
     checkVotes(round_id).then(() => {
       const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-      const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+      const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
       socket.emit('updateGameRoom', gameData, game_id)
       res.sendStatus(200)
     })
@@ -136,7 +136,7 @@ router.post('/intention', (req, res) => {
     console.log('intention recieved')
     checkIntentions(mission_id).then(() => {
       const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-      const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+      const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
       socket.emit('updateGameRoom', gameData, game_id)
       res.sendStatus(200)
     })

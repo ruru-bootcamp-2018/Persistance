@@ -25,7 +25,15 @@ export const initialState = {
                     { mission_id: 1, user_id: 3, intention: true }]     
         }],
     
-        gameStage: "intentions"
+        gameStage: "intentions",
+
+        currentMission: {
+            mission_approved: false, mission_num: 1, id:1, game_id: 4, outcome:false, //outcome will be null until mission outcome sent to db and currentmission iterated.
+          },
+        currentRound: {
+            id:1, mission_id:1, leader_id:8, round_num:1
+        }
+        
 
 }
 
