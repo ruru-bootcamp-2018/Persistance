@@ -1,12 +1,11 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
+import request from '../../utils/api'
+import {connect} from 'react-redux'
 
 class NewGameForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      playerNumber: 5,
       gameName: ""
     }
     this.updateDetails = this.updateDetails.bind(this)
@@ -14,31 +13,38 @@ class NewGameForm extends React.Component {
   }
 
   updateDetails(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value }) 
   }
 
+  // remove [0] on merge
   submit(e) {
     e.preventDefault()
-    let id = 9
-    document.location = `/#/game/${id}`
+    if (this.state.gameName) {                                            ///////////////////////////
+    request('post', './game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}}).then((res) => {
+     let id = res.body.id                                                 /////////////////////////////
+     const localSocket = this.props.socket
+     localSocket.emit('createGame', id)
+     //document.location = `/#/waiting/${id}`
+    })
+
+  }     
   }
 
   render() {
     return (
-      <div>
-        <form className="Login container" onSubmit={this.submit}>
-          <label className="is-size-5">Start A New Game:
-          <input className="input" type="text" name="gameName" onChange={this.updateDetails} />
+      <div className="columns">
+        <form className="column is-5 Login container" onSubmit={this.submit}>
+          <label className="is-size-4">Start A New Game:
+          <input style={{margin: '1vw'}} className="input is-rounded" type="text" name="gameName" onChange={this.updateDetails} />
           </label>
           <br />
-          <input className="input" type="submit" />
+          <input style={{margin: '1vw'}} className="button is-medium is-link is-outlined" type="submit" />
         </form>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => state
+const mapCateToProps = (state) => state
 
-
-export default connect(mapStateToProps)(NewGameForm)
+export default connect(mapCateToProps)(NewGameForm)

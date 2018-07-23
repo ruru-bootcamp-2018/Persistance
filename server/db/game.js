@@ -5,10 +5,10 @@ function getMissionParams(players_total, testDb){
   return db('missionParams').where({players_total})
 }
 
-function createGame(game_name, testDb){
+function createGame(game_name, host_id, testDb){
   const db = testDb || conn
   return db('games')
-    .insert({game_name, is_finished: false, in_progress: false, time_stamp: Date.now()})
+    .insert({game_name, host_id, is_finished: false, in_progress: false, time_stamp: Date.now()})
 }
 
 function startGame(game_id, testDb){
@@ -19,7 +19,7 @@ function startGame(game_id, testDb){
 
 function getGame(id, testDb){
   const db = testDb || conn
-  return db('games').where('id', id)
+  return db('games').where('id', id).first()
 }
 
 function getOpenGames(testDb){

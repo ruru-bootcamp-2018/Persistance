@@ -3,51 +3,64 @@ import { connect } from 'react-redux'
 import Mission from './Mission'
 import Player from './Player'
 import RoundCounter from './RoundCounter'
-import {getSingleGame, getPlayers, receiveGames} from '../../actions/games'
+import DataButton from './DataButton'
+import { getGames, getPlayers } from '../../actions/games'
+import { updateCurrentGame } from '../../actions/currentGame'
 
-class Game extends React.Component {
+class GameBoard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      users: [],
-      games: []
     }
   }
-  componentDidMount(){
-    this.props.dispatch(getSingleGame(1))
-    this.props.dispatch(getPlayers(1))
-  }
 
-  componentDidMount() {
-    this.props.dispatch(getSingleGame(1)) //needs to be dynamic
-  }
 
   render() {
-    const { users, game, missions, currentMission } = this.props
-    let top = Math.round(users.length / 2)
+    const { players, game, missions } = this.props.currentGame
+    const { mission_num } = this.props.currentGame.currentMission
+    const { round_num, leader_id } = this.props.currentGame.currentRound
+
+    const leader = players.find(player => player.id == leader_id)
+    // index to decide who gets rendered on top and who gets rendered on bottom
+    const halfPlayersIndex = Math.round(players.length / 2)
+
+    // this stuff fixed a problem with mission array only being as long as mission exists
+
+    const missionDisplay = Array(5).fill(0).map((x, i) => {
+      return missions[i] ? missions[i] : {outcome: null}
+    })
 
     return (
       <div className="gameBoard">
         <div className="level">
-          {users.slice(0, top).map((player, i) => {
-            return <Player key={i} player={player} />
+          {players.slice(0, halfPlayersIndex).map((player, i) => {
+            return <Player key={i} player={player} leader={leader_id}/>
           })}
         </div>
-        <p className="is-size-4">Missions</p>
+        
+        <h1 className="is-size-3 has-text-black"><i className="fas fa-crown"></i>{`${leader.user_name} is the leader`}</h1>
+
+        <div className="background-image">
+        <p className="is-size-3 has-text-white">Missions</p>
         <div className="level missionDisplay">
-          {missions.map((mission, i) => {
-            return < Mission key={`i:${i}`} mission={mission} />
+          {missionDisplay.map((mission, i) => {
+            return <Mission key={i} mission={mission} number={i}  />
           })}
+
+        </div>
+        <p className="voteTrack is-size-3 has-text-white">Vote Track</p>
+        <div className="columns is-centered">
+                 {Array(5).fill(0).map((x, i) => {
+          return <RoundCounter number={i + 1} round_num={round_num}/>
+         })}
         </div>
 
-        <div>
-          <RoundCounter mission={currentMission}/>
-        </div>
-
+      </div>
+        <DataButton />
         <br />
         <div className="level">
-          {users.slice(top).map((player, i) => {
-            return <Player key={i} player={player} />
+          {players.slice(halfPlayersIndex).map((player, i) => {
+            return <Player key={i} player={player} leader={leader_id}/>
           })}
         </div>
       </div>
@@ -56,39 +69,6 @@ class Game extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-console.log(state)
-  return {
-    ...state,
-    users: [
-      { id: 3, user_name: "plaguemulch", display_name: "Plague", img: "https://is3-ssl.mzstatic.com/image/thumb/Purple111/v4/cd/7f/f0/cd7ff0df-cb1f-8d10-6c4a-9cde28f2c5a5/source/256x256bb.jpg" },
-      { id: 7, user_name: "dannash100", display_name: "Dannash100", img: "https://is3-ssl.mzstatic.com/image/thumb/Purple111/v4/cd/7f/f0/cd7ff0df-cb1f-8d10-6c4a-9cde28f2c5a5/source/256x256bb.jpg" },
-      { id: 9, user_name: "maddog", display_name: null, img: "https://is3-ssl.mzstatic.com/image/thumb/Purple111/v4/cd/7f/f0/cd7ff0df-cb1f-8d10-6c4a-9cde28f2c5a5/source/256x256bb.jpg" },
-      { id: 2, user_name: "rebduggins", display_name: "Rebdug", img: "https://is3-ssl.mzstatic.com/image/thumb/Purple111/v4/cd/7f/f0/cd7ff0df-cb1f-8d10-6c4a-9cde28f2c5a5/source/256x256bb.jpg" },
-      { id: 4, user_name: "clifford", display_name: "Cliffhanger", img: "https://is3-ssl.mzstatic.com/image/thumb/Purple111/v4/cd/7f/f0/cd7ff0df-cb1f-8d10-6c4a-9cde28f2c5a5/source/256x256bb.jpg" }
-    ],
-    game: { name: "cat", id: 8, in_progress: false, is_finished: false, player_num: 7 },
-    missions: [
+const mapStateToProps = state => state
 
-      { mission_number: 1, outcome: "goodies won" },
-      { mission_number: 2, outcome: "spies won" },
-      /*{mission_number: 1, game_id:8, id:3, outcome:null, rounds:[
-        {id:123, mission_id:256, leader_id:4, round_num:1, nominations:[]}
-      ]},*/
-      { mission_number: 3, outcome: null },
-      { mission_number: 4, outcome: null },
-      { mission_number: 5, outcome: null }
-    ],
-    currentMission: {
-      mission_number: 1,
-      game_id: 8,
-      id: 3,
-      outcome: null,
-      rounds: [
-        { id: 123, mission_id: 256, leader_id: 4, round_num: 1, nominations: [] }
-      ]
-    }
-  }
-}
-
-export default connect(mapStateToProps)(Game)
+export default connect(mapStateToProps)(GameBoard)

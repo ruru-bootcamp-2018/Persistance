@@ -1,5 +1,5 @@
 const db = require('./db/game')
-const currentGame = require('./currentGame')
+const {currentGame} = require('./currentGame')
 
 
 //assign Roles Functions
@@ -25,7 +25,7 @@ function howManySpies(num){
     case 10:
       return 4
     default:
-      return 2
+      return 1
   }
 }
 
@@ -37,51 +37,69 @@ function assignRandomSpy(roles){
 
 //new Mission functions
 function initMission(game_id){
-  db.newMission(game_id).then(ids => {
-    db.getMissions(game_id).then(missions => {
+  return db.newMission(game_id).then(ids => {
+    return db.getMissions(game_id).then(missions => {
+      let mission = missions[missions.length - 1] 
+      mission.rounds = []
+      mission.intentions = []
+      currentGame.missions.push(mission)
       currentGame.currentMission = {id: ids[0], mission_num: missions.length, approved: false}
-      console.log('Mission:', currentGame.currentMission)
-      initRound(game_id)
+      return initRound(game_id)
     })        
   }) 
 }
 
 //new Round functions
 function initRound(game_id){
-  db.getMissions(game_id).then(missions => {    
+ return db.getMissions(game_id).then(missions => {    
     const mission_id = missions[missions.length-1].id    
-    db.getAllRounds(game_id).then(allRounds => {
+   return db.getAllRounds(game_id).then(allRounds => {
       const rounds = allRounds.filter(round => round.mission_id == mission_id)
       const round_num = rounds.length > 0 ? rounds[rounds.length-1].round_num+1 : 1      
-      db.getRoles(game_id).then(roles => {        
+     return db.getRoles(game_id).then(roles => {        
         let lastLeader = roles.findIndex(role => ((allRounds.length > 0 ? allRounds[allRounds.length-1].leader_id : 0) == role.user_id))        
         const nextLeader = (lastLeader+1 > roles.length-1) ? 0 : lastLeader+1                
         const leader_id = (roles[nextLeader].user_id) || roles[0].user_id
-        db.newRound(mission_id, leader_id, round_num).then(ids => {          
-          db.getRound(ids[0]).then(round => {
+       return db.newRound(mission_id, leader_id, round_num).then(ids => {          
+         return db.getRound(ids[0]).then(round => {
             currentGame.currentRound = round
-            console.log('Round:', currentGame.currentRound)
+            currentGame.gameStage = "nominating"
+            console.log('nominate the team!!')
+            currentGame.missions[missions.length - 1].rounds.push({...round, nominations: [], votes: []})
           })
-                    
         })
       })      
     })
   })
 }
 
+function checkNominations(round_id) {
+  const missionParams = currentGame.missionParams[currentGame.currentMission.mission_num - 1]
+  return db.getNominations(round_id).then(nominations => {
+    if (nominations.length === missionParams.team_total) {
+      currentGame.gameStage = "voting"
+      console.log('vote on this team!!')
+    }
+  })
+}
+
 //check votes functions
 function checkVotes(round_id){
-  db.getVotes(round_id).then(votes => {
-    if (votes.length == currentGame.roles.length) {
+  const round_num = currentGame.currentRound.round_num
+  const mission_num = currentGame.currentMission.mission_num
+  return db.getVotes(round_id).then(votes => {
+    currentGame.missions[mission_num-1].rounds[round_num-1].votes = votes
+    if (votes.length == currentGame.players.length) {
       if (countVotes(votes)) {
         approveMission(currentGame.currentMission.id)
       }
       else {
         if (currentGame.currentRound.round_num < 5) {
-          initRound(currentGame.game.id)
           console.log('rejected')
+          return initRound(currentGame.game.id)
+          
         }
-        else missionFails()
+        else missionFails(currentGame.currentMission.id)
       }
     }
   })
@@ -99,16 +117,19 @@ function countVotes(votes){
 // mission functions
 function approveMission(){
   currentGame.currentMission.approved = true
+  currentGame.gameStage = "intentions"
   console.log('mission goes ahead')
+  console.log('place your intentions!!')
 }
 
 function checkIntentions(mission_id){
-  const mission = currentGame.currentMission
-  const {team_total, fails_needed} = currentGame.missionParams[mission.mission_num]  
-  db.getIntentions(mission_id).then(intentions => {
+  const mission_num = currentGame.currentMission.mission_num
+  const {team_total, fails_needed} = currentGame.missionParams[mission_num-1]  
+  return db.getIntentions(mission_id).then(intentions => {
+    currentGame.missions[mission_num-1].intentions = intentions
     if (intentions.length == team_total){
-      if (countIntentions(intentions, fails_needed)) missionSucceeds(mission_id)
-      else missionFails(mission_id)
+      if (countIntentions(intentions, fails_needed)) return missionSucceeds(mission_id)
+      else return missionFails(mission_id)
     }
   })
 }
@@ -122,15 +143,42 @@ function countIntentions(intentions, fails_needed){
 }
 
 function missionSucceeds(mission_id){
-  db.finishMission(mission_id, true)
-  initMission(currentGame.game.id)
-  console.log('SUCCESS')
+  const mission_num = currentGame.currentMission.mission_num
+  currentGame.missions[mission_num-1].outcome = true
+  return db.finishMission(mission_id, true).then(() => {
+    console.log('SUCCESS')
+    return isGameFinished(currentGame.game.id)    
+  })  
 }
 
 function missionFails(mission_id){
-  db.finishMission(mission_id, false)
-  initMission(currentGame.game.id)
-  console.log("FAILURE")
+  const mission_num = currentGame.currentMission.mission_num
+  currentGame.missions[mission_num-1].outcome = false
+  return db.finishMission(mission_id, false).then(() => {
+    console.log("FAILURE")
+    return isGameFinished(currentGame.game.id)    
+  })  
+}
+
+function isGameFinished(game_id){  
+  return db.getMissions(game_id).then(missions => {
+    const successes = missions.reduce((acc, mission) => {
+      if (mission.outcome) acc++
+      return acc
+    }, 0)
+    const fails = missions.length - successes
+    if (successes == 3) goodiesWin()
+    else if (fails == 3) spiesWin()
+    else return initMission(game_id)
+  })  
+}
+
+function goodiesWin(){
+  console.log('Goodies Win')
+}
+
+function spiesWin(){
+  console.log('Spies Win')
 }
 
 module.exports = {
@@ -138,5 +186,6 @@ module.exports = {
   initMission,
   initRound,
   checkVotes,
-  checkIntentions
+  checkIntentions,
+  checkNominations
 }

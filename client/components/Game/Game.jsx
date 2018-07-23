@@ -1,56 +1,46 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import GameBoard from './GameBoard'
-import ReadyButton from './ReadyButton'
+import Buttons from './Buttons'
 import StatusBar from './StatusBar'
+import ChatWindow from './ChatWindow'
+import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
 
+// ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
-//
 class Game extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
-
-    this.startGame = this.startGame.bind(this)
   }
 
+  componentDidMount() {
+    const gameId = this.props.match.params.id  //we are getting room id via params until redux holds room id correctly
+    let user_name = this.props.auth.user.user_name
+    let localSocket = this.props.socket
+    localSocket.emit('joinGame', gameId, user_name)
+    localSocket.on('receiveUpdateGame', (gameData) => {
+      const { dispatch } = this.props
+      dispatch(updateCurrentGame(gameData.currentGame))
+      // dispatch(updateCurrentMission(gameData.currentMission))
+      // dispatch(updateCurrentRound(gameData.currentRound))      
+      //dispatch(updateMissionParams(gameData.missionParams)) //can remove?
+    })
 
-  startGame() {
   }
 
-  endGame() {
-  }
 
   render() {
-    const { playerNumber } = this.props
-
-
-  }
-
-  render() {
-    const { playerNumber, host_id, user_id } = this.props
-
-    return (
-      <div>
-        <StatusBar />
-        {playerNumber >= 5 && user_id == host_id && <ReadyButton />}
-        <GameBoard />
-      </div>
+    return (<div>
+      <ChatWindow id={this.props.match.params.id} />
+      <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
+      <Buttons />
+      <GameBoard />
+    </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
 
-  id: 9,
-  playerNumber: 5,
-  in_progress: false,
-  is_finished: false,
-  host_id: 10,
-  user_id: 10
-
-})
-
+const mapStateToProps = (state) => state
 
 export default connect(mapStateToProps)(Game)

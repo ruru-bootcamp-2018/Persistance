@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import {startGame} from '../../actions/playerInputs'
 
-
-const ReadyButton = props => {
-    return <button>START GAME</button>
+const ReadyButton = props => {    
+    return <button onClick={() => startGame({game: props.currentGame.game})}style={{marginBottom: '0.5vw'}} className="button is-medium is-dark is-outlined">START GAME</button>
 }
 
-export default ReadyButton
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps)(ReadyButton)
