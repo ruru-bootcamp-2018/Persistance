@@ -12,4 +12,4 @@ server.listen(PORT, function () {
 
 })
 
-socket.listen(8000)
+socket.listen(PORT)

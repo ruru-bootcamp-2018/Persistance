@@ -1,6 +1,6 @@
 
 import io from 'socket.io-client'
-const socket = io('http://localhost:8000')
+const socket = io(window.location.href)
 
 export default function socketReducer (state = socket, action) {
   return state
