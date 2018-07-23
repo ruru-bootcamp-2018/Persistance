@@ -87,8 +87,8 @@ router.post('/start', (req, res) => {
 
 
 router.post('/nominate', (req, res) => {
-  //const game_id = req.body.game.id
   if (currentGame.gameStage !== 'nominating') return res.sendStatus(400)
+  const game_id = req.body.game.id
   const user_id = req.body.nomination.user.id
   const round_id = currentGame.currentRound.id
   const round_num = currentGame.currentRound.round_num
@@ -96,34 +96,51 @@ router.post('/nominate', (req, res) => {
   db.castNomination(round_id, user_id).then(() => {
     db.getNominations(round_id).then(nominations => {
       console.log('nomination recieved')
-      checkNominations(round_id)
-      currentGame.missions[mission_num-1].rounds[round_num-1].nominations = nominations
-      res.json(nominations)
+      checkNominations(round_id).then(() => {
+        currentGame.missions[mission_num-1].rounds[round_num-1].nominations = nominations
+        const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+        const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+        socket.emit('updateGameRoom', gameData, game_id)
+        res.json(nominations)
+      })
+      
     })
   })   
 })
 
 router.post('/vote', (req, res) => {
   if (currentGame.gameStage !== 'voting') return res.sendStatus(400)
+  const game_id = req.body.game.id
   const user_id = req.body.user.id
   const vote = req.body.vote
   const round_id = currentGame.currentRound.id
   db.castVote(round_id, user_id, vote).then(() => {
     console.log('vote recieved')
-    checkVotes(round_id)
-    res.sendStatus(200)
+    checkVotes(round_id).then(() => {
+      const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+      const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+      socket.emit('updateGameRoom', gameData, game_id)
+      res.sendStatus(200)
+    })
+    
   })
 })
 
 router.post('/intention', (req, res) => {
   if (currentGame.gameStage !== 'intentions') return res.sendStatus(400)
+  const game_id = req.body.game.id
   const user_id = req.body.user.id
   const intention = req.body.intention
   const mission_id = currentGame.currentMission.id
   db.castIntention(mission_id, user_id, intention).then(() => {
     console.log('intention recieved')
-    checkIntentions(mission_id)
-    res.sendStatus(200)
+    checkIntentions(mission_id).then(() => {
+      const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+      const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+      socket.emit('updateGameRoom', gameData, game_id)
+      res.sendStatus(200)
+    })
+    
   })
 })
 

@@ -75,7 +75,7 @@ function initRound(game_id){
 
 function checkNominations(round_id) {
   const missionParams = currentGame.missionParams[currentGame.currentMission.mission_num - 1]
-  db.getNominations(round_id).then(nominations => {
+  return db.getNominations(round_id).then(nominations => {
     if (nominations.length === missionParams.team_total) {
       currentGame.gameStage = "voting"
       console.log('vote on this team!!')
@@ -87,7 +87,7 @@ function checkNominations(round_id) {
 function checkVotes(round_id){
   const round_num = currentGame.currentRound.round_num
   const mission_num = currentGame.currentMission.mission_num
-  db.getVotes(round_id).then(votes => {
+  return db.getVotes(round_id).then(votes => {
     currentGame.missions[mission_num-1].rounds[round_num-1].votes = votes
     if (votes.length == currentGame.players.length) {
       if (countVotes(votes)) {
@@ -124,11 +124,11 @@ function approveMission(){
 function checkIntentions(mission_id){
   const mission_num = currentGame.currentMission.mission_num
   const {team_total, fails_needed} = currentGame.missionParams[mission_num-1]  
-  db.getIntentions(mission_id).then(intentions => {
+  return db.getIntentions(mission_id).then(intentions => {
     currentGame.missions[mission_num-1].intentions = intentions
     if (intentions.length == team_total){
-      if (countIntentions(intentions, fails_needed)) missionSucceeds(mission_id)
-      else missionFails(mission_id)
+      if (countIntentions(intentions, fails_needed)) return missionSucceeds(mission_id)
+      else return missionFails(mission_id)
     }
   })
 }
@@ -144,23 +144,23 @@ function countIntentions(intentions, fails_needed){
 function missionSucceeds(mission_id){
   const mission_num = currentGame.currentMission.mission_num
   currentGame.missions[mission_num-1].outcome = true
-  db.finishMission(mission_id, true).then(() => {
-    isGameFinished(currentGame.game.id)
+  return db.finishMission(mission_id, true).then(() => {
     console.log('SUCCESS')
+    return isGameFinished(currentGame.game.id)    
   })  
 }
 
 function missionFails(mission_id){
   const mission_num = currentGame.currentMission.mission_num
   currentGame.missions[mission_num-1].outcome = false
-  db.finishMission(mission_id, false).then(() => {
-    isGameFinished(currentGame.game.id)    
+  return db.finishMission(mission_id, false).then(() => {
     console.log("FAILURE")
+    return isGameFinished(currentGame.game.id)    
   })  
 }
 
 function isGameFinished(game_id){  
-  db.getMissions(game_id).then(missions => {
+  return db.getMissions(game_id).then(missions => {
     const successes = missions.reduce((acc, mission) => {
       if (mission.outcome) acc++
       return acc
