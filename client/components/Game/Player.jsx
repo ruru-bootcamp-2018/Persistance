@@ -36,7 +36,7 @@ class Player extends React.Component {
   }
 
     render() {
-        const id = 1 // this needs to be auth user id
+        const id = 6 // this needs to be auth user id
         const currentUser = this.props.currentGame.players.find(player => player.id == id)
         const userIsSpy = currentUser.role == 'spy'
         const { display_name, user_name, img } = this.props.player
@@ -44,7 +44,7 @@ class Player extends React.Component {
         const isNominating = (this.props.currentRound.leader_id == 1 && this.props.currentGame.gameStage == 'nominating') 
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
-        checkNewRound() 
+        this.checkNewRound() 
 
         return (
             <Tooltip

@@ -2,8 +2,8 @@ const db = require('../db/game')
 const {assignRoles, initMission, checkVotes, checkIntentions, checkNominations} = require('../gameFunctions')
 var router = require('express').Router()
 
-const io = require('socket.io-client')
-const socket = io('http://localhost:8000')
+const clientIo = require('socket.io-client')
+const socket = clientIo('http://localhost:8000')
 
 
 const {currentGame, initalGame} = require('../currentGame')
@@ -30,8 +30,7 @@ router.post('/new', (req, res) => {
   currentGame.missions = []
   db.createGame(game_name, user.id).then(ids => {
     db.getGame(ids[0]).then(game => {
-      socket.emit('getGames', () => {
-      })
+      socket.emit('getGames')
       console.log('new game')
       currentGame.game = game      
       res.json(game)
@@ -50,7 +49,7 @@ router.post('/join', (req, res) => {
       currentGame.players = playersList
       const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
       const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
-      socket.to(game_id).emit('updateWaitingRoom', gameData)
+      socket.emit('updateWaitingRoom', gameData, game_id)
       res.json(playersList)
     })
     
@@ -59,23 +58,25 @@ router.post('/join', (req, res) => {
 
 router.post('/start', (req, res) => {
   if (currentGame.gameStage !== 'waiting') return res.sendStatus(400)
-  if (currentGame.players.length < 5) return res.sendStatus(400)
+  if (currentGame.players.length < 1) return res.sendStatus(400)   // change back to five
   const game_id = req.body.game.id   
-  db.getRoles(game_id).then(roles => {
-    if (roles.length < 5) return res.sendStatus(400)      
+  db.getRoles(game_id).then(roles => {    
     assignRoles(roles)    
     db.delRoles(game_id).then(() => {
       db.setRoles(roles).then(() => {
         db.startGame(game_id).then(() => {
           currentGame.game.in_progress = true
-          db.getPlayers(game_id).then(players => {             
-            currentGame.players = players
-            db.getMissionParams(players.length).then(missionParams => {
+          db.getPlayers(game_id).then(playersList => {             
+            currentGame.players = playersList
+            db.getMissionParams(playersList.length).then(missionParams => {
               currentGame.missionParams = missionParams
-              initMission(game_id)
-              console.log('game started')
-              //emit game from io???
-              res.json(players)
+              initMission(game_id).then(() => {
+                console.log('game started')
+                const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+                const gameData = {currentGame: {game, players, gameStage, missions}, currentRound, currentMission, missionParams}
+                socket.emit('updateWaitingRoom', gameData, game_id)
+                res.json(playersList)
+              })
             })           
           })
         })        

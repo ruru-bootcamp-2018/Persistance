@@ -35,6 +35,10 @@ module.exports = app => {
             io.to(gameID).emit('chat-up', msg) //This is Game specific
         })
 
+        socket.on('updateWaitingRoom', (gameData, gameId) => {
+            io.to(gameId).emit('receiveUpdateWaiting', gameData)
+        })
+
         socket.on('getGames', () => {
             db.getOpenGames().then(games => {
                 io.emit('receiveGames', games) 

@@ -37,31 +37,31 @@ function assignRandomSpy(roles){
 
 //new Mission functions
 function initMission(game_id){
-  db.newMission(game_id).then(ids => {
-    db.getMissions(game_id).then(missions => {
+  return db.newMission(game_id).then(ids => {
+    return db.getMissions(game_id).then(missions => {
       let mission = missions[missions.length - 1] 
       mission.rounds = []
       mission.intentions = []
       currentGame.missions.push(mission)
       currentGame.currentMission = {id: ids[0], mission_num: missions.length, approved: false}
-      initRound(game_id)
+      return initRound(game_id)
     })        
   }) 
 }
 
 //new Round functions
 function initRound(game_id){
-  db.getMissions(game_id).then(missions => {    
+ return db.getMissions(game_id).then(missions => {    
     const mission_id = missions[missions.length-1].id    
-    db.getAllRounds(game_id).then(allRounds => {
+   return db.getAllRounds(game_id).then(allRounds => {
       const rounds = allRounds.filter(round => round.mission_id == mission_id)
       const round_num = rounds.length > 0 ? rounds[rounds.length-1].round_num+1 : 1      
-      db.getRoles(game_id).then(roles => {        
+     return db.getRoles(game_id).then(roles => {        
         let lastLeader = roles.findIndex(role => ((allRounds.length > 0 ? allRounds[allRounds.length-1].leader_id : 0) == role.user_id))        
         const nextLeader = (lastLeader+1 > roles.length-1) ? 0 : lastLeader+1                
         const leader_id = (roles[nextLeader].user_id) || roles[0].user_id
-        db.newRound(mission_id, leader_id, round_num).then(ids => {          
-          db.getRound(ids[0]).then(round => {
+       return db.newRound(mission_id, leader_id, round_num).then(ids => {          
+         return db.getRound(ids[0]).then(round => {
             currentGame.currentRound = round
             currentGame.gameStage = "nominating"
             console.log('nominate the team!!')
