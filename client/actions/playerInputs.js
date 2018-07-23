@@ -1,7 +1,7 @@
 import request from '../utils/api'
 
 export function sendNomination(data){
-  request('post', 'game/nominate', data)
+  return request('post', 'game/nominate', data)
     .then(() => {
       console.log('Nomed')
     })
@@ -21,7 +21,7 @@ export function sendVote(data){
 }
 
 export function joinGame(data){
-  request('post', 'game/join', data)
+  return request('post', 'game/join', data)
     .then(() => {
       console.log('joined')
     })
@@ -41,7 +41,7 @@ export function sendIntention(data){
 }
 
 export function startGame(data){
-  request('post', 'game/start', data)
+  return request('post', 'game/start', data)
     .then(() => {
       console.log('started')
     })

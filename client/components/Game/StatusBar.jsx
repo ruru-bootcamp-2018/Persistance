@@ -16,7 +16,7 @@ const StatusBar = props =>  {
         displayText = "Team is being nominated"
         break
         case "intentions":
-        displayText = "Intentions are being case for the mission"
+        displayText = "Intentions are being cast for the mission"
         break
         default:
         displayText = "404 this is not the page you were looking for - game stage not correctly defined"
