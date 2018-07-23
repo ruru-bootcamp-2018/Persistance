@@ -99,7 +99,7 @@ function checkVotes(round_id){
           return initRound(currentGame.game.id)
           
         }
-        else missionFails()
+        else missionFails(currentGame.currentMission.id)
       }
     }
   })
