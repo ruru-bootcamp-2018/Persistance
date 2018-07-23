@@ -12,22 +12,27 @@ class ChoiceButton extends React.Component {
   }
 
   handleClick(e) {
-    if (this.state.hasVoted) return
+    //if (this.state.hasVoted) return
     //do somthing
-    const user = {id: 1} //needs to be from auth
+    const user = {id: this.props.auth.user.id} //needs to be from auth
     const vote = {user, game: this.props.currentGame.game, vote: (e.currentTarget.value == 'true')}
     
-    sendVote(vote)
+    sendVote(vote).then()
     this.setState({hasVoted: true})
+  }
 
-}
-render() {
-  const {hasVoted} = this.state.hasVoted
-    return (
-    <div>
-     <button disabled={hasVoted} onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-     <button disabled={hasVoted} onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
-     </div>
+  render() {
+
+    return this.state.hasVoted ? (
+      <div>
+      <button disabled onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+      <button disabled onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+      </div>
+    ) : (
+      <div>
+      <button onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+      <button onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+      </div>
     )
   }
 }
