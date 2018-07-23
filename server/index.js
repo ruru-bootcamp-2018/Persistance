@@ -4,6 +4,7 @@ var server = require('./server')
 var PORT = process.env.PORT || 3000
 const socket = require('./sockets')(server)
 
+server.set('socket', socket)
 // const beNice = process.env.NODE_ENV == 'production' ? null : require('../../terminal-sweetness')
 
 server.listen(PORT, function () {
