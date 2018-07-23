@@ -168,7 +168,7 @@ function isGameFinished(game_id){
     const fails = missions.length - successes
     if (successes == 3) goodiesWin()
     else if (fails == 3) spiesWin()
-    else initMission(game_id)
+    else return initMission(game_id)
   })  
 }
 

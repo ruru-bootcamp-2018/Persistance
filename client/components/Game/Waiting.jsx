@@ -57,7 +57,7 @@ class Waiting extends React.Component {
           })}
         </div>
 
-      </div>
+      
 
       {(this.props.currentGame.game.host_id == this.props.auth.user.id) && <ReadyButton />}
       <DataButtonW />
