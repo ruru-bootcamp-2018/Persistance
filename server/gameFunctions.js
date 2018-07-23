@@ -25,7 +25,7 @@ function howManySpies(num){
     case 10:
       return 4
     default:
-      return 0
+      return 1
   }
 }
 
