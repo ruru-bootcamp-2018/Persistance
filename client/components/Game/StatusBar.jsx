@@ -13,7 +13,14 @@ const StatusBar = props =>  {
         displayText = "It's time to vote on the nominated team"
         break
         case "nominating":
-        displayText = "Team is being nominated"
+            switch(props.leader){
+                case true:
+                displayText =  "Nominate the Team"
+                break
+                case false:
+                displayText = "Team is being nominated"
+                break
+            }        
         break
         case "intentions":
         displayText = "Intentions are being cast for the mission"

@@ -17,7 +17,7 @@ class ChoiceButton extends React.Component {
     const user = {id: this.props.auth.user.id} //needs to be from auth
     const vote = {user, game: this.props.currentGame.game, vote: (e.currentTarget.value == 'true')}
     
-    sendVote(vote).then(() => console.log('then'))
+    sendVote(vote).then()
     this.setState({hasVoted: true})
   }
 

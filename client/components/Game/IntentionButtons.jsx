@@ -15,8 +15,7 @@ class IntentionButtons extends React.Component {
     if (this.state.hasCastIntention) return
     //do somthing
     const user = {id: this.props.auth.user.id} //needs to be from auth
-    const intention = {user, game: this.props.currentGame.game, intention: (e.currentTarget.value == 'pass')}
-    console.log(intention)
+    const intention = {user, game: this.props.currentGame.game, intention: (e.currentTarget.value == 'pass')}    
     sendIntention(intention)
     this.setState({hasCastIntention: true})
 }

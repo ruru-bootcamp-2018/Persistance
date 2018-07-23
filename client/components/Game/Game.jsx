@@ -32,7 +32,7 @@ class Game extends React.Component {
   render() {
     return (<div>
       <ChatWindow id={this.props.match.params.id} />
-      <StatusBar />
+      <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
       <Buttons />
       <GameBoard />
     </div>

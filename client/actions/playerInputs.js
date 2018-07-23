@@ -3,7 +3,7 @@ import request from '../utils/api'
 export function sendNomination(data){
   return request('post', 'game/nominate', data)
     .then(() => {
-      console.log('Nomed')
+      
     })
     .catch(err => {
       console.log('Error', err.message)
@@ -13,7 +13,7 @@ export function sendNomination(data){
 export function sendVote(data){
   return request('post', 'game/vote', data)
     .then(() => {
-      console.log('voted')
+      
     })
     .catch(err => {
       console.log('Error', err.message)
@@ -23,7 +23,7 @@ export function sendVote(data){
 export function joinGame(data){
   return request('post', 'game/join', data)
     .then(() => {
-      console.log('joined')
+      
     })
     .catch(err => {
       console.log('Error', err.message)
@@ -33,7 +33,7 @@ export function joinGame(data){
 export function sendIntention(data){
   return request('post', 'game/intention', data)
     .then(() => {
-      console.log('intented')
+     
     })
     .catch(err => {
       console.log('Error', err.message)
@@ -43,7 +43,7 @@ export function sendIntention(data){
 export function startGame(data){
   return request('post', 'game/start', data)
     .then(() => {
-      console.log('started')
+      
     })
     .catch(err => {
       console.log('Error', err.message)
