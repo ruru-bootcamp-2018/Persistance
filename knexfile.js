@@ -29,7 +29,7 @@ module.exports = {
       tableName: 'knex_migrations'
     },
     seeds: {
-      directory: './productions/seeds'
+      directory: './production/seeds'
     }
   }
 
