@@ -45,14 +45,16 @@ class Player extends React.Component {
         const { display_name, user_name, img } = this.props.player 
         const isLeader = this.props.leader == this.props.player.id       
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
+        const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
-        console.log(isLeader)
+        console.log(isHammer, this.props.hammer)
         this.checkNewRound()
 
         return (
             <div>
-                {isLeader && <img className="crown" src="crown.png"/>}
+                {isLeader && <img className="statusIcon" src="crown.png"/>}
+                {isHammer && <img className="statusIcon" src="hammer.png"/>}
                 <Tooltip
                     // options
                     position="bottom"
