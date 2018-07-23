@@ -19,6 +19,7 @@ class Player extends React.Component {
         roundId: 0
     }
     this.handleClick = this.handleClick.bind(this)
+    this.checkNewRound = this.checkNewRound.bind(this)
   }
 
   handleClick() {
@@ -30,8 +31,12 @@ class Player extends React.Component {
       this.setState({isNominated: true, roundId: this.props.currentRound.id})
   }
 
+  checkNewRound() {
+    if (this.state.isNominated && this.props.currentRound.id != this.state.roundId) this.setState({isNominated: false})
+  }
+
     render() {
-        const id = 1 // this needs to be auth user id
+        const id = 6 // this needs to be auth user id
         const currentUser = this.props.currentGame.players.find(player => player.id == id)
         const userIsSpy = currentUser.role == 'spy'
         const { display_name, user_name, img } = this.props.player
@@ -39,7 +44,7 @@ class Player extends React.Component {
         const isNominating = (this.props.currentRound.leader_id == 1 && this.props.currentGame.gameStage == 'nominating') 
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
-        if (this.state.isNominated && this.props.currentRound.id != this.state.roundId) this.setState({isNominated: false}) 
+        this.checkNewRound() 
 
         return (
             <Tooltip
