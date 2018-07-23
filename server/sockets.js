@@ -1,3 +1,5 @@
+const db = require('./db/game')
+
 module.exports = app => {
     const http = require('http').Server(app)
     var io = require('socket.io')(http)
@@ -22,7 +24,8 @@ module.exports = app => {
         socket.on('joinGame', (id, user_name) => {
             socket.join(id) //socket joins existing Game
             console.log("you have joined room" + id)
-            io.to(id).emit('joinGame', id, user_name) //tell client about the joined Game
+            io.to(id).emit('joinGame', id, user_name)
+            //tell client about the joined Game
         })
         // tis is copied form socket-voting
 
@@ -30,6 +33,21 @@ module.exports = app => {
             console.log(msg)
             //io.emit('chat-up', msg) //This is global
             io.to(gameID).emit('chat-up', msg) //This is Game specific
+        })
+
+        socket.on('updateWaitingRoom', (gameData, gameId) => {
+            io.to(gameId).emit('receiveUpdateWaiting', gameData)
+        })
+
+        socket.on('updateGameRoom', (gameData, gameId) => {
+            io.to(gameId).emit('receiveUpdateGame', gameData)
+        })
+
+
+        socket.on('getGames', () => {
+            db.getOpenGames().then(games => {
+                io.emit('receiveGames', games) 
+            })
         })
 
     });

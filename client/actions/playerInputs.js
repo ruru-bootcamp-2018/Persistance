@@ -20,6 +20,16 @@ export function sendVote(data){
     })
 }
 
+export function joinGame(data){
+  request('post', 'game/join', data)
+    .then(() => {
+      console.log('joined')
+    })
+    .catch(err => {
+      console.log('Error', err.message)
+    })
+}
+
 export function sendIntention(data){
   return request('post', 'game/intention', data)
     .then(() => {

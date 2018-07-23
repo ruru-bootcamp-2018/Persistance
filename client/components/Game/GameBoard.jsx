@@ -14,6 +14,7 @@ class Game extends React.Component {
     }
   }
 
+
   render() {
     const { players, game, missions } = this.props.currentGame
     const { mission_num } = this.props.currentMission
