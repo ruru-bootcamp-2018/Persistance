@@ -13,32 +13,35 @@ class NewGameForm extends React.Component {
   }
 
   updateDetails(e) {
-    this.setState({ [e.target.name]: e.target.value }) 
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   // remove [0] on merge
   submit(e) {
     e.preventDefault()
+    document.forms['newGame'].reset()
     if (this.state.gameName) {                                            ///////////////////////////
-    request('post', './game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}}).then((res) => {
-     let id = res.body.id                                                 /////////////////////////////
-     const localSocket = this.props.socket
-     localSocket.emit('createGame', id)
-     //document.location = `/#/waiting/${id}`
-    })
+    request('post', 'game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}})
+      .then((res) => {
+        let id = res.body.id                                                 /////////////////////////////
+        const localSocket = this.props.socket
+        localSocket.emit('createGame', id)
+        localSocket.emit('getGames')
+        //document.location = `/#/waiting/${id}`
+      })
 
-  }     
+  }
   }
 
   render() {
     return (
       <div className="columns">
-        <form className="column is-5 Login container" onSubmit={this.submit}>
+        <form className="column is-5 Login container" name="newGame">
           <label className="is-size-4">Start A New Game:
           <input style={{margin: '1vw'}} className="input is-rounded" type="text" name="gameName" onChange={this.updateDetails} />
           </label>
           <br />
-          <input style={{margin: '1vw'}} className="button is-medium is-link is-outlined" type="submit" />
+          <button style={{margin: '1vw'}} className="button is-medium is-link is-outlined raise" onClick={this.submit}>submit</button>
         </form>
       </div>
     )

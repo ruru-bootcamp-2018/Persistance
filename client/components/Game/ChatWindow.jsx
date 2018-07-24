@@ -5,9 +5,7 @@ class ChatWindow extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            msgs: [
-                "Game: This is the first chat message",
-            ],
+            msgs: [],
             chatMessage:"",
             localSocket: this.props.socket
         }
@@ -34,7 +32,6 @@ class ChatWindow extends React.Component {
         prevMsgs.unshift(newMsg)
         this.setState({
             msgs:prevMsgs,
-            chatMessage:""
         })
     }
 
@@ -49,6 +46,7 @@ class ChatWindow extends React.Component {
         //this.addMsgToChat(`From Client: ${newMsg}`)
         this.state.localSocket.emit('chat-down', roomID, newMsg)
         }
+        this.setState({chatMessage:""})
     }
 
     updateDetails(e){
@@ -58,15 +56,17 @@ class ChatWindow extends React.Component {
     }
 
     render() {
+
         //console.log("game id is", this.props.id)
-        const styleObj = { overflow: 'scroll', height: '150px', width:'100%' }
+        const styleObj = { overflow: 'auto', height: '150px', width:'100%' }
+
         return (
-            <form className="chatWindow" onSubmit={this.submit.bind(this)}>
+            <form className="chatWindow" onSubmit={() => this.submit.bind(this)}>
                 <p> ChatWindow</p>
                 <div className="chatDisplay" style={styleObj} >
-                    {this.state.msgs.map((msg) => <p className="has-text-left"> {msg} </p>)}
+                    {this.state.msgs.map((msg, i) => <p key={i} className="has-text-left"> {msg} </p>)}
                 </div>
-                <input className="input is-small column is-6 is-offset-3" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
+                <input className="input is-small column is-6 is-offset-3" type="text" onChange={() => this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
                 <input className="button is-info is-outlined is-small" type="submit" value="Send a message!" />
 
             </form>
