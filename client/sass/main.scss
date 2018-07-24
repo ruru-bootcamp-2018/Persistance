@@ -166,6 +166,8 @@
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
 }
+
+
 //=== Set button colors
 // If you wonder why use Sass vars or CSS custom properties...
   // Make a map with the class names and matching colors
@@ -221,4 +223,27 @@ code {
   color: #e4cb58;
   font: inherit;
 }
+
+.voteCheck {
+  width: 30px;
+}
+
+.voteCross {
+  width: 30px;
+}
+
+.innerShadow {
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+}
+
+.intentionAccept {
+  width: 35px;
+}
+
+.intentionReject {
+  width: 30px;
+}
+
 
