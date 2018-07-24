@@ -1,7 +1,6 @@
 const db = require('./db/game')
 
-module.exports = app => {
-    const http = require('http').Server(app)
+module.exports = http => {
     var io = require('socket.io')(http)
 
     io.on('connection', (socket) => {
@@ -10,7 +9,7 @@ module.exports = app => {
         */
         console.log(`A user connected at ${new Date}`)
 
-        //Then it puts all the listeners on that socket. 
+        //Then it puts all the listeners on that socket.
         socket.on('disconnect', () => {
             console.log(`A user disconnected at ${new Date}`)
         })
@@ -46,7 +45,7 @@ module.exports = app => {
 
         socket.on('getGames', () => {
             db.getOpenGames().then(games => {
-                io.emit('receiveGames', games) 
+                io.emit('receiveGames', games)
             })
         })
 

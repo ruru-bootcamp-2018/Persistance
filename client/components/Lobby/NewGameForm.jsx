@@ -13,21 +13,23 @@ class NewGameForm extends React.Component {
   }
 
   updateDetails(e) {
-    this.setState({ [e.target.name]: e.target.value }) 
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   // remove [0] on merge
   submit(e) {
     e.preventDefault()
     if (this.state.gameName) {                                            ///////////////////////////
-    request('post', './game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}}).then((res) => {
-     let id = res.body.id                                                 /////////////////////////////
-     const localSocket = this.props.socket
-     localSocket.emit('createGame', id)
-     //document.location = `/#/waiting/${id}`
-    })
+    request('post', 'game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}})
+      .then((res) => {
+        let id = res.body.id                                                 /////////////////////////////
+        const localSocket = this.props.socket
+        localSocket.emit('createGame', id)
+        localSocket.emit('getGames')
+        //document.location = `/#/waiting/${id}`
+      })
 
-  }     
+  }
   }
 
   render() {
