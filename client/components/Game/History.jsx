@@ -19,6 +19,8 @@ class History extends React.Component {
 
     console.log(game.currentGame.players)
 
+    console.log(game.currentGame.missions[0])
+
     return (
       <div>
         <table className="history table">
@@ -62,7 +64,17 @@ class History extends React.Component {
               game.currentGame.missions.map((mission, i) => {
                 return (<tr key={i}>
                   <td>{i + 1}</td>
-
+                  <td>*</td>
+                  <td>*</td>
+                  <td>*</td>
+                  <td>*</td>
+                  <td>*</td>
+                  <td>*</td>
+                  <td>*</td>
+                  <td>*</td>
+                  <td>{mission.intentions.map( (intent, i) => {
+                    return (<span key={i}>{intent.intention ? "pass, " : "fail, " }</span>)
+                  })}</td>
                 </tr>)
               })
             }
@@ -72,24 +84,47 @@ class History extends React.Component {
         </table>
         some text
       <table>
+          {/*//////////////this is a temp header/////////////////////////////////////*/}
+
+          <thead>
+            <tr>
+              <th>
+                Round:
+            </th>
+              <th>
+                Leader:
+            </th>
+              <th>
+                Team:
+            </th>
+
+              <th colSpan={game.currentGame.players.length} className="has-text-centered">
+                Votes:
+            </th>
+
+
+              <th>
+                Result
+            </th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th colSpan="3"></th>
+              {
+                game.currentGame.players.map((player, i) => {
+                  return <th key={i}>{player.display_name || player.user_name}:</th>
+                })
+              }
+            </tr>
+          </thead>
+
+
+
+          {/*//////////////end of temp header ////////////////////////*/}
           <tbody>
             {game.currentGame.missions[0].rounds.map((round, i) => {
-              return (
-                <React.Fragment>
-                <tr key={i}>
-                  <td>{round.round_num}</td>
-                  <td>{getName(round.leader_id)}</td>
-                  <td>
-                    {round.nominations.map((nom) => {
-                      return getName(nom.user_id) + ', '
-                    })}
-                  </td>
-                </tr>
-                <tr>
-                displayRound(round)
-                </tr>
-                </React.Fragment>
-              )
+              return displayRound(round, i)
             })}
           </tbody>
         </table>
@@ -100,7 +135,7 @@ class History extends React.Component {
 
 }
 
-function displayRound(round) {
+function displayRound(round, i) {
   return (
     <tr key={i}>
       <td>{round.round_num}</td>
@@ -110,6 +145,14 @@ function displayRound(round) {
           return getName(nom.user_id) + ', '
         })}
       </td>
+      {/*here we map over the votes*/}
+      {
+        round.votes.map((vote, i) => {
+          return (<td key={i}>{vote.vote ? <div>yes</div> : <div>no</div>}</td>);
+        })
+
+      }
+      {/*end of vote map*/}
     </tr>
   )
 }
