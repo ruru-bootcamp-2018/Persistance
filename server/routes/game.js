@@ -26,6 +26,7 @@ router.post('/new', (req, res) => {
   Object.assign(currentGame, initalGame)
   currentGame.missions = []
   db.createGame(game_name, user.id).then(ids => {
+    console.log({ids});
     db.getGame(ids[0]).then(game => {
       console.log('new game', game)
       currentGame.game = game

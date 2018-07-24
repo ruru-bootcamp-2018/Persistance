@@ -15,6 +15,7 @@ module.exports = http => {
         })
         // this is copied from socket-voting
         socket.on('createGame', (id)=> {
+          console.log({id}, 'socket createGame');
             socket.join(id) //join a Game
             //io.emit('addGame', game) //add created Game to all connected users
             io.to(id).emit('joinGame', id) //new user will join created Game on client side
@@ -45,6 +46,7 @@ module.exports = http => {
 
         socket.on('getGames', () => {
             db.getOpenGames().then(games => {
+              console.log({games});
                 io.emit('receiveGames', games)
             })
         })
