@@ -5,12 +5,18 @@ import Buttons from './Buttons'
 import StatusBar from './StatusBar'
 import ChatWindow from './ChatWindow'
 import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
+import Votes from './Votes'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
 class Game extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      stage: '',
+      displayVotes: false
+    }
+    this.showVotes = this.showVotes.bind(this)
   }
 
   componentDidMount() {
@@ -28,13 +34,31 @@ class Game extends React.Component {
 
   }
 
+  componentWillReceiveProps(newProps){
+    if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.showVotes()
+    this.setState({stage: newProps.currentGame.gameStage})
+  }
+
+  hideVotes() {
+    this.setState({showVotes: false})
+  }
+
+
+  showVotes(){
+    this.setState({showVotes: true})
+    // setTimeout(() => {
+    //   this.setState({showVotes: false})
+    // }, 5000)
+  }
 
   render() {
+
     return (<div>
       <ChatWindow id={this.props.match.params.id} />
       <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
       <Buttons />
       <GameBoard />
+      {this.state.showVotes && <Votes hideVotes={this.hideVotes.bind(this)}/>}
     </div>
     )
   }
