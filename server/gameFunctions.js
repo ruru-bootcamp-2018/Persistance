@@ -167,17 +167,19 @@ function isGameFinished(game_id){
       return acc
     }, 0)
     const fails = missions.length - successes
-    if (successes == 3) goodiesWin()
-    else if (fails == 3) spiesWin()
+    if (successes == 3) return goodiesWin()
+    else if (fails == 3) return spiesWin()
     else return initMission(game_id)
   })  
 }
 
 function goodiesWin(){
+  currentGame.gameStage = 'goodWin'
   console.log('Goodies Win')
 }
 
 function spiesWin(){
+  currentGame.gameStage = 'spyWin'
   console.log('Spies Win')
 }
 
