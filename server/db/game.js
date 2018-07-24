@@ -30,7 +30,7 @@ function getOpenGames(testDb){
 function roleEntry(game_id, user_id, testDb){
   const db = testDb || conn
   return db('roles')
-    .insert({game_id, user_id}, 'id')
+    .insert({game_id, user_id}, 'user_id')
 }
 
 function getRoles(game_id, testDb){
@@ -102,7 +102,7 @@ function getRound(round_id, testDb){
 function castNomination(round_id, user_id, testDb){
   const db = testDb || conn
   return db('nominations')
-    .insert({round_id, user_id}, 'id')
+    .insert({round_id, user_id}, 'user_id')
 }
 
 function getNominations(round_id, testDb){
@@ -113,7 +113,7 @@ function getNominations(round_id, testDb){
 function castVote(round_id, user_id, vote, testDb){
   const db = testDb || conn
   return db('votes')
-    .insert({round_id, user_id, vote}, 'id')
+    .insert({round_id, user_id, vote}, 'user_id')
 }
 
 function getVotes(round_id, testDb){
@@ -124,7 +124,7 @@ function getVotes(round_id, testDb){
 function castIntention(mission_id, user_id, intention, testDb){
   const db = testDb || conn
   return db('intentions')
-    .insert({mission_id, user_id, intention}, 'id')
+    .insert({mission_id, user_id, intention}, 'user_id')
 }
 
 function getIntentions(mission_id, testDb){
