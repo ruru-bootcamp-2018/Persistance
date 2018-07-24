@@ -12,13 +12,18 @@ class ChoiceButton extends React.Component {
   }
 
   handleClick(e) {
-    //if (this.state.hasVoted) return
-    //do somthing
     const user = {id: this.props.auth.user.id} //needs to be from auth
     const vote = {user, game: this.props.currentGame.game, vote: (e.currentTarget.value == 'true')}
-    
-    sendVote(vote).then()
-    this.setState({hasVoted: true})
+
+    sendVote(vote)
+      .then(res => {
+        const localSocket = this.props.socket
+        const gameData = res.body
+        const game_id = vote.game.id
+
+        localSocket.emit('updateGameRoom', gameData, game_id)
+        this.setState({hasVoted: true})
+      })
   }
 
   render() {

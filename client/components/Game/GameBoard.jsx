@@ -24,6 +24,12 @@ class GameBoard extends React.Component {
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
 
+    // finding the hammer
+    const initialLeader = this.props.currentGame.missions[mission_num - 1].rounds[0].leader_id
+    const initialLeaderIndex = players.findIndex(x => x.id == initialLeader)
+    const hammer = players[initialLeaderIndex + 4 % (players.length - 1)].id
+
+
     // this stuff fixed a problem with mission array only being as long as mission exists
 
     const missionDisplay = Array(5).fill(0).map((x, i) => {
@@ -34,7 +40,7 @@ class GameBoard extends React.Component {
       <div className="gameBoard">
         <div className="level">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} leader={leader_id}/>
+            return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
         
@@ -59,8 +65,8 @@ class GameBoard extends React.Component {
         <DataButton />
         <br />
         <div className="level">
-          {players.slice(halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} leader={leader_id}/>
+          {players.slice(halfPlayersIndex).reverse().map((player, i) => {
+            return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
       </div>
