@@ -35,3 +35,4 @@ export function startGame(game){
       console.log('Error in startGame', err.message)
     })
   }
+
