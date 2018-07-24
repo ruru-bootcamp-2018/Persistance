@@ -51,9 +51,9 @@ class Lobby extends React.Component {
         <p className="is-size-4">Join a game</p>
         <br />
         <div className="columns is-4 is-multiline">
-          {games.map(game => {
+          {games.map((game, i) => {
             return (
-            <div className="column is-4">
+            <div key={i} className="column is-4">
               <Link onClick={() => this.clickJoinGame(game, user)} className={buttonStyling} to={`/waiting/${game.id}`}>{game.game_name}</Link>
             </div>
             )

@@ -4,31 +4,15 @@ var router = require('express').Router()
 
 
 const {currentGame, initalGame} = require('../currentGame')
-const mission2 = require('../fakeData/mission2')
 
-router.get('/open', (req, res) => {
-  db.getOpenGames().then(games => {
-    res.json(games)
-  })
-})
-
-router.get('/current', (req, res) => {
-  const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-  res.json({currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams})
-})
-
-router.get('/fake', (req, res) => {
-  res.json(mission2)
-})
 
 router.post('/new', (req, res) => {
   const {game_name, user} = req.body
   Object.assign(currentGame, initalGame)
   currentGame.missions = []
-  db.createGame(game_name, user.id).then(ids => {
-    console.log({ids});
+  db.createGame(game_name, user.id).then(ids => {    
     db.getGame(ids[0]).then(game => {
-      console.log('new game', game)
+      console.log('new game')
       currentGame.game = game
       res.json(game)
     })
@@ -41,15 +25,19 @@ router.post('/join', (req, res) => {
   if (currentGame.players.length >= 10) return res.sendStatus(400)
   const game_id = req.body.game.id
   const user_id = req.body.user.id
-  db.roleEntry(game_id, user_id).then(() => {
-    db.getPlayers(game_id).then(playersList => {
-      currentGame.players = playersList
-      const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-      const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
-      res.json(gameData)
+  db.getPlayers(game_id).then(playersList => {        
+    if (playersList.find(x => x.id == user_id)) return res.sendStatus(400)
+    db.roleEntry(game_id, user_id).then(() => {
+      db.getPlayers(game_id).then(playersList => {
+        currentGame.players = playersList
+        const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+        const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+        res.json(gameData)
+      })
+  
     })
-
   })
+  
 })
 
 router.post('/start', (req, res) => {
@@ -91,14 +79,40 @@ router.post('/nominate', (req, res) => {
   db.castNomination(round_id, user_id).then(() => {
     db.getNominations(round_id).then(nominations => {
       console.log('nomination recieved')
-      checkNominations(round_id).then(() => {
         currentGame.missions[mission_num-1].rounds[round_num-1].nominations = nominations
         const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
         const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
         res.json(gameData)
-      })
-
     })
+  })
+})
+
+router.post('/remove', (req, res) => {
+  if (currentGame.gameStage !== 'nominating') return res.sendStatus(400)
+  const game_id = req.body.game.id
+  const user_id = req.body.nomination.user.id
+  const round_id = currentGame.currentRound.id
+  const round_num = currentGame.currentRound.round_num
+  const mission_num = currentGame.currentMission.mission_num  
+  db.removeNomination(round_id, user_id).then(() => {
+    db.getNominations(round_id).then(nominations => {
+      console.log('nomination removed')
+        currentGame.missions[mission_num-1].rounds[round_num-1].nominations = nominations
+        const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+        const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+        res.json(gameData)
+    })
+  })   
+})
+
+router.post('/confirmNoms', (req, res) => {
+  if (currentGame.gameStage !== 'nominating') return res.sendStatus(400)
+  const game_id = req.body.game.id
+  const round_id = currentGame.currentRound.id
+  checkNominations(round_id).then(() => {
+    const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+    const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+    res.json(gameData)
   })
 })
 

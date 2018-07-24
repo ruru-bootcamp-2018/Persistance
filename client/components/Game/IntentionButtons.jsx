@@ -28,17 +28,24 @@ class IntentionButtons extends React.Component {
 }
 
 render() {
+    const player = this.props.currentGame.players.find(player => player.id == this.props.auth.user.id)
+    const isSpy = player.role == 'spy' && userIsSpy
     return this.state.hasCastIntention ? (
     <div>
      <button disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
      <button disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
      </div>
-    ) : (
+   ) : (!isSpy) ? (
       <div>
-     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+     <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button raise-green is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+     <button disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button raise-red is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
      </div>
-    )
+   ) : (
+     <div>
+    <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button raise-green is-success is-large is-outlined"><i className="fas fa-check"></i></button>
+    <button onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail" className="button raise-red is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+    </div>
+   )
   }
 }
 

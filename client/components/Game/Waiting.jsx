@@ -53,7 +53,7 @@ class Waiting extends React.Component {
       
 
       {(this.props.currentGame.game.host_id == this.props.auth.user.id) && <ReadyButton />}
-      <DataButtonW />
+     
       <div className="level">
         {players.map((player, i) => {
           return <EmptyPlayer key={i} player={player} />

@@ -24,6 +24,12 @@ class GameBoard extends React.Component {
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
 
+    // finding the hammer
+    const initialLeader = this.props.currentGame.missions[mission_num - 1].rounds[0].leader_id
+    const initialLeaderIndex = players.findIndex(x => x.id == initialLeader)
+    const hammer = players[initialLeaderIndex + 4 % (players.length - 1)].id
+    const spies = players.filter(x => x.role == 'spy').length
+
     // this stuff fixed a problem with mission array only being as long as mission exists
 
     const missionDisplay = Array(5).fill(0).map((x, i) => {
@@ -34,14 +40,16 @@ class GameBoard extends React.Component {
       <div className="gameBoard">
         <div className="level">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} leader={leader_id}/>
+            return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
         
-        <h1 className="is-size-3 has-text-black"><i className="fas fa-crown"></i>{`${leader.user_name} is the leader`}</h1>
+        <h1>{players.map((x, i) => {
+          if (x.role == 'spy') return <img key={i} className="spyIcon" src="/spy.png" />
+        })}</h1>
 
         <div className="background-image">
-        <p className="is-size-3 has-text-white">Missions</p>
+        <p className="is-size-3 has-text-white">Missions</p>        
         <div className="level missionDisplay">
           {missionDisplay.map((mission, i) => {
             return <Mission key={i} mission={mission} number={i}  />
@@ -51,16 +59,16 @@ class GameBoard extends React.Component {
         <p className="voteTrack is-size-3 has-text-white">Vote Track</p>
         <div className="columns is-centered">
                  {Array(5).fill(0).map((x, i) => {
-          return <RoundCounter number={i + 1} round_num={round_num}/>
+          return <RoundCounter key={i} number={i + 1} round_num={round_num}/>
          })}
         </div>
 
       </div>
-        <DataButton />
-        <br />
+        
+        
         <div className="level">
-          {players.slice(halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} leader={leader_id}/>
+          {players.slice(halfPlayersIndex).reverse().map((player, i) => {
+            return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
       </div>
