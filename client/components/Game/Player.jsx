@@ -83,8 +83,7 @@ class Player extends React.Component {
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const isNominated = this.state.isNominated == true
 
-      //  const glow = isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : isNominated && isSpy ? 'nominated-spy-glow' : ''
-        const glow = isNominated && isSpy ? 'nominated-spy-glow' : isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : ''
+        const glow = (isNominated && isSpy) ? 'nominated-spy-glow' : isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : ''
 
         return (
             <div>
