@@ -2,6 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const StatusBar = props =>  {
+    const { round_num } = props.currentGame.currentRound
+    const { mission_num } = props.currentGame.currentMission
+    const noms = props.currentGame.missions[mission_num - 1].rounds[round_num - 1].nominations
+    const reqNoms = props.missionParams[mission_num -1].team_total
+    const allNoms = reqNoms == noms.length 
 
     const { gameStage } = props.currentGame
     let displayText = ""
@@ -15,7 +20,14 @@ const StatusBar = props =>  {
         case "nominating":
             switch(props.leader){
                 case true:
-                displayText =  "Nominate the Team"
+                    switch(allNoms){ //need to check whether 
+                        case true:
+                        displayText = "Confirm this team?"
+                        break
+                        case false:
+                        displayText =  "Nominate the Team"
+                        break
+                    }
                 break
                 case false:
                 displayText = "Team is being nominated"
@@ -36,6 +48,6 @@ const StatusBar = props =>  {
   )
 }
 
-const mapStateToProps = ({ currentGame }) => ({ currentGame })
+const mapStateToProps = state => state
 
 export default connect(mapStateToProps)(StatusBar)

@@ -6,12 +6,10 @@ export function sendNomination(data){
 
 export function removeNomination(data){
   return request('post', 'game/remove', data)
-    .then(() => {
-      
-    })
-    .catch(err => {
-      console.log('Error', err.message)
-    })
+}
+
+export function confirmNominations(data){
+  return request('post', 'game/confirmNoms', data)
 }
 
 export function sendVote(data){
