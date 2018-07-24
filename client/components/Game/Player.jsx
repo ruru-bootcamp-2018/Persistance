@@ -49,35 +49,44 @@ class Player extends React.Component {
 
         const currentUser = this.props.currentGame.players.find(player => player.id == id)
         const userIsSpy = currentUser.role == 'spy'
-        const { display_name, user_name, img } = this.props.player
+        const { display_name, user_name, img } = this.props.player 
+        const isLeader = this.props.leader == this.props.player.id       
+
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
+        const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
-        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
+        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''        
         this.checkNewRound()
 
         return (
-            <Tooltip
-                // options
-                position="bottom"
-                trigger="mouseenter"
-                html={(
-                    <PlayerToolTip player={this.props.player} />
-                )}
-            >
+            <div>
+                {isLeader && <img className="statusIcon" src="crown.png"/>}
+                {isHammer && <img className="statusIcon" src="hammer.png"/>}
+                <Tooltip
+                    // options
+                    position="bottom"
+                    trigger="mouseenter"
+                    html={(
+                        <PlayerToolTip player={this.props.player} authID={authID} isHammer={isHammer} isLeader={isLeader} />
+                    )}
+                >
 
-                <div onClick={(isNominating) && this.handleClick} className="player" >
-                    <p className="is-size-5"> {`${display_name || user_name}`}</p>
-                    <img className={glow} style={roundStyleObj} src={img} />
-                </div>
+                    <div onClick={(isNominating) && this.handleClick} className="player" >
+                        <p className="is-size-5"> {`${display_name || user_name}`}</p>
+                        <img className={glow} style={roundStyleObj} src={img} />
+                    </div>
 
 
-            </Tooltip>
+                </Tooltip>
+            </div>
 
         )
 
     }
 
 }
+
+
 
 const mapStateToProps = (state) => state
 

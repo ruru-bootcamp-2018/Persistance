@@ -5,9 +5,7 @@ class ChatWindow extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            msgs: [
-                "Game: This is the first chat message",
-            ],
+            msgs: [],
             chatMessage:"",
             localSocket: this.props.socket
         }
@@ -34,7 +32,6 @@ class ChatWindow extends React.Component {
         prevMsgs.unshift(newMsg)
         this.setState({
             msgs:prevMsgs,
-            chatMessage:""
         })
     }
 
@@ -49,6 +46,7 @@ class ChatWindow extends React.Component {
         //this.addMsgToChat(`From Client: ${newMsg}`)
         this.state.localSocket.emit('chat-down', roomID, newMsg)
         }
+        this.setState({chatMessage:""})
     }
 
     updateDetails(e){
