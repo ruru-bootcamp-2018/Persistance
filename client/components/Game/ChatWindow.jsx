@@ -31,7 +31,7 @@ class ChatWindow extends React.Component {
         let prevMsgs = this.state.msgs
 
         const newMsg = `${new Date}: ${msg}`
-        prevMsgs.unshift(newMdatesg)
+        prevMsgs.unshift(newMsg)
         this.setState({
             msgs:prevMsgs,
             chatMessage:""
