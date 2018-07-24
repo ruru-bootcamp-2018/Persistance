@@ -20,20 +20,15 @@ class Player extends React.Component {
             roundId: 0
         }
         this.handleClick = this.handleClick.bind(this)
-        // this.checkNewRound = this.checkNewRound.bind(this)
-        // this.checkIfNominated = this.checkIfNominated.bind(this)
     }
 
     handleClick() {
-        if (!this.state.isNominated) {
-        //do somthing
         const user = { id: this.props.auth.user.id } //needs to be from auth
         const nom = { user, game: this.props.currentGame.game, nomination: { user: this.props.player } }
+        if (!this.state.isNominated) {
         sendNomination(nom) 
         this.setState({ isNominated: true, roundId: this.props.currentGame.currentRound.id })   
     } else {
-        const user = { id: this.props.auth.user.id } //needs to be from auth
-        const nom = { user, game: this.props.currentGame.game, nomination: { user: this.props.player } }
         removeNomination(nom)      
         this.setState({ isNominated: false, roundId: this.props.currentGame.currentRound.id })
         }
@@ -59,9 +54,7 @@ class Player extends React.Component {
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
-        // this.checkNewRound()
-        //this.checkIfNominated()
-
+      
         return (
             <Tooltip
                 // options
