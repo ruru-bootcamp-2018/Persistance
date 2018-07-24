@@ -44,8 +44,8 @@ class GameBoard extends React.Component {
           })}
         </div>
         
-        <h1>{players.map(x => {
-          if (x.role == 'spy') return <img className="spyIcon" src="/spy.png" />
+        <h1>{players.map((x, i) => {
+          if (x.role == 'spy') return <img key={i} className="spyIcon" src="/spy.png" />
         })}</h1>
 
         <div className="background-image">

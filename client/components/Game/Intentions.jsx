@@ -29,8 +29,8 @@ class Intentions extends React.Component{
                 <button className="delete" onClick={this.props.hideModal} aria-label="close"></button>
               </header>
               <section className="modal-card-body">
-                {intentions.map(x => {
-                  return <p className="is-size-3 has-text-black">{x.intention ? "SUCCEED" : "FAIL"}</p> 
+                {intentions.map((x, i) => {
+                  return <p key={i} className="is-size-3 has-text-black">{x.intention ? "SUCCEED" : "FAIL"}</p> 
                 })}
               </section>
               <footer className="modal-card-foot">
