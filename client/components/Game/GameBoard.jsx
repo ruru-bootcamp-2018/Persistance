@@ -57,7 +57,7 @@ class GameBoard extends React.Component {
         <p className="voteTrack is-size-3 has-text-white">Vote Track</p>
         <div className="columns is-centered">
                  {Array(5).fill(0).map((x, i) => {
-          return <RoundCounter number={i + 1} round_num={round_num}/>
+          return <RoundCounter key={i} number={i + 1} round_num={round_num}/>
          })}
         </div>
 
