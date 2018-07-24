@@ -28,3 +28,4 @@ const mapStateToProps = (state) => state
 
 
 export default connect(mapStateToProps)(Buttons)
+// 1532392238361,1532392168851 //The integer error is from the timestamp

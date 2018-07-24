@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
   //   .then(function () {
   //     // Inserts seed entries
   //     return knex('games').insert([
-  //       {id: 1, is_finished: false , in_progress: true , time_stamp: Date.now(), game_name: 'test game'}
+  //       {id: 1, is_finished: false , in_progress: true , time_stamp: 0, game_name: 'test game'}
   //
   //     ]);
   //   });
