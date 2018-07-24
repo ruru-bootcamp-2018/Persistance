@@ -7,7 +7,7 @@ class GameOver extends React.Component{
     }
 
     render(){
-        const message = this.props.currentGame.gameStage == 'goodWin' ? "The loyalists have persited in their attempts" : "The spies have succeded in throwing the missions"
+        const message = this.props.currentGame.gameStage == 'goodWin' ? "The loyalists have persisted in their attempts" : "The spies have succeded in throwing the missions"
         return (
             <div className="modal is-active">
             <div className="modal-background"></div>
