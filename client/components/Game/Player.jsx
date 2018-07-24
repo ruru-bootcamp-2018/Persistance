@@ -28,7 +28,14 @@ class Player extends React.Component {
         const user = { id: this.props.auth.user.id } //needs to be from auth
         const nom = { user, game: this.props.currentGame.game, nomination: { user: this.props.player } }
         sendNomination(nom)
-        this.setState({ isNominated: true, roundId: this.props.currentGame.currentRound.id })
+          .then(res => {
+            const localSocket = this.props.socket
+            const gameData = res.body
+            const game_id = nom.game.id
+            localSocket.emit('updateGameRoom', gameData, game_id)
+
+            this.setState({ isNominated: true, roundId: this.props.currentGame.currentRound.id })
+          })
     }
 
     checkNewRound() {
@@ -37,13 +44,14 @@ class Player extends React.Component {
 
     render() {
 
-        const authID = this.props.auth.user.id        
+        const authID = this.props.auth.user.id
         const id = authID // this needs to be auth user id
 
         const currentUser = this.props.currentGame.players.find(player => player.id == id)
         const userIsSpy = currentUser.role == 'spy'
         const { display_name, user_name, img } = this.props.player 
         const isLeader = this.props.leader == this.props.player.id       
+
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
