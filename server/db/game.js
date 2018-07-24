@@ -61,7 +61,7 @@ function delRoles(game_id, testDb){
 function setRoles(roles, testDb){
   const db =  testDb || conn
   return db('roles')
-    .insert(roles)
+    .insert(roles, 'user_id')
 }
 
 function newMission(game_id, testDb){
@@ -103,6 +103,13 @@ function castNomination(round_id, user_id, testDb){
   const db = testDb || conn
   return db('nominations')
     .insert({round_id, user_id}, 'user_id')
+}
+
+function removeNomination(round_id, user_id, testDb){
+  const db = testDb || conn
+  return db('nominations')
+    .where('user_id', user_id)
+    .del()
 }
 
 function getNominations(round_id, testDb){
@@ -162,6 +169,7 @@ module.exports = {
   getPlayers,
   getOpenGames,
   getRound,
-  getIntentions
+  getIntentions,
+  removeNomination
 
 }
