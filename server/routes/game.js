@@ -10,10 +10,9 @@ router.post('/new', (req, res) => {
   const {game_name, user} = req.body
   Object.assign(currentGame, initalGame)
   currentGame.missions = []
-  db.createGame(game_name, user.id).then(ids => {
-    console.log({ids});
+  db.createGame(game_name, user.id).then(ids => {    
     db.getGame(ids[0]).then(game => {
-      console.log('new game', game)
+      console.log('new game')
       currentGame.game = game
       res.json(game)
     })
