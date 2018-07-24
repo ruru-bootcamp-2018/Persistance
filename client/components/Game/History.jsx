@@ -16,12 +16,9 @@ class History extends React.Component {
 
   render() {
 
-
-    console.log(game.currentMission)
-
     return (
-      <div>
-        <table className="history table">
+      <div className="container">
+        <table className="history table is-fullwidth is-bordered has-text-centered is-hoverable is-striped">
           <thead>
             <tr>
               <th>
@@ -40,8 +37,6 @@ class History extends React.Component {
               <th colSpan={game.currentGame.players.length} className="has-text-centered">
                 Votes:
             </th>
-
-
               <th>
                 Result
             </th>
@@ -52,7 +47,7 @@ class History extends React.Component {
               <th colSpan="4"></th>
               {
                 game.currentGame.players.map((player, i) => {
-                  return <th key={i}>{player.display_name || player.user_name}:</th>
+                  return <th key={i}>{showName(player)}:</th>
                 })
               }
             </tr>
@@ -76,6 +71,10 @@ class History extends React.Component {
 }
 
 function displayRound(round, i, j, roundLength, intentions) {
+  const pass = 'Pass, ';
+  const fail = 'Fail, ';
+  const approve = 'Yes';
+  const reject = 'No';
   return (
     <tr key={`${i}-${j}`}>
       <td>{(j == 0) ? i + 1 : ""}</td>
@@ -88,12 +87,12 @@ function displayRound(round, i, j, roundLength, intentions) {
       </td>
 
       { round.votes.map((vote, i) => {
-          return (<td key={i}>{vote.vote ? <div>yes</div> : <div>no</div>}</td>);
+          return (<td key={i}>{vote.vote ? <div>{approve}</div> : <div>{reject}</div>}</td>);
         })
       }
 
       <td>
-        {(j == roundLength-1) ? intentions.map( (intention, i) => <span key={i}>{intention? "pass, " : "fail, "}</span>) : ""}
+        {(j == roundLength-1) ? intentions.map( (intention, i) => <span key={i}>{intention? pass : fail}</span>) : ""}
       </td>
     </tr>
   )
@@ -110,7 +109,12 @@ function findPlayer(targetId) {
 }
 
 function showName(player) {
-  return player.display_name || player.user_name;
+  return (
+    
+    //<img className="image is-16x16" style=${{borderRadius:"50%"}} src=${player.img} /> 
+    player.display_name || player.display_name
+    
+  );
 }
 
 const mapStateToProps = (state) => state
