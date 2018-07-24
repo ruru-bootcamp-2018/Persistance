@@ -15,70 +15,117 @@ class History extends React.Component {
   }
 
   render() {
-    console.log(game);
+    console.log(game.currentGame.missions[0].rounds);
+
+    console.log(game.currentGame.players)
 
     return (
-      <table className="history table">
-        <thead>
-          <tr>
-            <th>
-              Mission:
+      <div>
+        <table className="history table">
+          <thead>
+            <tr>
+              <th>
+                Mission:
             </th>
-            <th>
-              Round:
+              <th>
+                Round:
             </th>
-            <th>
-              Leader:
+              <th>
+                Leader:
             </th>
-            <th>
-              Team:
+              <th>
+                Team:
             </th>
-            {/* {
-              game.currentGame.players.map((player, i) => {
-                return <th key={i}>{player.display_name || player.user_name}</th>
-              })
-            } */}
-            <th colSpan={game.currentGame.players.length} className="has-text-centered">
-              Votes:
+
+              <th colSpan={game.currentGame.players.length} className="has-text-centered">
+                Votes:
             </th>
 
 
-            <th>
-              Result
+              <th>
+                Result
             </th>
-          </tr>
-        </thead>
-        <thead>
-          <tr>
-            <th colSpan="4"></th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th colSpan="4"></th>
+              {
+                game.currentGame.players.map((player, i) => {
+                  return <th key={i}>{player.display_name || player.user_name}:</th>
+                })
+              }
+            </tr>
+          </thead>
+          <tbody>
             {
-              game.currentGame.players.map((player, i) => {
-                return <th key={i}>{player.display_name || player.user_name}:</th>
+              game.currentGame.missions.map((mission, i) => {
+                return (<tr key={i}>
+                  <td>{i + 1}</td>
+
+                </tr>)
               })
             }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            game.currentGame.missions.map((mission, i) => {
-              return (<tr key={i}>
-                <td>{i + 1}</td>
-                <table>
-                  {mission.rounds.map( (round, j)=> {
-                    return (<tr>
-                      <td>{j+1}</td>
-                    </tr>)
-                  })}
-                </table>
-              </tr>)
-            })
-          }
-        </tbody>
+          </tbody>
 
 
-      </table>)
+        </table>
+        some text
+      <table>
+          <tbody>
+            {game.currentGame.missions[0].rounds.map((round, i) => {
+              return (
+                <React.Fragment>
+                <tr key={i}>
+                  <td>{round.round_num}</td>
+                  <td>{getName(round.leader_id)}</td>
+                  <td>
+                    {round.nominations.map((nom) => {
+                      return getName(nom.user_id) + ', '
+                    })}
+                  </td>
+                </tr>
+                <tr>
+                displayRound(round)
+                </tr>
+                </React.Fragment>
+              )
+            })}
+          </tbody>
+        </table>
+
+
+      </div>)
   }
 
+}
+
+function displayRound(round) {
+  return (
+    <tr key={i}>
+      <td>{round.round_num}</td>
+      <td>{getName(round.leader_id)}</td>
+      <td>
+        {round.nominations.map((nom) => {
+          return getName(nom.user_id) + ', '
+        })}
+      </td>
+    </tr>
+  )
+}
+
+function getName(id) {
+  return showName(findPlayer(id))
+}
+
+function findPlayer(targetId) {
+  return game.currentGame.players.find((player) => {
+    return player.id == targetId
+  })
+}
+
+function showName(player) {
+  return player.display_name || player.user_name;
 }
 
 const mapStateToProps = (state) => state
