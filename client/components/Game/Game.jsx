@@ -81,7 +81,9 @@ class Game extends React.Component {
       {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)}/>}
       {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)}  mission={this.state.mission}/>}
       {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)}/>}
-      <ChatWindow id={this.props.match.params.id}/>
+
+      <ChatWindow id={this.props.match.params.id} />
+
     </div>
     )
   }
