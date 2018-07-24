@@ -17,7 +17,7 @@ class History extends React.Component {
   render() {
 
 
-    console.log(game.currentGame)
+    console.log(game.currentMission)
 
     return (
       <div>
