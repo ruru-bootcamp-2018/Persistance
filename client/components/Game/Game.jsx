@@ -33,7 +33,7 @@ class Game extends React.Component {
       const { dispatch } = this.props
       dispatch(updateCurrentGame(gameData.currentGame))
       // dispatch(updateCurrentMission(gameData.currentMission))
-      // dispatch(updateCurrentRound(gameData.currentRound))      
+      // dispatch(updateCurrentRound(gameData.currentRound))
       //dispatch(updateMissionParams(gameData.missionParams)) //can remove?
     })
 
@@ -74,13 +74,17 @@ class Game extends React.Component {
   render() {
 
     return (<div>
-      <ChatWindow id={this.props.match.params.id} />
       <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
       <Buttons />
       <GameBoard />
+
       {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)}/>}
       {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)}  mission={this.state.mission}/>}
       {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)}/>}
+
+      
+      <ChatWindow id={this.props.match.params.id} />
+
     </div>
     )
   }

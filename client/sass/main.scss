@@ -62,11 +62,11 @@
 }
 
   .spy-glow {
-    box-shadow: 0 0 40px #b30000;
+    box-shadow: 0 0 50px #b30000;
   }
 
   .button-glow {
-    box-shadow: 0 0 40px #5bf52d;
+    box-shadow: 0 0 50px rgb(196, 166, 0);
   }
 
 .cake {
@@ -80,6 +80,36 @@
     animation: neon3 1.5s ease-in-out infinite alternate;
     color: rgb(196, 166, 0);
   }
+
+.nominated-spy-glow {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-animation: pulse-spy 1.5s ease-in-out infinite alternate;
+    -moz-animation: pulse-spy 1.5s ease-in-out infinite alternate;
+    animation: pulse-spy 1.5s ease-in-out infinite alternate;
+  }
+
+  @-webkit-keyframes pulse-spy {
+  0% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
+  50% { box-shadow:0 0 64px #FD8300, inset 0 0 14px #FD8300; }
+  100% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
+  }
+
+.nominated-glow {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-animation: pulse 1.5s ease-in-out infinite alternate;
+  -moz-animation: pulse 1.5s ease-in-out infinite alternate;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes pulse {
+0% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
+50% { box-shadow:0 0 64px #DCC646, inset 0 0 14px #DCC646; }
+100% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
+}
 
   .statusIcon {
     width: 30px;
@@ -175,13 +205,13 @@
   // Make a map with the class names and matching colors
 $colors: (
   fill: #a972cb,
-  pulse: #ef6eae, 
-  close: #ff7f82, 
-  raise: #0059ff, 
+  pulse: #ef6eae,
+  close: #ff7f82,
+  raise: #0059ff,
   raise-green: #15661a,
   raise-red: #921911,
-  up: #e4cb58, 
-  slide: #8fc866, 
+  up: #e4cb58,
+  slide: #8fc866,
   offset: #19bc8b
 );
 
@@ -195,12 +225,12 @@ $colors: (
 }
 
 // Now every button will have different colors as set above. We get to use the same structure, only changing the custom properties.
-button {  
+button {
   color: var(--color);
   transition: 0.25s;
-  
+
   &:hover,
-  &:focus { 
+  &:focus {
     border-color: var(--hover);
     color: #fff;
   }
@@ -221,8 +251,7 @@ button {
 
 h1 { font-weight: 400; }
 
-code { 
+code {
   color: #e4cb58;
   font: inherit;
 }
-
