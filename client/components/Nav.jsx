@@ -24,13 +24,12 @@ function Nav(props) {
                   <div className="userTooltip" >
                     <p> Logged in: </p>
                     <p>User: {props.auth.user.user_name} </p>
-                    <p>Display: {props.auth.user.display_name}</p>
+                    <p>Display: {props.auth.user.display_name ? props.auth.user.display_name : props.auth.user.user_name}</p>
                   </div>
                 )}
-              >
+              >                
+                <img style={{ borderRadius: "50%" }} className="image is-64x64" src={props.auth.user.img != " " ? props.auth.user.img : "https://tinyurl.com/y7drmeck"} />
 
-
-                <img style={{ borderRadius: "50%" }} className="image is-64x64" src={props.auth.user.img} />
 
 
               </Tooltip>
@@ -64,3 +63,4 @@ const mapStateToProps = ({ auth }) => {
 }
 
 export default connect(mapStateToProps)(Nav)
+// https://tinyurl.com/y7drmeck - grey 
