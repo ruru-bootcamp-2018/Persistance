@@ -148,7 +148,15 @@
   transform: translateY(-0.25em);
 }
 
+.raise-green:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
 
+.raise-red:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
 //=== Set button colors
 // If you wonder why use Sass vars or CSS custom properties...
   // Make a map with the class names and matching colors
@@ -157,6 +165,8 @@ $colors: (
   pulse: #ef6eae, 
   close: #ff7f82, 
   raise: #0059ff, 
+  raise-green: #15661a,
+  raise-red: #921911,
   up: #e4cb58, 
   slide: #8fc866, 
   offset: #19bc8b

@@ -17,8 +17,6 @@ class ConfirmNom extends React.Component {
     const reject = (e.currentTarget.value == 'false')
 
     if (confirm) {
-        console.log(this.props.currentGame.game.id);
-        
         confirmNominations(this.props.currentGame)
         .then(res => {
           const localSocket = this.props.socket
@@ -29,9 +27,6 @@ class ConfirmNom extends React.Component {
     
           this.setState({hasFinishedNomming: true})
         }) 
-    }else {
-        console.log('nah')
-        this.setState({hasFinishedNomming: true})
     }
   }
 
@@ -39,13 +34,11 @@ class ConfirmNom extends React.Component {
 
     return this.state.hasFinishedNomming ? (
         <div>
-        <button disabled onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-        <button disabled onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+        <button disabled onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button raise is-success is-large is-outlined"><i className="fas fa-check"></i></button>
         </div>
       ) : (
         <div>
-        <button onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-        <button onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+        <button onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button raise-green is-success is-large is-outlined"><i className="fas fa-check"></i></button>
         </div>
       )
     }
