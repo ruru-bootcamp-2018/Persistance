@@ -6,6 +6,7 @@ import StatusBar from './StatusBar'
 import ChatWindow from './ChatWindow'
 import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
 import Votes from './Votes'
+import Intentions from './Intentions'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
@@ -14,9 +15,11 @@ class Game extends React.Component {
     super(props)
     this.state = {
       stage: '',
-      displayVotes: false
+      displayVotes: false,
+      displayIntentions: false
     }
     this.showVotes = this.showVotes.bind(this)
+    this.showIntentions = this.showIntentions.bind(this)
   }
 
   componentDidMount() {
@@ -36,6 +39,7 @@ class Game extends React.Component {
 
   componentWillReceiveProps(newProps){
     if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.showVotes()
+    if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.showIntentions()
     this.setState({stage: newProps.currentGame.gameStage})
   }
 
@@ -51,6 +55,18 @@ class Game extends React.Component {
     // }, 5000)
   }
 
+  hideIntentions() {
+    this.setState({showIntentions: false})
+  }
+
+
+  showIntentions(){
+    this.setState({showIntentions: true})
+    // setTimeout(() => {
+    //   this.setState({showVotes: false})
+    // }, 5000)
+  }
+
   render() {
 
     return (<div>
@@ -59,6 +75,7 @@ class Game extends React.Component {
       <Buttons />
       <GameBoard />
       {this.state.showVotes && <Votes hideVotes={this.hideVotes.bind(this)}/>}
+      {this.state.showIntentions && <Intentions hideIntentions={this.hideIntentions.bind(this)}/>}
     </div>
     )
   }
