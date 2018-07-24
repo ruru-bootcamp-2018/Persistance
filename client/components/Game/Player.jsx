@@ -47,8 +47,7 @@ class Player extends React.Component {
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
-        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
-        console.log(isHammer, this.props.hammer)
+        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''        
         this.checkNewRound()
 
         return (
@@ -60,7 +59,7 @@ class Player extends React.Component {
                     position="bottom"
                     trigger="mouseenter"
                     html={(
-                        <PlayerToolTip player={this.props.player} />
+                        <PlayerToolTip player={this.props.player} authID={authID} isHammer={isHammer} isLeader={isLeader} />
                     )}
                 >
 
