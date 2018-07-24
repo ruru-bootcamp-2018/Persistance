@@ -51,7 +51,7 @@ class Game extends React.Component {
     let team = mission.intentions.map(member => {
       let player = this.props.currentGame.players.find(x => x.id == member.user_id)
       return player.display_name || player.user_name
-    })    
+    })
     let intentions = mission.intentions.map(x => x.intention)
     if (Math.random() > 0.5) this.shuffleArray(intentions)
     else intentions.sort((a,b) => b-a)
@@ -70,7 +70,7 @@ class Game extends React.Component {
   hideModal() {
     this.setState({showVotes: false, showIntentions: false, gameOver: false})
   }
-  
+
   render() {
 
     return (<div>
@@ -80,6 +80,7 @@ class Game extends React.Component {
       {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)}/>}
       {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)}  mission={this.state.mission}/>}
       {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)}/>}
+      <ChatWindow id={this.props.match.params.id}/>
     </div>
     )
   }
