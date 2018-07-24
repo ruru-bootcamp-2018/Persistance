@@ -1,4 +1,5 @@
 const db = require('./db/game')
+const {currentGame} = require('./currentGame')
 
 module.exports = app => {
     const http = require('http').Server(app)
@@ -45,9 +46,8 @@ module.exports = app => {
 
 
         socket.on('getGames', () => {
-            db.getOpenGames().then(games => {
-                io.emit('receiveGames', games) 
-            })
+            const games = currentGame.game.id ? [currentGame.game] : []            
+            io.emit('receiveGames', games)            
         })
 
     });

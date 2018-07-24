@@ -7,22 +7,7 @@ const socket = clientIo('http://localhost:8000')
 
 
 const {currentGame, initalGame} = require('../currentGame')
-const mission2 = require('../fakeData/mission2')
 
-router.get('/open', (req, res) => {
-  db.getOpenGames().then(games => {
-    res.json(games)
-  })
-})
-
-router.get('/current', (req, res) => {
-  const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-  res.json({currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams})
-})
-
-router.get('/fake', (req, res) => {
-  res.json(mission2)
-})
 
 router.post('/new', (req, res) => {
   const {game_name, user} = req.body
