@@ -8,7 +8,7 @@ function getMissionParams(players_total, testDb){
 function createGame(game_name, host_id, testDb){
   const db = testDb || conn
   return db('games')
-    .insert({game_name, host_id, is_finished: false, in_progress: false, time_stamp: 0}, 'id')
+    .insert({game_name, host_id, is_finished: false, in_progress: false, time_stamp: new Date}, 'id')
 }
 
 function startGame(game_id, testDb){
