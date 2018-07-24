@@ -1,7 +1,7 @@
 const db = require('./db/game')
+const {currentGame} = require('./currentGame')
 
-module.exports = app => {
-    const http = require('http').Server(app)
+module.exports = http => {
     var io = require('socket.io')(http)
 
     io.on('connection', (socket) => {
@@ -10,12 +10,13 @@ module.exports = app => {
         */
         console.log(`A user connected at ${new Date}`)
 
-        //Then it puts all the listeners on that socket. 
+        //Then it puts all the listeners on that socket.
         socket.on('disconnect', () => {
             console.log(`A user disconnected at ${new Date}`)
         })
         // this is copied from socket-voting
         socket.on('createGame', (id)=> {
+          console.log({id}, 'socket createGame');
             socket.join(id) //join a Game
             //io.emit('addGame', game) //add created Game to all connected users
             io.to(id).emit('joinGame', id) //new user will join created Game on client side
@@ -45,9 +46,8 @@ module.exports = app => {
 
 
         socket.on('getGames', () => {
-            db.getOpenGames().then(games => {
-                io.emit('receiveGames', games) 
-            })
+            const games = currentGame.game.id ? [currentGame.game] : []            
+            io.emit('receiveGames', games)            
         })
 
     });

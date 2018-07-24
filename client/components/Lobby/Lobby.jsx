@@ -31,6 +31,12 @@ class Lobby extends React.Component {
 }
   clickJoinGame(game, user) {
     joinGame({game, user})
+      .then(res => {
+        const gameData = res.body
+        const game_id = game.id
+        const localSocket = this.props.socket
+        localSocket.emit('updateWaitingRoom', gameData, game_id)
+      })
   }
 
   render() {
@@ -53,7 +59,7 @@ class Lobby extends React.Component {
             )
           })}
         </div>
-        
+
       </div>
     )
   }
