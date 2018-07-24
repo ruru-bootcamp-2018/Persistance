@@ -105,6 +105,13 @@ function castNomination(round_id, user_id, testDb){
     .insert({round_id, user_id}, 'user_id')
 }
 
+function removeNomination(round_id, user_id, testDb){
+  const db = testDb || conn
+  return db('nominations')
+    .where('user_id', user_id)
+    .del()
+}
+
 function getNominations(round_id, testDb){
   const db = testDb || conn
   return db('nominations').where('round_id', round_id)
@@ -162,6 +169,7 @@ module.exports = {
   getPlayers,
   getOpenGames,
   getRound,
-  getIntentions
+  getIntentions,
+  removeNomination
 
 }

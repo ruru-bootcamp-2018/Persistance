@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy'
 import Template from './Template'
 import PlayerToolTip from './PlayerToolTip'
-import { sendNomination } from '../../actions/playerInputs'
+import { sendNomination, removeNomination } from '../../actions/playerInputs'
+
 
 const roundStyleObj = {
     borderRadius: "50%",
@@ -19,16 +20,17 @@ class Player extends React.Component {
             roundId: 0
         }
         this.handleClick = this.handleClick.bind(this)
-        this.checkNewRound = this.checkNewRound.bind(this)
-        this.checkIfNominated = this.checkIfNominated.bind(this)
+        // this.checkNewRound = this.checkNewRound.bind(this)
+        // this.checkIfNominated = this.checkIfNominated.bind(this)
     }
 
     handleClick() {
-        if (this.state.isNominated) return
+        if (!this.state.isNominated) {
         //do somthing
         const user = { id: this.props.auth.user.id } //needs to be from auth
         const nom = { user, game: this.props.currentGame.game, nomination: { user: this.props.player } }
-        sendNomination(nom)
+
+       sendNomination(nom)
           .then(res => {
             const localSocket = this.props.socket
             const gameData = res.body
@@ -36,18 +38,23 @@ class Player extends React.Component {
             localSocket.emit('updateGameRoom', gameData, game_id)
 
             this.setState({ isNominated: true, roundId: this.props.currentGame.currentRound.id })
-          })
+          }) 
+        this.setState({ isNominated: true, roundId: this.props.currentGame.currentRound.id })   
+    } else {
+        const user = { id: this.props.auth.user.id } //needs to be from auth
+        const nom = { user, game: this.props.currentGame.game, nomination: { user: this.props.player } }
+        removeNomination(nom)      
+        this.setState({ isNominated: false, roundId: this.props.currentGame.currentRound.id })
+        }
+
     }
 
-    checkNewRound() {
-        if (this.state.isNominated && this.props.currentGame.currentRound.id != this.state.roundId) this.setState({ isNominated: false })
-    }
-
-    checkIfNominated() {
-        const { mission_num } = this.props.currentGame.currentMission
-        const { round_num } = this.props.currentGame.currentRound
-        const nominations = this.props.currentGame.missions[mission_num-1].rounds[round_num-1].nominations
-        const  nominatedUser = nominations.find(player => player.user_id == this.props.player.id)
+    componentWillReceiveProps(nextProps) {
+        if (this.state.isNominated && nextProps.currentGame.currentRound.id != this.state.roundId) this.setState({ isNominated: false })
+        const { mission_num } = nextProps.currentGame.currentMission
+        const { round_num } = nextProps.currentGame.currentRound
+        const nominations = nextProps.currentGame.missions[mission_num-1].rounds[round_num-1].nominations
+        const  nominatedUser = nominations.find(player => player.user_id == nextProps.player.id)
         if (nominatedUser && this.state.isNominated == false) this.setState ({ isNominated: true })
     }
 
@@ -64,10 +71,9 @@ class Player extends React.Component {
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
-        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''        
-        this.checkNewRound()
-        this.checkIfNominated()
 
+        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
+      
         return (
             <div>
                 {isLeader && <img className="statusIcon" src="crown.png"/>}

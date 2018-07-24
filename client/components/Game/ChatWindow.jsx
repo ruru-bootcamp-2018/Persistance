@@ -56,8 +56,10 @@ class ChatWindow extends React.Component {
     }
 
     render() {
-        //console.log("game idated is", this.props.id)
-        const styleObj = { overflow: 'scroll', height: '150px', width:'100%' }
+
+        //console.log("game id is", this.props.id)
+        const styleObj = { overflow: 'auto', height: '150px', width:'100%' }
+
         return (
             <form className="chatWindow" onSubmit={this.submit.bind(this)}>
                 <p> ChatWindow</p>
