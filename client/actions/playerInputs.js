@@ -24,6 +24,6 @@ export function startGame(game, socket){
       socket.emit('updateWaitingRoom', gameData, game_id)
     })
     .catch(err => {
-      console.log('Error', err.message)
+      console.log('Error in startGame', err.message)
     })
 }
