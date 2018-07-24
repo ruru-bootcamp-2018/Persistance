@@ -33,5 +33,5 @@ export function startGame(game){
     })
     .catch(err => {
       console.log('Error in startGame', err.message)
-    }
-}
+    })
+  }
