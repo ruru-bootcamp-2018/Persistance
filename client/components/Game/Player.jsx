@@ -85,8 +85,8 @@ class Player extends React.Component {
 
         return (
             <div>
-                {isLeader && <img className="statusIcon" src="crown.png" />}
-                {isHammer && <img className="statusIcon" src="hammer.png" />}
+                {isLeader && <img className="statusIcon" src="/crown.png" />}
+                {isHammer && <img className="statusIcon" src="/hammer.png" />}
                 <Tooltip
                     // options
                     position="bottom"

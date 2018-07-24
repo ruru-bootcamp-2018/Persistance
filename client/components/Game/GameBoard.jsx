@@ -62,8 +62,8 @@ class GameBoard extends React.Component {
         </div>
 
       </div>
-        <DataButton />
-        <br />
+        
+        
         <div className="level">
           {players.slice(halfPlayersIndex).reverse().map((player, i) => {
             return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>

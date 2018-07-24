@@ -14,8 +14,8 @@ const PlayerToolTip = props => {
     
     return (<div className="playerToolTip">
         <p> User: {user_name} </p>
-        {isHammer &&<div> <p className="playerToolTipStat"><img className="toolTipStatusIcon" src="goldhammer.png"/>{whoHammer? "  You are" : "This player is"} the hammer</p> </div>}
-        {isLeader &&<div> <p className="playerToolTipStat"><img className="toolTipStatusIcon" src="goldcrown.png"/>{whoLeader? "  You are" : "This player is"} the leader</p></div>}
+        {isHammer &&<div> <p className="playerToolTipStat"><img className="toolTipStatusIcon" src="/goldhammer.png"/>{whoHammer? "  You are" : "This player is"} the hammer</p> </div>}
+        {isLeader &&<div> <p className="playerToolTipStat"><img className="toolTipStatusIcon" src="/goldcrown.png"/>{whoLeader? "  You are" : "This player is"} the leader</p></div>}
     </div>)
 }
 
