@@ -8,7 +8,7 @@ import Lobby from './Lobby/Lobby'
 import Game from './Game/Game'
 import Waiting from './Game/Waiting'
 import History from './Game/History'
-import History2 from './Game/History2'
+
 
 
 
@@ -22,7 +22,6 @@ const App = () => (
       <Route exact path="/game/:id" component={Game} />
       <Route exact path="/waiting/:id" component={Waiting} />
       <Route path="/history" component={History} />
-      <Route path="/history2" component={History2} />
     </div>
   </Router>
 )
