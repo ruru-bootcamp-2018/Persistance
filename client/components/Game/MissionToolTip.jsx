@@ -12,7 +12,7 @@ const MissionToolTip = props => {
         }, 0)
         fails = intentions.length - passes
     }
-
+    const {outcome} = props.mission
 
     return (
         <div>
@@ -21,8 +21,8 @@ const MissionToolTip = props => {
                 return <p className="has-text-weight-bold">{player.display_name || player.user_name}</p>
             })}
             <div className="level">
-                <p className="is-size-5 has-text-weight-bold">{passes ? passes : 0}</p> <img className='tinyThumbLeft level-item' src='thumbs-up.png'></img>}
-                <p className="is-size-5 has-text-weight-bold">{fails ? fails : 0}</p> <img className='tinyThumbRight level-item' src='thumbs-down.jpg'></img>}
+                {(outcome !== null) && <div><p className="is-size-5 has-text-weight-bold">{passes ? passes : 0}</p> <img className='tinyThumbLeft level-item' src='thumbs-up.png'></img>
+                <p className="is-size-5 has-text-weight-bold">{fails ? fails : 0}</p> <img className='tinyThumbRight level-item' src='thumbs-down.jpg'></img></div>}
             </div>
         </div>
     )

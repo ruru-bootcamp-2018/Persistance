@@ -25,15 +25,19 @@ router.post('/join', (req, res) => {
   if (currentGame.players.length >= 10) return res.sendStatus(400)
   const game_id = req.body.game.id
   const user_id = req.body.user.id
-  db.roleEntry(game_id, user_id).then(() => {
-    db.getPlayers(game_id).then(playersList => {
-      currentGame.players = playersList
-      const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
-      const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
-      res.json(gameData)
+  db.getPlayers(game_id).then(playersList => {        
+    if (playersList.find(x => x.id == user_id)) return res.sendStatus(400)
+    db.roleEntry(game_id, user_id).then(() => {
+      db.getPlayers(game_id).then(playersList => {
+        currentGame.players = playersList
+        const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+        const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+        res.json(gameData)
+      })
+  
     })
-
   })
+  
 })
 
 router.post('/start', (req, res) => {

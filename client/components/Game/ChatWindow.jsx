@@ -64,7 +64,7 @@ class ChatWindow extends React.Component {
             <form className="chatWindow" onSubmit={() => this.submit.bind(this)}>
                 <p> ChatWindow</p>
                 <div className="chatDisplay" style={styleObj} >
-                    {this.state.msgs.map((msg) => <p className="has-text-left"> {msg} </p>)}
+                    {this.state.msgs.map((msg, i) => <p key={i} className="has-text-left"> {msg} </p>)}
                 </div>
                 <input className="input is-small column is-6 is-offset-3" type="text" onChange={() => this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
                 <input className="button is-info is-outlined is-small" type="submit" value="Send a message!" />

@@ -127,6 +127,15 @@
   margin: 3px
 }
 
+.voteScreen {
+  width: 100vw;
+  height: 80vh;
+  position: absolute;
+  top: 0;
+  z-index: 50;
+  background-color: goldenrod;
+}
+
 /*
   https://developer.mozilla.org/en/docs/Web/CSS/box-shadow
   box-shadow: [inset?] [top] [left] [blur] [size] [color];
