@@ -7,6 +7,7 @@ import ChatWindow from './ChatWindow'
 import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
 import Votes from './Votes'
 import Intentions from './Intentions'
+import GameOver from './GameOver'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
@@ -18,8 +19,7 @@ class Game extends React.Component {
       displayVotes: false,
       displayIntentions: false
     }
-    this.showVotes = this.showVotes.bind(this)
-    this.showIntentions = this.showIntentions.bind(this)
+    
   }
 
   componentDidMount() {
@@ -38,35 +38,16 @@ class Game extends React.Component {
   }
 
   componentWillReceiveProps(newProps){
-    if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.showVotes()
-    if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.showIntentions()
+    //if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.setState({showVotes: true})
+    if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.setState({showIntentions: true})
+    if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({gameOver: true})
     this.setState({stage: newProps.currentGame.gameStage})
   }
 
-  hideVotes() {
-    this.setState({showVotes: false})
+  hideModal() {
+    this.setState({showVotes: false, showIntentions: false, gameOver: false})
   }
-
-
-  showVotes(){
-    this.setState({showVotes: true})
-    // setTimeout(() => {
-    //   this.setState({showVotes: false})
-    // }, 5000)
-  }
-
-  hideIntentions() {
-    this.setState({showIntentions: false})
-  }
-
-
-  showIntentions(){
-    this.setState({showIntentions: true})
-    // setTimeout(() => {
-    //   this.setState({showVotes: false})
-    // }, 5000)
-  }
-
+  
   render() {
 
     return (<div>
@@ -74,8 +55,9 @@ class Game extends React.Component {
       <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
       <Buttons />
       <GameBoard />
-      {this.state.showVotes && <Votes hideVotes={this.hideVotes.bind(this)}/>}
-      {this.state.showIntentions && <Intentions hideIntentions={this.hideIntentions.bind(this)}/>}
+      {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)}/>}
+      {this.state.showIntentions && <Intentions hideModal={this.hideModal.bind(this)}/>}
+      {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)}/>}
     </div>
     )
   }
