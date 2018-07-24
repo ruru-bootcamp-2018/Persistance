@@ -20,6 +20,7 @@ class Player extends React.Component {
         }
         this.handleClick = this.handleClick.bind(this)
         this.checkNewRound = this.checkNewRound.bind(this)
+        this.checkIfNominated = this.checkIfNominated.bind(this)
     }
 
     handleClick() {
@@ -42,6 +43,14 @@ class Player extends React.Component {
         if (this.state.isNominated && this.props.currentGame.currentRound.id != this.state.roundId) this.setState({ isNominated: false })
     }
 
+    checkIfNominated() {
+        const { mission_num } = this.props.currentGame.currentMission
+        const { round_num } = this.props.currentGame.currentRound
+        const nominations = this.props.currentGame.missions[mission_num-1].rounds[round_num-1].nominations
+        const  nominatedUser = nominations.find(player => player.user_id == this.props.player.id)
+        if (nominatedUser && this.state.isNominated == false) this.setState ({ isNominated: true })
+    }
+
     render() {
 
         const authID = this.props.auth.user.id
@@ -57,6 +66,7 @@ class Player extends React.Component {
         const isSpy = this.props.player.role == 'spy' && userIsSpy
         const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''        
         this.checkNewRound()
+        this.checkIfNominated()
 
         return (
             <div>
