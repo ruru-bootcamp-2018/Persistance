@@ -31,7 +31,11 @@ function howManySpies(num){
 
 function assignRandomSpy(roles){
   let idx = Math.floor(Math.random()*roles.length)  
-  if (roles[idx].role == 'spy') assignRandomSpy(roles)
+  console.log('roles are', roles)
+  if (roles[idx].role == 'spy') {
+    console.log(`Role at index ${idx} is a spy, trying again`, roles[idx])
+    assignRandomSpy(roles)
+  }
   else roles[idx].role = 'spy'
 }
 
@@ -167,17 +171,19 @@ function isGameFinished(game_id){
       return acc
     }, 0)
     const fails = missions.length - successes
-    if (successes == 3) goodiesWin()
-    else if (fails == 3) spiesWin()
+    if (successes == 3) return goodiesWin()
+    else if (fails == 3) return spiesWin()
     else return initMission(game_id)
   })  
 }
 
 function goodiesWin(){
+  currentGame.gameStage = 'goodWin'
   console.log('Goodies Win')
 }
 
 function spiesWin(){
+  currentGame.gameStage = 'spyWin'
   console.log('Spies Win')
 }
 

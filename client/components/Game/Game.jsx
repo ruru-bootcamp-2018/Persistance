@@ -7,6 +7,8 @@ import ChatWindow from './ChatWindow'
 import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
 import Votes from './Votes'
 import Intentions from './Intentions'
+import GameOver from './GameOver'
+import IntentionsSuspense from './IntentionsSuspense'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
@@ -16,10 +18,10 @@ class Game extends React.Component {
     this.state = {
       stage: '',
       displayVotes: false,
-      displayIntentions: false
+      displayIntentions: false,
+      mission: {}
     }
-    this.showVotes = this.showVotes.bind(this)
-    this.showIntentions = this.showIntentions.bind(this)
+    this.sortIntentions = this.sortIntentions.bind(this)
   }
 
   componentDidMount() {
@@ -31,51 +33,54 @@ class Game extends React.Component {
       const { dispatch } = this.props
       dispatch(updateCurrentGame(gameData.currentGame))
       // dispatch(updateCurrentMission(gameData.currentMission))
-      // dispatch(updateCurrentRound(gameData.currentRound))      
+      // dispatch(updateCurrentRound(gameData.currentRound))
       //dispatch(updateMissionParams(gameData.missionParams)) //can remove?
     })
 
   }
 
   componentWillReceiveProps(newProps){
-    if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.showVotes()
-    if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.showIntentions()
+    //if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.setState({showVotes: true})
+    if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.sortIntentions(newProps.currentGame.missions)
+    if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({gameOver: true})
     this.setState({stage: newProps.currentGame.gameStage})
   }
 
-  hideVotes() {
-    this.setState({showVotes: false})
+  sortIntentions(missions){
+    let mission = missions.slice().reverse().find(x => x.intentions.length > 0)
+    let team = mission.intentions.map(member => {
+      let player = this.props.currentGame.players.find(x => x.id == member.user_id)
+      return player.display_name || player.user_name
+    })    
+    let intentions = mission.intentions.map(x => x.intention)
+    if (Math.random() > 0.5) this.shuffleArray(intentions)
+    else intentions.sort((a,b) => b-a)
+    this.setState({showIntentions: true, mission: {intentions, team, outcome: mission.outcome}})
   }
 
-
-  showVotes(){
-    this.setState({showVotes: true})
-    // setTimeout(() => {
-    //   this.setState({showVotes: false})
-    // }, 5000)
+  shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
   }
 
-  hideIntentions() {
-    this.setState({showIntentions: false})
+  hideModal() {
+    this.setState({showVotes: false, showIntentions: false, gameOver: false})
   }
-
-
-  showIntentions(){
-    this.setState({showIntentions: true})
-    // setTimeout(() => {
-    //   this.setState({showVotes: false})
-    // }, 5000)
-  }
-
+  
   render() {
 
     return (<div>
-      <ChatWindow id={this.props.match.params.id} />
       <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
       <Buttons />
       <GameBoard />
-      {this.state.showVotes && <Votes hideVotes={this.hideVotes.bind(this)}/>}
-      {this.state.showIntentions && <Intentions hideIntentions={this.hideIntentions.bind(this)}/>}
+      {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)}/>}
+      {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)}  mission={this.state.mission}/>}
+      {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)}/>}
+      <ChatWindow id={this.props.match.params.id} />
     </div>
     )
   }

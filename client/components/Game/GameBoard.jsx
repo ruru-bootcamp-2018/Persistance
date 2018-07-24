@@ -28,7 +28,7 @@ class GameBoard extends React.Component {
     const initialLeader = this.props.currentGame.missions[mission_num - 1].rounds[0].leader_id
     const initialLeaderIndex = players.findIndex(x => x.id == initialLeader)
     const hammer = players[initialLeaderIndex + 4 % (players.length - 1)].id
-
+    const spies = players.filter(x => x.role == 'spy').length
 
     // this stuff fixed a problem with mission array only being as long as mission exists
 
@@ -44,10 +44,12 @@ class GameBoard extends React.Component {
           })}
         </div>
         
-        <h1 className="is-size-3 has-text-black"><i className="fas fa-crown"></i>{`${leader.user_name} is the leader`}</h1>
+        <h1>{players.map((x, i) => {
+          if (x.role == 'spy') return <img key={i} className="spyIcon" src="/spy.png" />
+        })}</h1>
 
         <div className="background-image">
-        <p className="is-size-3 has-text-white">Missions</p>
+        <p className="is-size-3 has-text-white">Missions</p>        
         <div className="level missionDisplay">
           {missionDisplay.map((mission, i) => {
             return <Mission key={i} mission={mission} number={i}  />
