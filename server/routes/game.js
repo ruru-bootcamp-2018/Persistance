@@ -108,6 +108,27 @@ router.post('/nominate', (req, res) => {
   })   
 })
 
+router.post('/remove', (req, res) => {
+  if (currentGame.gameStage !== 'nominating') return res.sendStatus(400)
+  const game_id = req.body.game.id
+  const user_id = req.body.nomination.user.id
+  const round_id = currentGame.currentRound.id
+  const round_num = currentGame.currentRound.round_num
+  const mission_num = currentGame.currentMission.mission_num  
+  db.removeNomination(round_id, user_id).then(() => {
+    db.getNominations(round_id).then(nominations => {
+      console.log('nomination removed')
+      checkNominations(round_id).then(() => {
+        currentGame.missions[mission_num-1].rounds[round_num-1].nominations = nominations
+        const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGame
+        const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+        socket.emit('updateGameRoom', gameData, game_id)
+        res.json(nominations)
+      })
+    })
+  })   
+})
+
 router.post('/vote', (req, res) => {
   if (currentGame.gameStage !== 'voting') return res.sendStatus(400)
   const game_id = req.body.game.id
