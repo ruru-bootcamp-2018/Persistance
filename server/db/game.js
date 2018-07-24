@@ -14,7 +14,7 @@ function createGame(game_name, host_id, testDb){
 function startGame(game_id, testDb){
   const db = testDb || conn
   return db('games').where('id', game_id)
-    .update({in_progress: true, time_stamp: Date.now()})
+    .update({in_progress: true/*, time_stamp: Date.now()*/})
 }
 
 function getGame(id, testDb){
