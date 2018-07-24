@@ -54,7 +54,7 @@ class Game extends React.Component {
     })    
     let intentions = mission.intentions.map(x => x.intention)
     if (Math.random() > 0.5) this.shuffleArray(intentions)
-    else intentions.sort((a,b) => b.intention-a.intention)
+    else intentions.sort((a,b) => b-a)
     this.setState({showIntentions: true, mission: {intentions, team, outcome: mission.outcome}})
   }
 
