@@ -11,7 +11,6 @@ const StatusBar = props =>  {
     const onTeam = noms.find(player => player.user_id == authID)
     const { gameStage } = props.currentGame
     let displayText = ""
-      console.log('noms is', noms, 'onteam =', onTeam)
     //depends on who you are what you see
 
     switch(gameStage) {
