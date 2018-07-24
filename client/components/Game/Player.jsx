@@ -9,7 +9,7 @@ import { sendNomination, removeNomination } from '../../actions/playerInputs'
 const roundStyleObj = {
     borderRadius: "50%",
     height: "120px",
-    width: "120px" 
+    width: "120px"
 }
 
 class Player extends React.Component {
@@ -31,11 +31,11 @@ class Player extends React.Component {
 
         const noms = this.props.currentGame.missions[mission_num - 1].rounds[round_num - 1].nominations
         const reqNoms = this.props.missionParams[mission_num -1].team_total
-        const allNoms = reqNoms == noms.length 
-        
+        const allNoms = reqNoms == noms.length
+
         if (!this.state.isNominated) {
             if (allNoms) return
-            
+
             sendNomination(nom)
                 .then(res => {
                     const localSocket = this.props.socket
@@ -81,7 +81,10 @@ class Player extends React.Component {
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
-        const glow = this.state.isNominated ? 'button-glow' : isSpy ? 'spy-glow' : ''
+        const isNominated = this.state.isNominated == true
+
+      //  const glow = isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : isNominated && isSpy ? 'nominated-spy-glow' : ''
+        const glow = isNominated && isSpy ? 'nominated-spy-glow' : isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : ''
 
         return (
             <div>
