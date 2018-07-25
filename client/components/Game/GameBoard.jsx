@@ -27,7 +27,8 @@ class GameBoard extends React.Component {
     // finding the hammer
     const initialLeader = this.props.currentGame.missions[mission_num - 1].rounds[0].leader_id
     const initialLeaderIndex = players.findIndex(x => x.id == initialLeader)
-    const hammer = players[initialLeaderIndex + 4 % (players.length)].id
+    const hammer = players[(initialLeaderIndex + 4) % (players.length-1)].id
+    console.log('getting hammer, its ', hammer, 'players is', players)
     const spies = players.filter(x => x.role == 'spy').length
 
     // this stuff fixed a problem with mission array only being as long as mission exists
