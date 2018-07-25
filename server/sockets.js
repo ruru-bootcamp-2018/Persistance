@@ -31,7 +31,7 @@ module.exports = http => {
         // tis is copied form socket-voting
 
         socket.on('chat-down', (gameID, msg) => {
-            console.log(msg)
+            console.log({msg})
             //io.emit('chat-up', msg) //This is global
             io.to(gameID).emit('chat-up', msg) //This is Game specific
         })
