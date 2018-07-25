@@ -26,10 +26,15 @@ npm manifest:
       "start": "node server/index",
       "test": "jest",
       "h:deploy": "git push heroku master",
+      "h:cliff": "git push heroku deploy:master",
       "h:migrate": "heroku run knex migrate:latest",
       "h:rollback": "heroku run knex migrate:rollback",
       "h:seed": "heroku run knex seed:run",
       "knex": "knex"
+  
+    },
+    "nodemonConfig": {
+      "ignore": ["node_modules/*"]
     },
     "ava": {
       "require": "babel-register",
@@ -8164,7 +8169,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 127
+  Exit code: 126
   Command: sh
   Arguments: -c nodemon --watch server server/index & webpack --watch
   Directory: /home/student/workspace/Persistance
