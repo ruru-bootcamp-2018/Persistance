@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {connect} from 'react-redux'
 
 
 class IntentionsSuspense extends React.Component {
@@ -14,14 +14,23 @@ class IntentionsSuspense extends React.Component {
     this.tick = this.tick.bind(this)
     this.start = this.start.bind(this)
     this.stop = this.stop.bind(this)
+    this.triggerStart = this.triggerStart.bind(this)
+
+    this.props.socket.on('startReveal', () => {
+      this.start()
+    })
+  }
+  triggerStart() {
+    this.props.socket.emit('startReveal', this.props.currentGame.game.id)
   }
   start() {
     this.setState({hasStarted: true})
+    window.clearTimeout(this.timeout)
     this.timeout = setTimeout(() => this.tick(), 1500)
   }
   tick() {
     let {revealed} = this.state
-    revealed++    
+    revealed++
     this.setState({revealed})
     if (revealed >= this.props.mission.intentions.length) this.stop()
     else this.timeout = setTimeout(() => this.tick(), revealed * 1000)
@@ -31,7 +40,7 @@ class IntentionsSuspense extends React.Component {
     this.setState({hasEnded: true})
   }
 
- 
+
 
   render() {
     const {intentions, team, outcome} = this.props.mission
@@ -76,7 +85,7 @@ class IntentionsSuspense extends React.Component {
           </div>)}
         </section>
         <footer className="modal-card-foot">
-          {!hasStarted && <button className="button is-fullwidth" onClick={this.start}>Reveal!</button>}
+          {!hasStarted && <button className="button is-fullwidth" onClick={this.triggerStart}>Reveal!</button>}
           {hasEnded && <button onClick={this.props.hideModal} className="button is-fullwidth">Close</button>}
         </footer>
       </div>
@@ -84,4 +93,6 @@ class IntentionsSuspense extends React.Component {
   }
 }
 
-export default IntentionsSuspense
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps)(IntentionsSuspense)

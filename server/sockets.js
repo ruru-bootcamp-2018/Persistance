@@ -45,11 +45,15 @@ module.exports = http => {
             if (gameData.currentGame.game.is_finished) delete currentGames[gameId]
         })
 
+        socket.on('startReveal', (gameId) => {
+          io.to(gameId).emit('startReveal')
+        })
+
 
         socket.on('getGames', () => {
             const keys = Object.keys(currentGames)
-            const games = keys.map(key => currentGames[key].game)                       
-            io.emit('receiveGames', games)            
+            const games = keys.map(key => currentGames[key].game)
+            io.emit('receiveGames', games)
         })
 
     });
