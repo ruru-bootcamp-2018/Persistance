@@ -25,5 +25,7 @@ export function sendIntention(data){
 }
 
 export function startGame(game){
+
   return request('post', 'game/start', {game})
 }
+

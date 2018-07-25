@@ -29,16 +29,20 @@ class IntentionButtons extends React.Component {
 
 render() {
     const player = this.props.currentGame.players.find(player => player.id == this.props.auth.user.id)
-    const isSpy = player.role == 'spy' 
-    return this.state.hasCastIntention ? (
+
+
+    const isSpy = player.role == 'spy'
+    return (!isSpy && !this.state.hasCastIntention) ? (
+     <div>
+     <button className="no" onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass"><img src="/success.png" className="intentionAccept raiseI"/></button>
+     <button className="no" disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail"><img src="/fail.png" className="intentionReject raiseI-red"/></button>
+     </div>
+   ) : (this.state.hasCastIntention) ? (
     <div>
      <button className="no" disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass"><img src="/success.png" className="intentionAccept raiseI"/></button>
      <button className="no" disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail"><img src="/fail.png" className="intentionReject raiseI-red"/></button>
      </div>
-   ) : (!isSpy) ? (
-      <div>
-     <button className="no" onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass"><img src="/success.png" className="intentionAccept raiseI"/></button>
-     <button className="no" disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail"><img src="/fail.png" className="intentionReject raiseI-red"/></button>
+
      </div>
    ) : (
      <div>
