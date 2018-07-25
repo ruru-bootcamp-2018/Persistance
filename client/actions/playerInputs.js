@@ -25,6 +25,7 @@ export function sendIntention(data){
 }
 
 export function startGame(game){
-  return request('post', 'game/start', {game})    
-  } //CANNOT be a then on this function. 
+
+  return request('post', 'game/start', {game})
+}
 
