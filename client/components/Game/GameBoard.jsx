@@ -38,7 +38,7 @@ class GameBoard extends React.Component {
 
     return (
     
-      <div className="gameBoard is-fluid">
+      <div className="gameBoard">
         <div className="level">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
             return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
