@@ -86,22 +86,15 @@ class Game extends React.Component {
 
   render() {
     return (
-      <div class="container">
-        <div className="backdrop-image">
+      <div className="container">
           <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)} />
-          <div className="Gametest">
             <Buttons />
-            
             <GameBoard />
             {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)} round={this.state.round} />}
             {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}
             {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)} />}
-          </div>
-          <div class="container">
-            <div className="ChatContainer">
-              <ChatWindow id={this.props.match.params.id} />
-            </div> 
-          </div>
+            <div style={{marginTop: '1vw'}} className="ChatContainer">
+            <ChatWindow id={this.props.match.params.id} />
         </div>
       </div>
     )

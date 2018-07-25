@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import HistoryIcon from './HistoryIcon'
 
 const StatusBar = props =>  {
     const { round_num } = props.currentGame.currentRound
@@ -45,10 +46,10 @@ const StatusBar = props =>  {
           }
         break
         case "goodWin":
-        displayText = "The loyalists have persited in their attempts"
+        displayText = "The loyalists have persisted in their attempts"
         break
         case "spyWin":
-        displayText = "The spies have succeded in throwing the missions"
+        displayText = "The spies have succeeded in throwing the missions"
         break
         default:
         displayText = "404 this is not the page you were looking for - game stage not correctly defined"
@@ -56,7 +57,7 @@ const StatusBar = props =>  {
 
     return (
     <div className='is-size-3 statusBar has-text-white' >
-        <p>{displayText}</p> 
+        <p>{displayText}</p>
         <HistoryIcon />
     </div>
   )

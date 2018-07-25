@@ -83,7 +83,7 @@ class ChatWindow extends React.Component {
                     </span>)}
                 </div>
                 <div className="column is-6 is-offset-3">
-                <input style={{width: "95%" }} className="input is-small has-text-white chatInput" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
+                <input style={{width: "95%" }} className="input is-small has-text-white innerShadow chatInput" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
                 <input className="button is-dark is-small chatSubmit raise-black" type="submit" value="➤" />
                 </div>
             </form>
