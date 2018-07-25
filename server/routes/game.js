@@ -1,12 +1,13 @@
 const db = require('../db/game')
 const {assignRoles, initMission, checkVotes, checkIntentions, checkNominations} = require('../gameFunctions')
 var router = require('express').Router()
+var token = require('../auth/token')
 
 
 const {currentGames, initGame} = require('../currentGames')
 
 
-router.post('/new', (req, res) => {
+router.post('/new', token.decode,(req, res) => {
   const {game_name, user} = req.body
   // Object.assign(currentGame, initalGame)
   // currentGame.missions = []
@@ -21,7 +22,7 @@ router.post('/new', (req, res) => {
   })
 })
 
-router.post('/join', (req, res) => {
+router.post('/join', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
   if (currentGames[game_id].players.length >= 10) return res.sendStatus(400)  
@@ -41,7 +42,7 @@ router.post('/join', (req, res) => {
   
 })
 
-router.post('/start', (req, res) => {
+router.post('/start', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
   if (currentGames[game_id].players.length < 2) return res.sendStatus(400)   // change back to five  
@@ -70,7 +71,7 @@ router.post('/start', (req, res) => {
 })
 
 
-router.post('/nominate', (req, res) => {
+router.post('/nominate', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'nominating') return res.sendStatus(400)  
   const user_id = req.body.nomination.user.id
@@ -88,7 +89,7 @@ router.post('/nominate', (req, res) => {
   })
 })
 
-router.post('/remove', (req, res) => {
+router.post('/remove', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'nominating') return res.sendStatus(400)  
   const user_id = req.body.nomination.user.id
@@ -106,7 +107,7 @@ router.post('/remove', (req, res) => {
   })   
 })
 
-router.post('/confirmNoms', (req, res) => {
+router.post('/confirmNoms', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'nominating') return res.sendStatus(400)  
   const round_id = currentGames[game_id].currentRound.id
@@ -117,7 +118,7 @@ router.post('/confirmNoms', (req, res) => {
   })
 })
 
-router.post('/vote', (req, res) => {
+router.post('/vote', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'voting') return res.sendStatus(400)  
   const user_id = req.body.user.id
@@ -134,7 +135,7 @@ router.post('/vote', (req, res) => {
   })
 })
 
-router.post('/intention', (req, res) => {
+router.post('/intention', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'intentions') return res.sendStatus(400)  
   const user_id = req.body.user.id
