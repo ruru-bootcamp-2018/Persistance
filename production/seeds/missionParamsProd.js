@@ -1,10 +1,10 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('missionParams').del()
+  return knex('mission_params').del()
     .then(function () {
       // Inserts seed entries
-      return knex('missionParams').insert([
+      return knex('mission_params').insert([
         {players_total: 5, team_total: 2 , mission_num:1 , fails_needed: 1 },
         {players_total: 5, team_total: 3 , mission_num:2 , fails_needed: 1 },
         {players_total: 5, team_total: 2 , mission_num:3, fails_needed: 1 },
