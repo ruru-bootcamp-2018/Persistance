@@ -1,6 +1,10 @@
 import React from 'react'
 
-
+const roundStyleObj = {
+    borderRadius: "50%",
+    height: "120px",
+    width: "120px"
+}
 
 class IntentionsSuspense extends React.Component {
   constructor(props) {
@@ -21,7 +25,7 @@ class IntentionsSuspense extends React.Component {
   }
   tick() {
     let {revealed} = this.state
-    revealed++    
+    revealed++
     this.setState({revealed})
     if (revealed >= this.props.mission.intentions.length) this.stop()
     else this.timeout = setTimeout(() => this.tick(), revealed * 1000)
@@ -31,11 +35,11 @@ class IntentionsSuspense extends React.Component {
     this.setState({hasEnded: true})
   }
 
- 
 
   render() {
-    const {intentions, team, outcome} = this.props.mission
+    let {intentions, team, outcome} = this.props.mission
     const {hasStarted, hasEnded, revealed} = this.state
+
     return <div className="modal is-active">
       <div className="modal-background"></div>
       <div className="modal-card">
@@ -43,7 +47,7 @@ class IntentionsSuspense extends React.Component {
           <p className="modal-card-title">Mission Intentions</p>
         </header>
         <section className="modal-card-body">
-          <h1 className="title">
+          <h1 className={`title ${!hasEnded ? '' : outcome ? 'has-text-info' : 'has-text-danger'}`}>
             {!hasStarted
               ? 'All shall be revealed...'
               : hasEnded
@@ -57,23 +61,27 @@ class IntentionsSuspense extends React.Component {
             The Team:
           </h2>
           <div className="columns is-multiline">
-            {team.map(name => <div className="column is-4">{name}</div>)}
+            {team.map(player => <div className="column is-4">{player.user_name}<img style={roundStyleObj} src={player.img} /></div>)}
           </div>
           <hr />
-          {intentions.map((intention, i) => <div className={`box ${
-            i < revealed
-              ? ''
-              : intention ? 'is-success' : 'is-danger'
-          }`}>
-            {hasStarted
-              ? i < revealed
-                ? intention
-                  ? 'Success'
-                  : 'Fail'
-                : '...'
-              : 'Pending...'
-            }
-          </div>)}
+          <div className="has-text-centered columns is-multiline">
+            {intentions.map((intention, i) => <div className={`column is-${12 /  intentions.length} box ${
+              i < revealed
+                ? ''
+                : intention ? 'has-text-success' : 'has-text-danger'
+            }`}>
+              <img src={
+                hasStarted
+                  ? i < revealed
+                    ? intention
+                      ? '/success.png'
+                      : '/fail.png'
+                    : '/blank-card.png'
+                  : '/blank-card.png'
+              } className=" image is-128x128" />
+            </div>)}
+
+          </div>
         </section>
         <footer className="modal-card-foot">
           {!hasStarted && <button className="button is-fullwidth" onClick={this.start}>Reveal!</button>}
@@ -83,5 +91,6 @@ class IntentionsSuspense extends React.Component {
     </div>
   }
 }
+
 
 export default IntentionsSuspense
