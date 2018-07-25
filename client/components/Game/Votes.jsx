@@ -30,7 +30,7 @@ class Votes extends React.Component{
                 <div className='columns is-multiline'>
                 {this.props.currentGame.players.map((player) => (
                   <div className={`column is-${12 /  this.props.currentGame.players.length}`}>
-                    <p>{player.display_name || player.user_name}</p>
+                    <p>{player.display_name || player.user_name} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'Approve' : 'Reject'}</p>
                     <img src={player.img} style={roundStyleObj} />
                     <img style={roundStyleObj} src={this.props.round.votes.find(vote => vote.user_id == player.id).vote ? '/approve.png' : '/reject.png'} />
                   </div>))}
