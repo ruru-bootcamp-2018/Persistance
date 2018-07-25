@@ -34,9 +34,10 @@ test('get game returns a game object', () => {
 })
 
 test('can get all the roles of a single game', () => {
-  let id = 1
-  return gameDb.getRoles(id, testDb)
+  let game_id = 2
+  return gameDb.getRoles(game_id, testDb)
     .then(roles => {
+      console.log(roles)
       expect(roles.length).toBe(5)
       expect(roles[0].hasOwnProperty('role')).toBeTruthy()
   })
@@ -50,11 +51,3 @@ test('can add a role to the role db', () => {
       expect(roles.length).toBe(1)
   })
 })
-
-// test('can delete a role from the roles db', () => {
-//   let game_id = 1
-//   return gameDb.delRoles(game_id, testDb)
-//     .then(role => {
-//       expect(role.length).toBe(1)
-//   })
-// })

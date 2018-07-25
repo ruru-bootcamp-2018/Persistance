@@ -23,7 +23,7 @@ const server = require('../../server/server')
 test('create a game', () => {
   return request(server)
     .post('/api/game/new')
-    .send({fakeGame: {game_name: 'game2'}})
+    .send({fakeGame: {game_name: 'game2', host_id: 1}})
     .expect(200)
     .then(res => {
       expect(res.body).toBeTruthy()

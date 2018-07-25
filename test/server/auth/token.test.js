@@ -30,9 +30,12 @@ test('getSecret', () => {
 
 test('createToken', () => {
   const user = {
-    user_id: 1,
-    user_name: 'TEST USER'
+    id: 1,
+    user_name: 'TEST USER',
+    img: 'someImg',
+    display_name: 'TESTY USER'
   }
+
   const secret = 'TEST SECRET'
   const expectedDetails = {
     expiresIn: '14d'

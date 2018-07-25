@@ -1,11 +1,10 @@
 export const initialState = {
     game: {},
     players: [],
-    missions: [],    
+    missions: [],
     gameStage: "",
     currentMission: {},
     currentRound: {}   
-
 }
 
 
@@ -15,6 +14,6 @@ export default function currentGame(state = initialState, action) {
         case 'UPDATE_GAME':
             return action.currentGame
         default:
-            return state; 
+            return state;
     }
 }
