@@ -17,6 +17,9 @@
     "knex": "knex"
 
   },
+  "nodemonConfig": {
+    "ignore": ["node_modules/*"]
+  },
   "ava": {
     "require": "babel-register",
     "babel": "inherit"
