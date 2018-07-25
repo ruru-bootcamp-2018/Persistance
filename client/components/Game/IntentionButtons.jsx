@@ -29,6 +29,7 @@ class IntentionButtons extends React.Component {
 
 render() {
     const player = this.props.currentGame.players.find(player => player.id == this.props.auth.user.id)
+
     const isSpy = player.role == 'spy'
     return (!isSpy && !this.state.hasCastIntention) ? (
      <div>
