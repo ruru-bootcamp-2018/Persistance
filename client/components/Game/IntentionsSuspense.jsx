@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 const roundStyleObj = {
     borderRadius: "50%",
@@ -18,9 +19,18 @@ class IntentionsSuspense extends React.Component {
     this.tick = this.tick.bind(this)
     this.start = this.start.bind(this)
     this.stop = this.stop.bind(this)
+    this.triggerStart = this.triggerStart.bind(this)
+
+    this.props.socket.on('startReveal', () => {
+      this.start()
+    })
+  }
+  triggerStart() {
+    this.props.socket.emit('startReveal', this.props.currentGame.game.id)
   }
   start() {
     this.setState({hasStarted: true})
+    window.clearTimeout(this.timeout)
     this.timeout = setTimeout(() => this.tick(), 1500)
   }
   tick() {
@@ -34,7 +44,6 @@ class IntentionsSuspense extends React.Component {
     window.clearTimeout(this.timeout)
     this.setState({hasEnded: true})
   }
-
 
   render() {
     let {intentions, team, outcome} = this.props.mission
@@ -83,6 +92,7 @@ class IntentionsSuspense extends React.Component {
 
           </div>
         </section>
+        
         <footer className="modal-card-foot  modal-color">
           {!hasStarted && <button className="button is-dark is-fullwidth" onClick={this.start}>Reveal!</button>}
           {hasEnded && <button onClick={this.props.hideModal} className="button is-dark is-fullwidth">Close</button>}
@@ -92,5 +102,6 @@ class IntentionsSuspense extends React.Component {
   }
 }
 
+const mapStateToProps = state => state
 
-export default IntentionsSuspense
+export default connect(mapStateToProps)(IntentionsSuspense)

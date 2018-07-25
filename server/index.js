@@ -12,6 +12,8 @@ const http = server.listen(PORT, function () {
 // const http = require('http').Server(app)
 const socket = require('./sockets')(http)
 server.set('socket', socket)
-socket.listen(8000)
+
+if (process.env.ENVIRONMENT != 'production') socket.listen(8000)
+
 
 //socket.listen needs to be commented out on deploy branch.
