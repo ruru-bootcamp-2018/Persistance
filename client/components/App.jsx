@@ -8,6 +8,7 @@ import Lobby from './Lobby/Lobby'
 import Game from './Game/Game'
 import Waiting from './Game/Waiting'
 import History from './Game/History'
+import HistoryIcon from './Game/HistoryIcon'
 
 
 
@@ -22,6 +23,8 @@ const App = () => (
       <Route exact path="/game/:id" component={Game} />
       <Route exact path="/waiting/:id" component={Waiting} />
       <Route path="/history" component={History} />
+      <Route path="/icon" component={HistoryIcon} />
+
     </div>
   </Router>
 )
