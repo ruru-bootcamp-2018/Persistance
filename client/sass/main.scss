@@ -1,17 +1,57 @@
 @import './my_bulma.scss';
 @import '~react-tippy/dist/tippy.css';
 
+
+
+
+// .Gametest {
+//   background-image: url('/Boardtest.jpg');
+//   background-repeat: no-repeat;
+  
+//   height: 1000px;
+//   width: 1800px;
+// }
+
+
+// gameboard image 
+
 .background-image {
-  background-image: url('/Freedom.jpg');
+  background-image: url('/Boardtest.jpg');
   background-repeat: no-repeat;
-  height: 21vw;
-  width: 70vw;
+  height: 40vw;
+  width: 75vw;
+  display: block;
+  margin: 0 auto;
+  margin-left: 17.5vw;
+  -webkit-filter: drop-shadow(5px 5px 5px rgb(0, 0, 0) );
+  filter: drop-shadow(5px 10px 10px rgb(104, 104, 104));
+  filter: drop-shadow(5px 10px 15px rgb(78, 101, 112));
+}
+// blue leather background
+.backdrop-image {
+  background-image: url('/Backdrop.jpg');
+  background-repeat: no-repeat;
+  height: 2000px;
+  width: 2000px;
   display: block;
   margin: 0 auto;
 }
 
+
+.ChatContainer {
+  margin:0 auto;
+  position: relative;
+// is fluid
+      margin-left: $gap;
+      margin-right: $gap;
+      max-width: none;
+      width: auto;
+
+}
+
+
 .missionDisplay {
-  width: 65vw;
+  width: 62vw;
   margin-left: 0.5vw;
 }
 

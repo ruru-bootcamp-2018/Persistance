@@ -4,7 +4,7 @@ import GameBoard from './GameBoard'
 import Buttons from './Buttons'
 import StatusBar from './StatusBar'
 import ChatWindow from './ChatWindow'
-import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
+import { updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams } from '../../actions/currentGame'
 import Votes from './Votes'
 import Intentions from './Intentions'
 import GameOver from './GameOver'
@@ -39,49 +39,58 @@ class Game extends React.Component {
 
   }
 
-  componentWillReceiveProps(newProps){
+  componentWillReceiveProps(newProps) {
     //if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.setState({showVotes: true})
     if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.sortIntentions(newProps.currentGame.missions)
-    if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({gameOver: true})
-    this.setState({stage: newProps.currentGame.gameStage})
+    if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({ gameOver: true })
+    this.setState({ stage: newProps.currentGame.gameStage })
   }
 
-  sortIntentions(missions){
+  sortIntentions(missions) {
     let mission = missions.slice().reverse().find(x => x.intentions.length > 0)
     let team = mission.intentions.map(member => {
       let player = this.props.currentGame.players.find(x => x.id == member.user_id)
       return player.display_name || player.user_name
-    })    
+    })
     let intentions = mission.intentions.map(x => x.intention)
     if (Math.random() > 0.5) this.shuffleArray(intentions)
-    else intentions.sort((a,b) => b-a)
-    this.setState({showIntentions: true, mission: {intentions, team, outcome: mission.outcome}})
+    else intentions.sort((a, b) => b - a)
+    this.setState({ showIntentions: true, mission: { intentions, team, outcome: mission.outcome } })
   }
 
   shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
     }
   }
 
   hideModal() {
-    this.setState({showVotes: false, showIntentions: false, gameOver: false})
+    this.setState({ showVotes: false, showIntentions: false, gameOver: false })
   }
-  
+
   render() {
 
-    return (<div>
-      <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)}/>
-      <Buttons />
-      <GameBoard />
-      {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)}/>}
-      {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)}  mission={this.state.mission}/>}
-      {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)}/>}
-      <ChatWindow id={this.props.match.params.id} />
-    </div>
+    return (
+      <div class="container">
+        <div className="backdrop-image">
+          <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)} />
+          <div className="Gametest">
+            <Buttons />
+            <GameBoard />
+            {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)} />}
+            {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}
+            {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)} />}
+          </div>
+          <div class="container">
+            <div className="ChatContainer">
+              <ChatWindow id={this.props.match.params.id} />
+            </div> 
+          </div>
+        </div>
+      </div>
     )
   }
 }
