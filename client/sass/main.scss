@@ -15,6 +15,8 @@
   margin-left: 0.5vw;
 }
 
+
+
 .circles {
   border-radius: 50%;
   width: 5vw;
@@ -191,6 +193,11 @@
   transform: translateY(-0.25em);
 }
 
+.raiseI:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
 .raise-green:hover {
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
@@ -201,7 +208,21 @@
   transform: translateY(-0.25em);
 }
 
+.raiseI-red:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
 
+.raise-white:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-black:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+  
+}
 //=== Set button colors
 // If you wonder why use Sass vars or CSS custom properties...
   // Make a map with the class names and matching colors
@@ -210,8 +231,12 @@ $colors: (
   pulse: #ef6eae,
   close: #ff7f82,
   raise: #0059ff,
+  raiseI: #0059ff,
+  raise-white: white,
+  raise-black: black,
   raise-green: #15661a,
   raise-red: #921911,
+  raiseI-red: #921911,
   up: #e4cb58,
   slide: #8fc866,
   offset: #19bc8b
@@ -238,6 +263,8 @@ button {
   }
 }
 
+
+
 //=== Pen styling, ignore
 
 
@@ -260,11 +287,35 @@ code {
 
 
 .voteCheck {
-  width: 30px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 120px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
 }
 
 .voteCross {
-  width: 30px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 120px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
 }
 
 .innerShadow {
@@ -274,12 +325,52 @@ code {
 }
 
 .intentionAccept {
-  width: 35px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 150px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
 }
 
 .intentionReject {
-  width: 30px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 150px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
 }
 
+.no {
+  border:none;
+  height: 150px;
+  outline: none;
+  a:active,
+a:focus { 
+    -moz-outline-style: none; 
+}
+}
 
+.nono {
+  -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+}
 
