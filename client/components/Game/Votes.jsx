@@ -29,7 +29,7 @@ class Votes extends React.Component{
               <section className="modal-card-body modal-color">
                 <div className='columns is-multiline modal-color'>
                 {this.props.currentGame.players.map((player) => (
-                  <div className={`column is-${12 /  this.props.currentGame.players.length}`}>
+                  <div className={`column is-${12 / this.props.currentGame.players.length}`}>
                     <p>{player.display_name || player.user_name} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'Approve' : 'Reject'}</p>
                     <img src={player.img} style={roundStyleObj} />
                     <img className="has-text-white" style={roundStyleObj} src={this.props.round.votes.find(vote => vote.user_id == player.id).vote ? '/approve.png' : '/reject.png'} />
