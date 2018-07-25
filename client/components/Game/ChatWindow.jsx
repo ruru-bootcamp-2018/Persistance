@@ -73,18 +73,19 @@ class ChatWindow extends React.Component {
     render() {
 
         //console.log("game id is", this.props.id)
-        const styleObj = { overflow: 'auto', height: '150px', width:'100%' }
+        const styleObj = { overflow: 'auto', height: '150px'}
         console.log(this.state.msgs)
         return (
             <form className="chatWindow" onSubmit={this.submit.bind(this)}>
-                <p> ChatWindow</p>
-                <div className="column is-6 is-offset-3" ref="chats" style={styleObj} >
+                <div className="column is-6 is-offset-3 innerShadow" ref="chats" style={styleObj} >
                     {this.state.msgs.map((msg, i) => <span>
                         <p className="level-item level-left"><b>{msg.userName}</b> - {msg.chatMessage} - ({moment(msg.date).fromNow()})</p>
                     </span>)}
                 </div>
-                <input className="input is-small column is-6 is-offset-3" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
-                <input className="button is-info is-outlined is-small" type="submit" value="Send a message!" />
+                <div className="column is-6 is-offset-3">
+                <input style={{width: "95%" }} className="input is-small chatInput" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
+                <input className="button is-dark  is-outlined is-small chatSubmit raise-black" type="submit" value="➤" />
+                </div>
             </form>
         )
     }

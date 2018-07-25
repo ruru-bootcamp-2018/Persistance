@@ -374,3 +374,25 @@ a:focus {
             filter: grayscale(100%);
 }
 
+.chatSubmit {
+  width: 5%;
+  font-size: 2em;
+  padding: 0 0;
+  text-align: center
+}
+
+.chatInput:focus  {
+  outline: none;
+  transform: none;
+  border-color: whitesmoke; 
+}
+
+.chatWindow{
+  overflow:hidden;
+
+  ::-webkit-scrollbar { 
+    display: none; 
+  }
+}
+
+
