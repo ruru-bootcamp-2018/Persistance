@@ -174,11 +174,13 @@ function isGameFinished(game_id){
 }
 
 function goodiesWin(game_id){
+  currentGames[game_id].game.is_finished = true
   currentGames[game_id].gameStage = 'goodWin'
   console.log('Goodies Win')
 }
 
 function spiesWin(game_id){
+  currentGames[game_id].game.is_finished = true
   currentGames[game_id].gameStage = 'spyWin'
   console.log('Spies Win')
 }

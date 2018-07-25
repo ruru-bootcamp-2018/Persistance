@@ -42,6 +42,7 @@ module.exports = http => {
 
         socket.on('updateGameRoom', (gameData, gameId) => {
             io.to(gameId).emit('receiveUpdateGame', gameData)
+            if (gameData.currentGame.game.is_finished) delete currentGames[gameId]
         })
 
 
