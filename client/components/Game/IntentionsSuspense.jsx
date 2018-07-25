@@ -74,7 +74,7 @@ class IntentionsSuspense extends React.Component {
           </div>
           <hr />
           <div className="has-text-centered columns  modal-color is-multiline">
-            {intentions.map((intention, i) => <div className={`column is-${12 /  intentions.length} modal-color box ${
+            {intentions.map((intention, i) => <div className={`column is-${12 / intentions.length} modal-color box ${
               i < revealed
                 ? ''
                 : intention ? 'has-text-success' : 'has-text-danger'
@@ -92,7 +92,7 @@ class IntentionsSuspense extends React.Component {
 
           </div>
         </section>
-        
+
         <footer className="modal-card-foot  modal-color">
           {!hasStarted && <button className="button is-dark is-fullwidth" onClick={this.start}>Reveal!</button>}
           {hasEnded && <button onClick={this.props.hideModal} className="button is-dark is-fullwidth">Close</button>}
