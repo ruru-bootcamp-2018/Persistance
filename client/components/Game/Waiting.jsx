@@ -56,7 +56,11 @@ class Waiting extends React.Component {
 
       <div className="level">
         {players.map((player, i) => {
-          return <EmptyPlayer key={i} player={player} />
+          return (
+            <div className="level-item">
+            <EmptyPlayer key={i} player={player} />
+            </div>
+          )
         })}
       </div>
 

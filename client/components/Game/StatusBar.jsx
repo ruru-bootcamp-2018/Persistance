@@ -58,7 +58,7 @@ const StatusBar = props =>  {
     return (
     <div className='is-size-3 statusBar has-text-white' >
         <p>{displayText}</p>
-        <HistoryIcon />
+        <HistoryIcon className="historyIcon" />
     </div>
   )
 }

@@ -11,23 +11,19 @@ class HistoryIcon extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         //const history = <History />
         return (
-       
-                <Tooltip 
+
+                <Tooltip
                     position="right"
-                    trigger="mouseenter"
+                    trigger="click"
                     useContext="true"
                     html={ <div className="myDiv container"> <History /> </div>}
                 >
-                    <img className="image is-32x32" src="/book-solid.svg" />
+                    <img style={{marginTop: '-2vw', zIndex: '1', float: 'right'}} className="image is-32x32" src="/book-solid.svg" />
                 </ Tooltip>
-           
+
         )
     }
 

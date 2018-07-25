@@ -1,21 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-//const game = require('../../../server/fakeData/mission2')
-// const currentGame = {
-//   game: {},
-//   players: [],
-//   missions: [],    
-//   gameStage: "",
-//   currentMission: {},
-//   currentRound: {}   
-
-// }
-
-
-
-
-
 class History extends React.Component {
   constructor(props) {
     super(props)
@@ -33,19 +18,19 @@ class History extends React.Component {
   getName(id) {
     return this.showName(this.findPlayer(id))
   }
-  
+
   findPlayer(targetId) {
     return this.props.currentGame.players.find((player) => {
       return player.id == targetId
     })
   }
-  
+
   showName(player) {
     return (
-      
-      //<img className="image is-16x16" style=${{borderRadius:"50%"}} src=${player.img} /> 
+
+      //<img className="image is-16x16" style=${{borderRadius:"50%"}} src=${player.img} />
       player.display_name || player.display_name
-      
+
     );
   }
 
@@ -64,12 +49,12 @@ class History extends React.Component {
             return this.getName(nom.user_id) + ', '
           })}
         </td>
-  
+
         { round.votes.map((vote, i) => {
             return (<td key={i}>{vote.vote ? <div>{approve}</div> : <div>{reject}</div>}</td>);
           })
         }
-  
+
         <td>
           {(j == roundLength-1) ? intentions.map( (intention, i) => <span key={i}>{intention.intention ? pass : fail}</span>) : ""}
         </td>
@@ -179,10 +164,10 @@ class History extends React.Component {
 
 // function showName(player) {
 //   return (
-    
-//     //<img className="image is-16x16" style=${{borderRadius:"50%"}} src=${player.img} /> 
+
+//     //<img className="image is-16x16" style=${{borderRadius:"50%"}} src=${player.img} />
 //     player.display_name || player.display_name
-    
+
 //   );
 // }
 
