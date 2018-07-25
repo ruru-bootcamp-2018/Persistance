@@ -9,6 +9,7 @@ import Votes from './Votes'
 import Intentions from './Intentions'
 import GameOver from './GameOver'
 import IntentionsSuspense from './IntentionsSuspense'
+import HistoryIcon from './HistoryIcon'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
@@ -84,13 +85,13 @@ class Game extends React.Component {
 
 
   render() {
-
     return (
       <div class="container">
         <div className="backdrop-image">
           <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)} />
           <div className="Gametest">
             <Buttons />
+            <HistoryIcon />
             <GameBoard />
             {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)} round={this.state.round} />}
             {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}

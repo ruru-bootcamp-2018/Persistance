@@ -445,6 +445,11 @@ a:focus {
             filter: grayscale(100%);
 }
 
+
+.tippy-popper {
+  max-width: 100%;
+}
+
 .chatSubmit {
   width: 5%;
   font-size: 2em;
