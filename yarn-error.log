@@ -1,5 +1,5 @@
 Arguments: 
-  /home/student/.nvm/versions/node/v8.10.0/bin/node /usr/share/yarn/bin/yarn.js dev
+  /home/student/.nvm/versions/node/v8.10.0/bin/node /usr/share/yarn/bin/yarn.js knex migrate:rollback
 
 PATH: 
   /home/student/.nvm/versions/node/v8.10.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
@@ -8169,9 +8169,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 126
+  Exit code: 1
   Command: sh
-  Arguments: -c nodemon --watch server server/index & webpack --watch
+  Arguments: -c knex migrate:rollback
   Directory: /home/student/workspace/Persistance
   Output:
   
