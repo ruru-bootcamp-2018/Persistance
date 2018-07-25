@@ -35,7 +35,7 @@ function Nav(props) {
 
               </Tooltip>
               <Link className={buttonStyle} to="/lobby">Home</Link>
-              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+              <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true">
                   <button style={{ marginLeft: '1vw' }} className={buttonStyle} onClick={() => props.dispatch(logoutUser())}>
                     Logout

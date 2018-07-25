@@ -91,7 +91,7 @@ class Game extends React.Component {
           <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)} />
           <div className="Gametest">
             <Buttons />
-            <HistoryIcon />
+            
             <GameBoard />
             {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)} round={this.state.round} />}
             {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}

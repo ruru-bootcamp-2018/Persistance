@@ -49,7 +49,7 @@ class GameBoard extends React.Component {
           if (x.role == 'spy') return <img key={i} className="spyIcon" src="/spy.png" />
         })}</h1>
 
-        <div className="background-image">
+        <div className="mission-board column is-8 is-offset-2">
         <p className="is-size-3 has-text-white">Missions</p>        
         <div className="level missionDisplay">
           {missionDisplay.map((mission, i) => {

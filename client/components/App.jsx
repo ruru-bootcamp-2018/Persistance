@@ -15,7 +15,7 @@ import HistoryIcon from './Game/HistoryIcon'
 
 const App = () => (
   <Router>
-    <div class="container">
+    <div className="container is-fluid">
       <div className="backdrop-image">
         <div className='app-container has-text-centered'>
           <Route path="/" component={Nav} />
