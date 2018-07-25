@@ -79,12 +79,12 @@ class ChatWindow extends React.Component {
             <form className="chatWindow" onSubmit={this.submit.bind(this)}>
                 <div className="column is-6 is-offset-3 innerShadow" ref="chats" style={styleObj} >
                     {this.state.msgs.map((msg, i) => <span>
-                        <p className="level-item level-left"><b>{msg.userName}</b> - {msg.chatMessage} - ({moment(msg.date).fromNow()})</p>
+                        <p className="level-item has-text-white level-left"><b>{msg.userName}</b> - {msg.chatMessage} - ({moment(msg.date).fromNow()})</p>
                     </span>)}
                 </div>
                 <div className="column is-6 is-offset-3">
-                <input style={{width: "95%" }} className="input is-small chatInput" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
-                <input className="button is-dark  is-outlined is-small chatSubmit raise-black" type="submit" value="➤" />
+                <input style={{width: "95%" }} className="input is-small has-text-white chatInput" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
+                <input className="button is-dark is-small chatSubmit raise-black" type="submit" value="➤" />
                 </div>
             </form>
         )
