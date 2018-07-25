@@ -37,6 +37,7 @@ class GameBoard extends React.Component {
     })
 
     return (
+    
       <div className="gameBoard">
         <div className="level">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
@@ -72,6 +73,7 @@ class GameBoard extends React.Component {
           })}
         </div>
       </div>
+
     )
   }
 }

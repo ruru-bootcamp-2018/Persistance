@@ -1,18 +1,84 @@
 @import './my_bulma.scss';
 @import '~react-tippy/dist/tippy.css';
 
-.background-image {
-  background-image: url('/Freedom.jpg');
+
+.The-Persistence {
+  background-image: url('/persistencetitle.jpg');
   background-repeat: no-repeat;
-  height: 21vw;
-  width: 70vw;
+  height: 5vw;
+  width: 10vw;
+  display: block;
+  margin: 0 auto;
+  -webkit-filter: drop-shadow(5px 5px 5px rgb(0, 0, 0) );
+  filter: drop-shadow(5px 10px 10px rgb(104, 104, 104));
+  filter: drop-shadow(5px 10px 15px rgb(78, 101, 112));
+}
+
+.gameBoard {
+  height: 40vw;
+  width: 75vw;
+  display: block;
+  margin: 0 auto;
+  margin-left: 17.5vw;
+}
+
+.navbar-menu {
+  color: rgb(0, 255, 200)
+}
+// gameboard image 
+
+.background-image {
+  background-image: url('/Boardtest.jpg');
+  background-repeat: no-repeat;
+  height: 40vw;
+  width: 75vw;
+  display: block;
+  margin: 0 auto;
+  margin-left: 17.5vw;
+  -webkit-filter: drop-shadow(5px 5px 5px rgb(0, 0, 0) );
+  filter: drop-shadow(5px 10px 10px rgb(104, 104, 104));
+  filter: drop-shadow(5px 10px 15px rgb(78, 101, 112));
+}
+// blue leather background
+.backdrop-image {
+  background-image: url('/Backdrop.jpg');
+  background-repeat: no-repeat;
+  height: 2000px;
+  width: 2000px;
   display: block;
   margin: 0 auto;
 }
 
+.RoundContainer {
+  margin:0 auto;
+  position: relative;
+// is fluid
+      margin-left: $gap;
+      margin-right: $gap;
+      max-width: none;
+      width: auto;
+}
+
+
+.ChatContainer {
+  margin:0 auto;
+  position: relative;
+// is fluid
+      margin-left: $gap;
+      margin-right: $gap;
+      max-width: none;
+      width: auto;
+
+}
+
+
 .missionDisplay {
-  width: 65vw;
-  margin-left: 0.5vw;
+  // width: 62vw;
+  // margin-left: 0.5vw;
+  margin-left: $gap;
+  margin-right: $gap;
+  max-width: none;
+  width: auto;
 }
 
 
@@ -119,6 +185,11 @@
 
   .spyIcon {
     width: 50px;
+  }
+
+  .persistancetitle {
+    width: 500px;
+    height: 80px;
   }
 
   .toolTipStatusIcon {
@@ -374,6 +445,30 @@ a:focus {
             filter: grayscale(100%);
 }
 
+
 .tippy-popper {
   max-width: 100%;
 }
+
+.chatSubmit {
+  width: 5%;
+  font-size: 2em;
+  padding: 0 0;
+  text-align: center
+}
+
+.chatInput:focus  {
+  outline: none;
+  transform: none;
+  border-color: whitesmoke; 
+}
+
+.chatWindow{
+  overflow:hidden;
+
+  ::-webkit-scrollbar { 
+    display: none; 
+  }
+}
+
+
