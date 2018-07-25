@@ -27,10 +27,10 @@ function Nav(props) {
               </div>
             )}
           >
-            <img style={{ borderRadius: "50%" }} className="image is-64x64" src={props.auth.user.img != " " ? props.auth.user.img : "https://tinyurl.com/y7drmeck"} />
+            <img style={{ borderRadius: "50%", marginRight: '1vw' }} className="image is-64x64" src={props.auth.user.img != " " ? props.auth.user.img : "https://tinyurl.com/y7drmeck"} />
           </Tooltip>
-          <Link className={buttonStyle} to="/lobby">Home</Link>
-          <button style={{ marginLeft: '1vw' }} className={buttonStyle} onClick={() => props.dispatch(logoutUser())}>Logout</button>
+          <Link style={{marginTop: '0.4vw'}} className={buttonStyle} to="/lobby">Home</Link>
+          <button style={{ marginLeft: '1vw', marginTop: '0.4vw' }} className={buttonStyle} onClick={() => props.dispatch(logoutUser())}>Logout</button>
         </div>
       </div>
       : <div className="navbar-start">

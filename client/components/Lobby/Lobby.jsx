@@ -8,7 +8,7 @@ import { joinGame } from '../../actions/playerInputs'
 
 
 
-const buttonStyling = "button is-medium is-fullwidth is-primary is-outlined"
+const buttonStyling = "button is-medium is-fullwidth is-white is-outlined"
 
 class Lobby extends React.Component {
   constructor(props) {

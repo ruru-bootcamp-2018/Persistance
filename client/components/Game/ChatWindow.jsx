@@ -74,7 +74,6 @@ class ChatWindow extends React.Component {
 
         //console.log("game id is", this.props.id)
         const styleObj = { overflow: 'auto', height: '150px'}
-        console.log(this.state.msgs)
         return (
             <form className="chatWindow" onSubmit={this.submit.bind(this)}>
                 <div className="column is-6 is-offset-3 innerShadow" ref="chats" style={styleObj} >

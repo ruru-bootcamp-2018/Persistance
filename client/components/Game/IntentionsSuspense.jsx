@@ -43,10 +43,10 @@ class IntentionsSuspense extends React.Component {
     return <div className="modal is-active">
       <div className="modal-background"></div>
       <div className="modal-card">
-        <header className="modal-card-head">
+        <header className="modal-card-head modal-color">
           <p className="modal-card-title">Mission Intentions</p>
         </header>
-        <section className="modal-card-body">
+        <section className="modal-card-body modal-color">
           <h1 className={`title ${!hasEnded ? '' : outcome ? 'has-text-info' : 'has-text-danger'}`}>
             {!hasStarted
               ? 'All shall be revealed...'
@@ -60,12 +60,12 @@ class IntentionsSuspense extends React.Component {
           <h2 className="subtitle">
             The Team:
           </h2>
-          <div className="columns is-multiline">
+          <div className="columns is-multiline  modal-color">
             {team.map(player => <div className="column is-4">{player.user_name}<img style={roundStyleObj} src={player.img} /></div>)}
           </div>
           <hr />
-          <div className="has-text-centered columns is-multiline">
-            {intentions.map((intention, i) => <div className={`column is-${12 /  intentions.length} box ${
+          <div className="has-text-centered columns  modal-color is-multiline">
+            {intentions.map((intention, i) => <div className={`column is-${12 /  intentions.length} modal-color box ${
               i < revealed
                 ? ''
                 : intention ? 'has-text-success' : 'has-text-danger'
@@ -78,14 +78,14 @@ class IntentionsSuspense extends React.Component {
                       : '/fail.png'
                     : '/blank-card.png'
                   : '/blank-card.png'
-              } className=" image is-128x128" />
+              } className="modal-color image is-128x128" />
             </div>)}
 
           </div>
         </section>
-        <footer className="modal-card-foot">
-          {!hasStarted && <button className="button is-fullwidth" onClick={this.start}>Reveal!</button>}
-          {hasEnded && <button onClick={this.props.hideModal} className="button is-fullwidth">Close</button>}
+        <footer className="modal-card-foot  modal-color">
+          {!hasStarted && <button className="button is-dark is-fullwidth" onClick={this.start}>Reveal!</button>}
+          {hasEnded && <button onClick={this.props.hideModal} className="button is-dark is-fullwidth">Close</button>}
         </footer>
       </div>
     </div>

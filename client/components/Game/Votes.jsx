@@ -19,15 +19,15 @@ class Votes extends React.Component{
     }, 0)
     const result = (passes > this.props.round.votes.length / 2) ? 'Passed' : 'Rejected'
         return (
-            <div className="modal is-active">
+            <div className="modal is-active is-dark">
             <div className="modal-background"></div>
             <div className="modal-card">
-              <header className="modal-card-head">
+              <header className="modal-card-head modal-color">
                 <p className="modal-card-title">Vote was {result}</p>
                 <button className="delete" onClick={this.props.hideModal} aria-label="close"></button>
               </header>
-              <section className="modal-card-body">
-                <div className='columns is-multiline'>
+              <section className="modal-card-body modal-color">
+                <div className='columns is-multiline modal-color'>
                 {this.props.currentGame.players.map((player) => (
                   <div className={`column is-${12 /  this.props.currentGame.players.length}`}>
                     <p>{player.display_name || player.user_name} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'Approve' : 'Reject'}</p>
@@ -36,8 +36,8 @@ class Votes extends React.Component{
                   </div>))}
                 </div>
               </section>
-              <footer className="modal-card-foot">
-                <button className="button is-fullwidth is-warning" onClick={this.props.hideModal}>Hide</button>
+              <footer className="modal-card-foot modal-color">
+                <button className="button is-fullwidth is-dark" onClick={this.props.hideModal}>Hide</button>
               </footer>
             </div>
           </div>

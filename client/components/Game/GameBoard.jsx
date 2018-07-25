@@ -68,7 +68,7 @@ class GameBoard extends React.Component {
 
 
         <div className="column is-2">
-          {players.slice(halfPlayersIndex).reverse().map((player, i) => {
+          {players.slice(halfPlayersIndex).map((player, i) => {
             return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
