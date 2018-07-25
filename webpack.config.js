@@ -1,9 +1,20 @@
+const webpack = require('webpack')
+
+require('dotenv').config()
+
 module.exports = {
   entry: './client/index.js',
   output: {
     path: __dirname + '/public',
     filename: 'bundle.js'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        ENVIRONMENT: JSON.stringify(process.env.ENVIRONMENT)
+      }
+    }),
+  ],
   module: {
     loaders: [
       {

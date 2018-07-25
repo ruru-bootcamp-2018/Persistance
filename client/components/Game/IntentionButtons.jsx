@@ -42,8 +42,6 @@ render() {
      <button className="no" disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass"><img src="/success.png" className="intentionAccept raiseI"/></button>
      <button className="no" disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="fail"><img src="/fail.png" className="intentionReject raiseI-red"/></button>
      </div>
-
-     </div>
    ) : (
      <div>
     <button className="no" onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" ><img src="/success.png" className="intentionAccept raiseI"/></button>
