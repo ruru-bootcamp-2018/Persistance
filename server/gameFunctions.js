@@ -31,7 +31,11 @@ function howManySpies(num){
 
 function assignRandomSpy(roles){
   let idx = Math.floor(Math.random()*roles.length)  
-  if (roles[idx].role == 'spy') assignRandomSpy(roles)
+  console.log('roles are', roles)
+  if (roles[idx].role == 'spy') {
+    console.log(`Role at index ${idx} is a spy, trying again`, roles[idx])
+    assignRandomSpy(roles)
+  }
   else roles[idx].role = 'spy'
 }
 

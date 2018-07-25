@@ -90,7 +90,7 @@ As a user:
   | id | Integer |
   | is_finished | Boolean |
   | in_progress | Boolean |
-  | time_stamp | Integer |
+  | time_stamp | Integer | // BIG NO
 
 ### Missions
   | Column Name | Data Type |
