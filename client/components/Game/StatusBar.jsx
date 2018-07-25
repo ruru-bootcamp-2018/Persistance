@@ -46,10 +46,10 @@ const StatusBar = props =>  {
           }
         break
         case "goodWin":
-        displayText = "The loyalists have persisted in their attempts"
+        displayText = "The Resistance has won! The Spies could not sabotage them."
         break
         case "spyWin":
-        displayText = "The spies have succeeded in throwing the missions"
+        displayText = "The Spies have won! They have sabotaged the Resistance."
         break
         default:
         displayText = "404 this is not the page you were looking for - game stage not correctly defined"
