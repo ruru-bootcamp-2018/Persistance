@@ -30,8 +30,8 @@ class Waiting extends React.Component {
     localSocket.emit('joinGame', gameId, user_name)
     localSocket.on('receiveUpdateWaiting', (gameData) => {
       const {dispatch} = this.props
-      dispatch(updateCurrentRound(gameData.currentRound))
-      dispatch(updateCurrentMission(gameData.currentMission))
+      // dispatch(updateCurrentRound(gameData.currentRound))
+      // dispatch(updateCurrentMission(gameData.currentMission))
       dispatch(updateMissionParams(gameData.missionParams))
       dispatch(updateCurrentGame(gameData.currentGame))
     })
@@ -48,19 +48,12 @@ class Waiting extends React.Component {
         {this.checkStarted()}
         <div className='is-size-3 statusBar' >
           <p>Waiting for Players</p>
-        </div>
-        {(host_id == 1) && <ReadyButton />}
-        <DataButtonW />
-        <div className="level">
-          {players.map((player, i) => {
-            return <EmptyPlayer key={i} player={player} />
-          })}
-        </div>
+        </div>      
 
       
 
       {(this.props.currentGame.game.host_id == this.props.auth.user.id) && <ReadyButton />}
-      <DataButtonW />
+     
       <div className="level">
         {players.map((player, i) => {
           return <EmptyPlayer key={i} player={player} />

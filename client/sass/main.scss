@@ -2,7 +2,7 @@
 @import '~react-tippy/dist/tippy.css';
 
 .background-image {
-  background-image: url('http://localhost:3000/Freedom.jpg');
+  background-image: url('/Freedom.jpg');
   background-repeat: no-repeat;
   height: 21vw;
   width: 70vw;
@@ -14,6 +14,8 @@
   width: 65vw;
   margin-left: 0.5vw;
 }
+
+
 
 .circles {
   border-radius: 50%;
@@ -62,11 +64,11 @@
 }
 
   .spy-glow {
-    box-shadow: 0 0 40px #b30000;
+    box-shadow: 0 0 50px #b30000;
   }
 
   .button-glow {
-    box-shadow: 0 0 40px #5bf52d;
+    box-shadow: 0 0 50px rgb(196, 166, 0);
   }
 
 .cake {
@@ -81,6 +83,53 @@
     color: rgb(196, 166, 0);
   }
 
+.nominated-spy-glow {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-animation: pulse-spy 1.5s ease-in-out infinite alternate;
+    -moz-animation: pulse-spy 1.5s ease-in-out infinite alternate;
+    animation: pulse-spy 1.5s ease-in-out infinite alternate;
+  }
+
+  @-webkit-keyframes pulse-spy {
+  0% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
+  50% { box-shadow:0 0 64px #FD8300, inset 0 0 14px #FD8300; }
+  100% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
+  }
+
+.nominated-glow {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-animation: pulse 1.5s ease-in-out infinite alternate;
+  -moz-animation: pulse 1.5s ease-in-out infinite alternate;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes pulse {
+0% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
+50% { box-shadow:0 0 64px #DCC646, inset 0 0 14px #DCC646; }
+100% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
+}
+
+  .statusIcon {
+    width: 30px;
+  }
+
+  .spyIcon {
+    width: 50px;
+  }
+
+  .toolTipStatusIcon {
+    width: 14px;
+    margin-right: 2px;
+    margin-top: 1px;
+  }
+
+  .playerToolTipStat {
+    color: #daa520
+  }
 
   //neon test end
 
@@ -113,3 +162,215 @@
 .homeButton {
   margin: 3px
 }
+
+.voteScreen {
+  width: 100vw;
+  height: 80vh;
+  position: absolute;
+  top: 0;
+  z-index: 50;
+  background-color: goldenrod;
+}
+
+/*
+  https://developer.mozilla.org/en/docs/Web/CSS/box-shadow
+  box-shadow: [inset?] [top] [left] [blur] [size] [color];
+
+  Tips:
+    - We're setting all the blurs to 0 since we want a solid fill.
+    - Add the inset keyword so the box-shadow is on the inside of the element
+    - Animating the inset shadow on hover looks like the element is filling in from whatever side you specify ([top] and [left] accept negative values to become [bottom] and [right])
+    - Multiple shadows can be stacked
+    - If you're animating multiple shadows, be sure to keep the same number of shadows so the animation is smooth. Otherwise, you'll get something choppy.
+*/
+
+// Animate the size, inside
+
+
+
+.raise:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raiseI:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-green:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-red:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raiseI-red:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-white:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-black:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+  
+}
+//=== Set button colors
+// If you wonder why use Sass vars or CSS custom properties...
+  // Make a map with the class names and matching colors
+$colors: (
+  fill: #a972cb,
+  pulse: #ef6eae,
+  close: #ff7f82,
+  raise: #0059ff,
+  raiseI: #0059ff,
+  raise-white: white,
+  raise-black: black,
+  raise-green: #15661a,
+  raise-red: #921911,
+  raiseI-red: #921911,
+  up: #e4cb58,
+  slide: #8fc866,
+  offset: #19bc8b
+);
+
+// Sass variables compile to a static string; CSS variables are dynamic and inherited
+  // Loop through the map and set CSS custom properties using Sass variables
+@each $button, $color in $colors {
+  .#{$button} {
+    --color: #{$color};
+    --hover: #{adjust-hue($color, 0deg)};
+  }
+}
+
+// Now every button will have different colors as set above. We get to use the same structure, only changing the custom properties.
+button {
+  color: var(--color);
+  transition: 0.25s;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+
+
+//=== Pen styling, ignore
+
+
+// Basic button styles
+button {
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em;
+}
+
+h1 { font-weight: 400; }
+
+code {
+  color: #e4cb58;
+  font: inherit;
+}
+
+
+.voteCheck {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 120px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.voteCross {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 120px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.innerShadow {
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+}
+
+.intentionAccept {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 150px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.intentionReject {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 150px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.no {
+  border:none;
+  height: 150px;
+  outline: none;
+  a:active,
+a:focus { 
+    -moz-outline-style: none; 
+}
+}
+
+.nono {
+  -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+}
+
