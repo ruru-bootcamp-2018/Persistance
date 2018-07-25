@@ -13,32 +13,32 @@ class GameOver extends React.Component{
   render(){
     const {players, gameStage} = this.props.currentGame
     const message = gameStage == 'goodWin'
-      ? "The loyalists have persisted in their attempts"
-      : "The spies have succeded in throwing the missions"
+      ? "The Resistance has won! The Spies could not sabotage them."
+      : "The Spies have won! They have sabotaged the Resistance."
     const isRole = check => ({role}) => role == check
     const goodies = players.filter(isRole('good'))
 
     return (
-        <div className="modal is-active">
+        <div className="modal is-active is-dark">
         <div className="modal-background"></div>
         <div className="modal-card">
-          <header className="modal-card-head">
+          <header className="modal-card-head modal-color">
             <p className="modal-card-title">Game Over</p>
             <button className="delete" onClick={this.props.hideModal} aria-label="close"></button>
           </header>
-          <section className="modal-card-body">
-          <div className="is-size-3">
+          <section className="modal-card-body modal-color">
+          <div className="is-size-3 title">
             {message}
             </div>
             <div className="columns">
 
-              <div className="column is-three-fifths card">
+              <div className="column is-three-fifths card modal-color">
                 <div className="card-content">
                   <div className="title">
                   The Loyalists:
                   </div>
                   <hr />
-                  <div className="columns is-multiline">
+                  <div className="columns is-multiline modal-color">
                     {goodies.map((goody, i) => <div className={`column is-${
                       goodies.length % 2 == 1 && i == goodies.length - 1 ? '12' : '6'}`}>
                       <Tooltip
@@ -56,13 +56,13 @@ class GameOver extends React.Component{
                 </div>
               </div>
 
-              <div className="card column is-two-fifths">
+              <div className="card column is-two-fifths modal-color">
                 <div className="card-content">
                   <div className="title">
                   The Spies:
                   </div>
                   <hr />
-                  <div className="columns is-multiline">
+                  <div className="columns is-multiline modal-color">
                     {players.filter(isRole('spy')).map(spy => <div className="column is-12">
                       <Tooltip
                           // options
@@ -82,8 +82,8 @@ class GameOver extends React.Component{
             </div>
 
           </section>
-          <footer className="modal-card-foot">
-            <button className="button is-fullwidth is-warning" onClick={this.props.hideModal}>Hide</button>
+          <footer className="modal-card-foot modal-color">
+            <button className="button is-fullwidth is-dark" onClick={this.props.hideModal}>Hide</button>
           </footer>
         </div>
       </div>

@@ -20,6 +20,7 @@ class Game extends React.Component {
       stage: '',
       showVotes: false,
       showIntentions: false,
+      gameOver: false,
       mission: {},
       round: {}
     }
@@ -34,10 +35,7 @@ class Game extends React.Component {
     localSocket.emit('joinGame', gameId, user_name)
     localSocket.on('receiveUpdateGame', (gameData) => {
       const { dispatch } = this.props
-      dispatch(updateCurrentGame(gameData.currentGame))
-      // dispatch(updateCurrentMission(gameData.currentMission))
-      // dispatch(updateCurrentRound(gameData.currentRound))
-      //dispatch(updateMissionParams(gameData.missionParams)) //can remove?
+      dispatch(updateCurrentGame(gameData.currentGame))      
     })
   }
 
@@ -80,7 +78,11 @@ class Game extends React.Component {
   }
 
   hideModal() {
-    this.setState({ showVotes: false, showIntentions: false, gameOver: false })
+    this.setState({ showVotes: false, showIntentions: false})
+  }
+
+  hideGameOver() {
+    this.setState({ gameOver: false })
   }
 
 
@@ -91,8 +93,8 @@ class Game extends React.Component {
             <Buttons />
             <GameBoard />
             {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)} round={this.state.round} />}
-            {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}
-            {this.state.gameOver && <GameOver hideModal={this.hideModal.bind(this)} />}
+            {this.state.gameOver && <GameOver hideModal={this.hideGameOver.bind(this)} />}
+            {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}            
             <div style={{marginTop: '1vw'}} className="ChatContainer">
             <ChatWindow id={this.props.match.params.id} />
         </div>
