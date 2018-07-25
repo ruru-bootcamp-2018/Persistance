@@ -30,13 +30,13 @@ class ChoiceButton extends React.Component {
 
     return this.state.hasVoted ? (
       <div>
-      <button disabled onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-      <button disabled onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+      <button disabled onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="no"><img src="/Approve.png" className="voteCheck nono"/></button>
+      <button disabled onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="no"><img src="/Reject.png" className="voteCross nono"/></button>
       </div>
     ) : (
       <div>
-      <button onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="button raise-green is-success is-large is-outlined"><i className="fas fa-check"></i></button>
-      <button onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="button raise-red is-danger is-large is-outlined"><i className="fas fa-times"></i></button>
+      <button onClick={(e) => this.handleClick(e)} value="true" style={{marginBottom: '0.5vw'}} className="no"><img src="/Approve.png" className="voteCheck raise-white"/></button>
+      <button onClick={(e) => this.handleClick(e)} value="false" style={{marginBottom: '0.5vw'}} className="no"><img src="/Reject.png" className="voteCross raise-black"/></button>
       </div>
     )
   }
