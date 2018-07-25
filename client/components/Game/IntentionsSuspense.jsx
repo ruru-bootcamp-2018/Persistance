@@ -47,7 +47,7 @@ class IntentionsSuspense extends React.Component {
           <p className="modal-card-title">Mission Intentions</p>
         </header>
         <section className="modal-card-body modal-color">
-          <h1 className={`title ${!hasEnded ? '' : outcome ? 'has-text-info' : 'has-text-danger'}`}>
+          <h1 className={`title ${!hasEnded ? '' : outcome ? 'has-text-warning' : 'has-text-danger'}`}>
             {!hasStarted
               ? 'All shall be revealed...'
               : hasEnded
@@ -57,11 +57,11 @@ class IntentionsSuspense extends React.Component {
                 : 'Reveal in progress...'
             }
           </h1>
-          <h2 className="subtitle">
+          <h2 className="has-text-white subtitle">
             The Team:
           </h2>
           <div className="columns is-multiline  modal-color">
-            {team.map(player => <div className="column is-4">{player.user_name}<img style={roundStyleObj} src={player.img} /></div>)}
+            {team.map(player => <div className="has-text-white column is-4">{player.user_name}<img style={roundStyleObj} src={player.img} /></div>)}
           </div>
           <hr />
           <div className="has-text-centered columns  modal-color is-multiline">
@@ -76,9 +76,9 @@ class IntentionsSuspense extends React.Component {
                     ? intention
                       ? '/success.png'
                       : '/fail.png'
-                    : '/blank-card.png'
-                  : '/blank-card.png'
-              } className="modal-color image is-128x128" />
+                    : '/cardback.png'
+                  : '/cardback.png'
+              } style={{borderRadius: '5%'}} className="modal-color image is-128x128" />
             </div>)}
 
           </div>
