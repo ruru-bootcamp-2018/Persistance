@@ -37,19 +37,20 @@ class GameBoard extends React.Component {
     })
 
     return (
-      <div className="gameBoard">
-        <div className="level">
+
+      <div className="columns">
+        <div className="column is-2">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
             return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
-        
+        <div className='column is-8'>
         <h1>{players.map((x, i) => {
           if (x.role == 'spy') return <img key={i} className="spyIcon" src="/spy.png" />
         })}</h1>
 
-        <div className="background-image">
-        <p className="is-size-3 has-text-white">Missions</p>        
+        <div className="mission-board">
+        <p className="is-size-3 has-text-white">Missions</p>
         <div className="level missionDisplay">
           {missionDisplay.map((mission, i) => {
             return <Mission key={i} mission={mission} number={i}  />
@@ -62,16 +63,17 @@ class GameBoard extends React.Component {
           return <RoundCounter key={i} number={i + 1} round_num={round_num}/>
          })}
         </div>
-
       </div>
-        
-        
-        <div className="level">
-          {players.slice(halfPlayersIndex).reverse().map((player, i) => {
+      </div>
+
+
+        <div className="column is-2">
+          {players.slice(halfPlayersIndex).map((player, i) => {
             return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
           })}
         </div>
       </div>
+
     )
   }
 }

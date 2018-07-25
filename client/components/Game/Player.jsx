@@ -8,8 +8,8 @@ import { sendNomination, removeNomination } from '../../actions/playerInputs'
 
 const roundStyleObj = {
     borderRadius: "50%",
-    height: "120px",
-    width: "120px"
+    height: "80px",
+    width: "80px"
 }
 
 class Player extends React.Component {
@@ -99,7 +99,7 @@ class Player extends React.Component {
                 >
 
                     <div onClick={(isNominating) && this.handleClick} className="player" >
-                        <p className="is-size-5"> {`${display_name || user_name}`}</p>
+                        <p className="has-text-white is-size-5"> {`${display_name || user_name}`}</p>
                         <img className={glow} style={roundStyleObj} src={img} />
                     </div>
 
