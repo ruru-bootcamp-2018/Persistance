@@ -46,8 +46,8 @@ class Waiting extends React.Component {
       <div>
         <ChatWindow id={gameId} />
         {this.checkStarted()}
-        <div className='is-size-3 statusBar' >
-          <p>Waiting for Players</p>
+        <div className='is-size-3 statusBar has-text-white' >
+          <p className="has-text-white">Waiting for Players</p>
         </div>      
 
       

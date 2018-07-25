@@ -45,15 +45,15 @@ class Lobby extends React.Component {
 
     return (
       <div>
-        <h1 className="is-size-1">Welcome to the lobby</h1>
+        <h1 className="is-size-1 has-text-white">Welcome to the lobby</h1>
         <NewGameForm />
         <br />
-        <p className="is-size-4">Join a game</p>
+        <p className="is-size-4 has-text-white">Join a game</p>
         <br />
         <div className="columns is-4 is-multiline">
           {games.map((game, i) => {
             return (
-            <div key={i} className="column is-4">
+            <div key={i} className="column is-4 has-text-white">
               <Link onClick={() => this.clickJoinGame(game, user)} className={buttonStyling} to={`/waiting/${game.id}`}>{game.game_name}</Link>
             </div>
             )

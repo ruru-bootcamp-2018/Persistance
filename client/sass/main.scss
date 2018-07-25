@@ -40,14 +40,19 @@
   filter: drop-shadow(5px 10px 15px rgb(78, 101, 112));
 }
 // blue leather background
-.backdrop-image {
-  background-image: url('/Backdrop.jpg');
-  background-repeat: no-repeat;
-  height: 2000px;
-  width: 2000px;
-  display: block;
+.backdrop {
+
+  width: 100vw;
+  height:100vh;
+  // display: block;
   margin: 0 auto;
 }
+body {
+  background-image: url('/Backdrop.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;  
+}
+
 
 .RoundContainer {
   margin:0 auto;
