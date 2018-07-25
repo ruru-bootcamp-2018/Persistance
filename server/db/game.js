@@ -60,7 +60,7 @@ function delRoles(game_id, testDb){
 
 function setRoles(roles, testDb){
   const db =  testDb || conn
-  return db.insert([roles], 'user_id')
+  return db.insert(roles, 'user_id')
   .into('roles')
 }
 
