@@ -3,7 +3,7 @@ const {assignRoles, initMission, checkVotes, checkIntentions, checkNominations} 
 var router = require('express').Router()
 
 
-const {currentGames, initalGame} = require('../currentGames')
+const {currentGames, initGame} = require('../currentGames')
 
 
 router.post('/new', (req, res) => {
@@ -22,10 +22,9 @@ router.post('/new', (req, res) => {
 })
 
 router.post('/join', (req, res) => {
-
-  if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
-  if (currentGames[game_id].players.length >= 10) return res.sendStatus(400)
   const game_id = req.body.game.id
+  if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
+  if (currentGames[game_id].players.length >= 10) return res.sendStatus(400)  
   const user_id = req.body.user.id
   db.getPlayers(game_id).then(playersList => {        
     if (playersList.find(x => x.id == user_id)) return res.sendStatus(400)
@@ -43,9 +42,9 @@ router.post('/join', (req, res) => {
 })
 
 router.post('/start', (req, res) => {
-  if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
-  if (currentGames[game_id].players.length < 2) return res.sendStatus(400)   // change back to five
   const game_id = req.body.game.id
+  if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
+  if (currentGames[game_id].players.length < 2) return res.sendStatus(400)   // change back to five  
   db.getRoles(game_id).then(roles => {
     assignRoles(roles)
     db.delRoles(game_id).then(() => {

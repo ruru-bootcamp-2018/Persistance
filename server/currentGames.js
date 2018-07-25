@@ -1,7 +1,7 @@
-const currentsGames = {}
+const currentGames = {}
 
 function initGame(game_id){
-  currentGame[game_id] = {
+  currentGames[game_id] = {
     game: {},
     players: [],
     currentMission: {},
@@ -22,4 +22,4 @@ const initalGame = {
   missions: []
 }
 
-module.exports = {currentGame, initGame}
+module.exports = {currentGames, initGame}

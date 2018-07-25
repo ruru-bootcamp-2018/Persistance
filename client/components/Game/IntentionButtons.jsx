@@ -29,7 +29,7 @@ class IntentionButtons extends React.Component {
 
 render() {
     const player = this.props.currentGame.players.find(player => player.id == this.props.auth.user.id)
-    const isSpy = player.role == 'spy' && userIsSpy
+    const isSpy = player.role == 'spy'
     return this.state.hasCastIntention ? (
     <div>
      <button disabled onClick={(e) => this.handleClick(e)} style={{marginBottom: '0.5vw'}} value="pass" className="button is-success is-large is-outlined"><i className="fas fa-check"></i></button>
