@@ -7,3 +7,5 @@ bundle.js.map
 yarn.lock
 yarn-error.log
 .env
+/coverage
+yarn-error.log
