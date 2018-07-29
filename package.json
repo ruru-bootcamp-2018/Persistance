@@ -15,9 +15,8 @@
     "h:seed": "heroku run knex seed:run",
     "knex": "knex"
   },
-  "ava": {
-    "require": "babel-register",
-    "babel": "inherit"
+  "jest": {
+    "collectCoverage": true
   },
   "babel": {
     "presets": [
@@ -29,11 +28,11 @@
   "author": "EDA",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.19.1",
     "enzyme": "^2.8.2",
     "nodemon": "^1.11.0",
     "sqlite3": "^3.1.8",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "jest": "^23.4.1"
   },
   "dependencies": {
     "babel-core": "^6.24.1",
@@ -51,7 +50,6 @@
     "express": "^4.14.0",
     "express-jwt": "^5.3.0",
     "font-awesome": "^4.7.0",
-    "jest": "^23.4.1",
     "jsdom": "^11.0.0",
     "jsonwebtoken": "^7.4.3",
     "jsx-loader": "^0.13.2",
