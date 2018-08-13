@@ -65,7 +65,8 @@ class Player extends React.Component {
         const { round_num } = nextProps.currentGame.currentRound
         const nominations = nextProps.currentGame.missions[mission_num - 1].rounds[round_num - 1].nominations
         const nominatedUser = nominations.find(player => player.user_id == nextProps.player.id)
-        if (nominatedUser && this.state.isNominated == false) this.setState({ isNominated: true })
+        if (nominatedUser && this.state.isNominated == false) this.setState({ isNominated: true, roundId: nextProps.currentGame.currentRound.id })
+        else if (!nominatedUser && this.state.isNominated == true) this.setState({ isNominated: false, roundId: nextProps.currentGame.currentRound.id })
     }
 
     render() {
