@@ -43,6 +43,7 @@ class Game extends React.Component {
         this.getData()
       },60000)     
     })
+    this.getData()
   }
 
 
@@ -55,6 +56,7 @@ class Game extends React.Component {
 
   getData(){
     const gameId = this.props.match.params.id
+    clearTimeout(this.timeout)
     props.dispatch(getGameState(gameId)).then(() => {
       this.timeout = setTimeout(() => {
         this.getData()
