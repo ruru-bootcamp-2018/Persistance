@@ -6,6 +6,13 @@ var token = require('../auth/token')
 
 const {currentGames, initGame} = require('../currentGames')
 
+router.get('/gamedata/:game_id', token.decode,(req, res) => {
+    const game_id = req.params.game_id
+    const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGames[game_id]
+    const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+    res.json(gameData)
+})
+
 
 router.post('/new', token.decode,(req, res) => {
   const {game_name, user} = req.body

@@ -54,7 +54,8 @@ class Game extends React.Component {
   }
 
   getData(){
-    props.dispatch(getGameState()).then(() => {
+    const gameId = this.props.match.params.id
+    props.dispatch(getGameState(gameId)).then(() => {
       this.timeout = setTimeout(() => {
         this.getData()
       },60000)

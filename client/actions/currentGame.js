@@ -25,9 +25,9 @@ export const updateMissionParams = missionParams => ({
   missionParams
 })
 
-export const getGameState = () =>
+export const getGameState = (gameId) =>
   dispatch =>
-    request('get', 'game/current')
+    request('get', `game/gamedata/${gameId}`)
       .then(({body}) => {
         dispatch(updateCurrentGame(body.currentGame))        
       })
