@@ -10,6 +10,7 @@ import Intentions from './Intentions'
 import GameOver from './GameOver'
 import IntentionsSuspense from './IntentionsSuspense'
 import HistoryIcon from './HistoryIcon'
+import {getGameState} from '../../actions/currentGame'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
@@ -24,6 +25,7 @@ class Game extends React.Component {
       mission: {},
       round: {}
     }
+    this.timeout = null
     this.sortIntentions = this.sortIntentions.bind(this)
     this.grabVotes = this.grabVotes.bind(this)
   }
@@ -35,7 +37,11 @@ class Game extends React.Component {
     localSocket.emit('joinGame', gameId, user_name)
     localSocket.on('receiveUpdateGame', (gameData) => {
       const { dispatch } = this.props
-      dispatch(updateCurrentGame(gameData.currentGame))      
+      clearTimeout(this.timeout)
+      dispatch(updateCurrentGame(gameData.currentGame))
+      this.timeout = setTimeout(() => {
+        this.getData()
+      },60000)     
     })
   }
 
@@ -45,6 +51,14 @@ class Game extends React.Component {
     if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.sortIntentions(newProps.currentGame.missions)
     if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({ gameOver: true })
     this.setState({ stage: newProps.currentGame.gameStage })
+  }
+
+  getData(){
+    props.dispatch(getGameState()).then(() => {
+      this.timeout = setTimeout(() => {
+        this.getData()
+      },60000)
+    })    
   }
 
 

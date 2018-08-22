@@ -29,9 +29,6 @@ export const getGameState = () =>
   dispatch =>
     request('get', 'game/current')
       .then(({body}) => {
-        dispatch(updateCurrentGame(body.currentGame))
-        dispatch(updateCurrentRound(body.currentRound))
-        dispatch(updateCurrentMission(body.currentMission))
-        dispatch(updateMissionParams(body.missionParams))
+        dispatch(updateCurrentGame(body.currentGame))        
       })
       .catch(err => console.log(err))
