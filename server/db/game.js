@@ -2,19 +2,19 @@ const conn = require('./connection')
 
 function getMissionParams(players_total, testDb){
   db = testDb || conn
-  return db('missionParams').where({players_total})
+  return db('mission_params').where({players_total})
 }
 
 function createGame(game_name, host_id, testDb){
   const db = testDb || conn
-  return db('games')
-    .insert({game_name, host_id, is_finished: false, in_progress: false, time_stamp: 0}, 'id')
+  return db.insert([{game_name, host_id, is_finished: false, in_progress: false}], 'id')
+    .into('games')
 }
 
 function startGame(game_id, testDb){
   const db = testDb || conn
   return db('games').where('id', game_id)
-    .update({in_progress: true, time_stamp: Date.now()})
+    .update({in_progress: true/*, time_stamp: Date.now()*/})
 }
 
 function getGame(id, testDb){
@@ -29,8 +29,8 @@ function getOpenGames(testDb){
 
 function roleEntry(game_id, user_id, testDb){
   const db = testDb || conn
-  return db('roles')
-    .insert({game_id, user_id}, 'user_id')
+  return db.insert([{game_id, user_id}], 'user_id')
+  .into('roles')
 }
 
 function getRoles(game_id, testDb){
@@ -60,14 +60,14 @@ function delRoles(game_id, testDb){
 
 function setRoles(roles, testDb){
   const db =  testDb || conn
-  return db('roles')
-    .insert(roles, 'user_id')
+  return db.insert(roles, 'user_id')
+  .into('roles')
 }
 
 function newMission(game_id, testDb){
   const db = testDb || conn
-  return db('missions')
-    .insert({game_id}, 'id')
+  return db.insert([{game_id}], 'id')
+  .into('missions')
 }
 
 function getMissions(game_id, testDb){
@@ -77,8 +77,8 @@ function getMissions(game_id, testDb){
 
 function newRound(mission_id, leader_id, round_num, testDb){
   const db = testDb || conn
-  return db('rounds')
-    .insert({mission_id, leader_id, round_num}, 'id')
+  return db.insert([{mission_id, leader_id, round_num}], 'id')
+  .into('rounds')
 }
 
 function getRounds(mission_id, testDb){
@@ -101,8 +101,8 @@ function getRound(round_id, testDb){
 
 function castNomination(round_id, user_id, testDb){
   const db = testDb || conn
-  return db('nominations')
-    .insert({round_id, user_id}, 'user_id')
+  return db.insert([{round_id, user_id}], 'user_id')
+  .into('nominations')
 }
 
 function removeNomination(round_id, user_id, testDb){
@@ -119,8 +119,8 @@ function getNominations(round_id, testDb){
 
 function castVote(round_id, user_id, vote, testDb){
   const db = testDb || conn
-  return db('votes')
-    .insert({round_id, user_id, vote}, 'user_id')
+  return db.insert([{round_id, user_id, vote}], 'user_id')
+  .into('votes')
 }
 
 function getVotes(round_id, testDb){
@@ -130,8 +130,8 @@ function getVotes(round_id, testDb){
 
 function castIntention(mission_id, user_id, intention, testDb){
   const db = testDb || conn
-  return db('intentions')
-    .insert({mission_id, user_id, intention}, 'user_id')
+  return db.insert([{mission_id, user_id, intention}], 'user_id')
+  .into('intentions')
 }
 
 function getIntentions(mission_id, testDb){

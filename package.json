@@ -10,10 +10,15 @@
     "start": "node server/index",
     "test": "jest",
     "h:deploy": "git push heroku master",
+    "h:cliff": "git push heroku deploy:master",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
     "h:seed": "heroku run knex seed:run",
     "knex": "knex"
+
+  },
+  "nodemonConfig": {
+    "ignore": ["node_modules/*"]
   },
   "jest": {
     "collectCoverage": true

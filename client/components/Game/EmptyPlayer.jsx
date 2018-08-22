@@ -11,13 +11,13 @@ const roundStyleObj = {
 
 class EmptyPlayer extends React.Component {
   constructor(props) {
-    super(props)    
+    super(props)
   }
 
-    render() { 
-        
-       
-        const { display_name, user_name, img } = this.props.player        
+    render() {
+
+
+        const { display_name, user_name, img } = this.props.player
 
         return (
             <Tooltip
@@ -29,8 +29,8 @@ class EmptyPlayer extends React.Component {
                 )}
             >
 
-                <div className="player" >                
-                <p className="is-size-5"> {display_name || user_name} </p>
+                <div className="player" >
+                <p className="has-text-white is-size-5"> {display_name || user_name} </p>
                 <img style={roundStyleObj} src={img} />
             </div>
 

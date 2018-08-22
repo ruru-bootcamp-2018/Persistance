@@ -47,18 +47,22 @@ class Waiting extends React.Component {
         <ChatWindow id={gameId} />
         {this.checkStarted()}
         <div className='is-size-3 statusBar' >
-          <p>Waiting for Players</p>
-        </div>      
+          <p className="has-text-white">Waiting for Players</p>
+        </div>
 
-      
+
 
       {(this.props.currentGame.game.host_id == this.props.auth.user.id) && <ReadyButton />}
-     
+
       <div className="level">
         {players.map((player, i) => {
-          return <EmptyPlayer key={i} player={player} />
+          return (
+            <div className="level-item">
+            <EmptyPlayer key={i} player={player} />
+            </div>
+          )
         })}
-      </div> 
+      </div>
 
     </div>
   )

@@ -27,22 +27,22 @@ class Register extends React.Component {
   render() {
     return (
       <form className="Register container" onSubmit={this.submit}>
-        <label className="is-size-4">Username:
+        <label className="has-text-white is-size-4">Username:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="text" name="user_name" onChange={this.updateDetails}/>
         </label><br/>
-        <label className="is-size-4">Display Name:
+        <label className="has-text-white is-size-4">Display Name:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="text" name="display_name" onChange={this.updateDetails}/>
         </label><br/>
-        <label className="is-size-4">Profile Image url:
+        <label className="has-text-white is-size-4">Profile Image url:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="text" name="img" onChange={this.updateDetails}/>
         </label><br/>
-        <label className="is-size-4">Password:
+        <label className="has-text-white is-size-4">Password:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="password" name="password" onChange={this.updateDetails}/>
         </label><br/>
-        <label className="is-size-4">Confirm:
+        <label className="has-text-white is-size-4">Confirm:
           <input style={{margin: '0.5vw'}} className="input is-medium is-rounded" type="password" name="confirm_password" onChange={this.updateDetails}/>
         </label><br/>
-          <input className="button is-medium is-success is-outlined" type="submit" />
+          <input className="button is-medium is-white is-outlined" type="submit" />
       </form>
     )
   }

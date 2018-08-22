@@ -9,6 +9,8 @@ import App from './components/App'
 
 import './sass/main.scss'
 
+console.log(process.env);
+
 let store = createStore(reducers, compose(
   applyMiddleware(thunkMiddleware),
   window.devToolsExtension ? window.devToolsExtension() : f => f
