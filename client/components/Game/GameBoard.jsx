@@ -1,40 +1,44 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import Mission from './Mission'
 import Player from './Player'
 import RoundCounter from './RoundCounter'
 import DataButton from './DataButton'
-import { getGames, getPlayers } from '../../actions/games'
+
+import { getPlayers } from '../../actions/games'
+import { getGames } from '../../api/games'
 import { updateCurrentGame } from '../../actions/currentGame'
 
-class GameBoard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    }
-  }
-
-
+export class GameBoard extends React.Component {
   render() {
-    const { players, game, missions } = this.props.currentGame
-    const { mission_num } = this.props.currentGame.currentMission
-    const { round_num, leader_id } = this.props.currentGame.currentRound
+    const {currentGame} = this.props
+    const {
+      players,
+      game,
+      missions,
+      currentMission,
+      currentRound
+    } = currentGame
+
+    const { mission_num } = currentMission
+    const { round_num, leader_id } = currentRound
 
     const leader = players.find(player => player.id == leader_id)
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
 
     // finding the hammer
-    const initialLeader = this.props.currentGame.missions[mission_num - 1].rounds[0].leader_id
+    const initialLeader = missions[mission_num - 1].rounds[0].leader_id
     const initialLeaderIndex = players.findIndex(x => x.id == initialLeader)
     const hammer = players[(initialLeaderIndex + 4) % players.length].id
     const spies = players.filter(x => x.role == 'spy').length
 
     // this stuff fixed a problem with mission array only being as long as mission exists
 
-    const missionDisplay = Array(5).fill(0).map((x, i) => {
-      return missions[i] ? missions[i] : {outcome: null}
-    })
+    const missionDisplay = Array(5).fill(0).map((x, i) =>
+      missions[i] ? missions[i] : {outcome: null}
+    )
 
     return (
 

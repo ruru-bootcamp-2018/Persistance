@@ -1,75 +1,37 @@
 import request from '../utils/api'
 
+export const UPDATE_GAME = 'UPDATE_GAME'
+export const UPDATE_ROUND = 'UPDATE_ROUND'
+export const UPDATE_MISSION = 'UPDATE_MISSION'
+export const GET_PARAMS = 'GET_PARAMS'
 
-export function updateCurrentGame (currentGame) {
-    return {
-        type: 'UPDATE_GAME',
-        currentGame
-    }
-}
+export const updateCurrentGame = currentGame => ({
+  type: UPDATE_GAME,
+  currentGame
+})
 
-export function updateCurrentRound (currentRound) {    
-    return {
-        type: 'UPDATE_ROUND',
-        currentRound
-    }
-}
+export const updateCurrentRound = currentRound => ({
+  type: UPDATE_ROUND,
+  currentRound
+})
 
-export function updateCurrentMission (currentMission) {
-    return {
-        type: 'UPDATE_MISSION',
-        currentMission
-    }
-}
+export const updateCurrentMission = currentMission => ({
+  type: UPDATE_MISSION,
+  currentMission
+})
 
-export function updateMissionParams (missionParams) {
-    return {
-        type: 'GET_PARAMS',
-        missionParams
-    }
-}
+export const updateMissionParams = missionParams => ({
+  type: GET_PARAMS,
+  missionParams
+})
 
-export function getGameState() {    
-    return (dispatch) => {
-        request('get', `game/current`) 
-        .then((res) => {  
-            dispatch(updateCurrentGame(res.body.currentGame))          
-            dispatch(updateCurrentRound(res.body.currentRound))
-            dispatch(updateCurrentMission(res.body.currentMission))
-            dispatch(updateMissionParams(res.body.missionParams))
-            
-        })
-        .catch(err =>{
-            console.log('Err', err)
-        })
-    }
-    
-}
-
-export function getGameStateW() {    
-  return (dispatch) => {
-      request('get', `game/current`) 
-      .then((res) => {                     
-          dispatch(updateCurrentRound(res.body.currentRound))
-          dispatch(updateCurrentMission(res.body.currentMission))
-          dispatch(updateMissionParams(res.body.missionParams))
-          dispatch(updateCurrentGame(res.body.currentGame))
+export const getGameState = () =>
+  dispatch =>
+    request('get', 'game/current')
+      .then(({body}) => {
+        dispatch(updateCurrentGame(body.currentGame))
+        dispatch(updateCurrentRound(body.currentRound))
+        dispatch(updateCurrentMission(body.currentMission))
+        dispatch(updateMissionParams(body.missionParams))
       })
-      .catch(err =>{
-          console.log('Err', err.message)
-      })
-  }
-  
-}
-
-// export function getCurrentGame() {
-//     return (dispatch) => {
-//         return request('get', `temporary/currentGame`) 
-//         .then((res) => {
-//             dispatch(updateCurrentGame(res.body))
-//         })
-//         .catch(err =>{
-//             console.log('Err in actions/games.js', err.message)
-//         })
-//     }
-// } 
+      .catch(err => console.log(err))
