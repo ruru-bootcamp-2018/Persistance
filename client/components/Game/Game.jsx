@@ -28,6 +28,7 @@ class Game extends React.Component {
     this.timeout = null
     this.sortIntentions = this.sortIntentions.bind(this)
     this.grabVotes = this.grabVotes.bind(this)
+    this.getData = this.getData.bind(this)
   }
 
   componentDidMount() {
@@ -57,7 +58,7 @@ class Game extends React.Component {
   getData(){
     const gameId = this.props.match.params.id
     clearTimeout(this.timeout)
-    props.dispatch(getGameState(gameId)).then(() => {
+    this.props.dispatch(getGameState(gameId)).then(() => {
       console.log('data update on timeout')
       this.timeout = setTimeout(() => {
         this.getData()
