@@ -4,7 +4,7 @@ import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
 import ChatWindow from '../Game/ChatWindow'
 import { joinGame } from '../../actions/playerInputs'
-
+import {resetCurrentGame} from '../../actions/currentGame'
 
 
 
@@ -27,7 +27,8 @@ class Lobby extends React.Component {
       this.setState({
         games: games
       })
-  })
+    })
+    this.props.dispatch(resetCurrentGame)
 }
   clickJoinGame(game, user) {
     joinGame({game, user})
