@@ -10,6 +10,10 @@ export const updateCurrentGame = currentGame => ({
   currentGame
 })
 
+export const resetCurrentGame = () => ({
+  type: RESET_GAME,  
+})
+
 export const updateCurrentRound = currentRound => ({
   type: UPDATE_ROUND,
   currentRound
