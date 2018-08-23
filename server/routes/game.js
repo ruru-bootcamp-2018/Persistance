@@ -13,7 +13,7 @@ router.post('/gamedata', (req, res) => {
   const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
   res.json(gameData)
   }
-  else res.send(400, 'invalid game id')
+  else res.status(400).send({message: 'invalid game id'})
 })
 
 
