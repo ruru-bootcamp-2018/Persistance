@@ -42,7 +42,7 @@ class Game extends React.Component {
       dispatch(updateCurrentGame(gameData.currentGame))
       this.timeout = setTimeout(() => {
         this.getData()
-      },60000)     
+      },30000)     
     })
     this.getData()
   }
