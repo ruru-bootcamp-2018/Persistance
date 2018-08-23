@@ -6,6 +6,16 @@ var token = require('../auth/token')
 
 const {currentGames, initGame} = require('../currentGames')
 
+router.post('/gamedata', (req, res) => {   
+  const game_id = req.body.gameId
+  if (currentGames[game_id]) {
+  const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGames[game_id]
+  const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+  res.json(gameData)
+  }
+  else res.status(400).send({message: 'invalid game id'})
+})
+
 
 router.post('/new', token.decode,(req, res) => {
   const {game_name, user} = req.body

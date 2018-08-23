@@ -25,13 +25,10 @@ export const updateMissionParams = missionParams => ({
   missionParams
 })
 
-export const getGameState = () =>
+export const getGameState = (gameId) =>
   dispatch =>
-    request('get', 'game/current')
-      .then(({body}) => {
-        dispatch(updateCurrentGame(body.currentGame))
-        dispatch(updateCurrentRound(body.currentRound))
-        dispatch(updateCurrentMission(body.currentMission))
-        dispatch(updateMissionParams(body.missionParams))
+    request('post', 'game/gamedata', {gameId})
+      .then(res => {        
+        dispatch(updateCurrentGame(res.body.currentGame))        
       })
       .catch(err => console.log(err))
