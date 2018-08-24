@@ -20,11 +20,8 @@ class Lobby extends React.Component {
 
   componentDidMount() {
     const { socket } = this.props
-    socket.emit('getGames', () => {
-      console.log('give me games')
-    })
-    socket.on('receiveGames', (games) => {
-      console.log('games recieved', games)
+    socket.emit('getGames')
+    socket.on('receiveGames', (games) => {      
       this.setState({
         games: games
       })
