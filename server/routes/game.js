@@ -25,7 +25,7 @@ router.post('/new', token.decode,(req, res) => {
     const game_id = ids[0]
     initGame(game_id)
     db.getGame(ids[0]).then(game => {
-      console.log('new game')
+      console.log('new game:' + game.game_name)
       currentGames[game_id].game = game
       res.json(game)
     })
