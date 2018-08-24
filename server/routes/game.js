@@ -34,20 +34,26 @@ router.post('/new', token.decode,(req, res) => {
 
 router.post('/join', token.decode,(req, res) => {
   const game_id = req.body.game.id
-  if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
+  // if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
   if (currentGames[game_id].players.length >= 10) return res.sendStatus(400)  
   const user_id = req.body.user.id
   db.getPlayers(game_id).then(playersList => {        
-    if (playersList.find(x => x.id == user_id)) return res.sendStatus(400)
-    db.roleEntry(game_id, user_id).then(() => {
-      db.getPlayers(game_id).then(playersList => {
-        currentGames[game_id].players = playersList
-        const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGames[game_id]
-        const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
-        res.json(gameData)
+    if (playersList.find(x => x.id == user_id)) {
+      const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGames[game_id]
+      const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+      res.json(gameData)
+    }
+    else if (currentGames[game_id].gameStage == 'waiting') {
+      db.roleEntry(game_id, user_id).then(() => {
+        db.getPlayers(game_id).then(playersList => {
+          currentGames[game_id].players = playersList
+          const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGames[game_id]
+          const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}
+          res.json(gameData)
+        })  
       })
-  
-    })
+    }
+    else res.sendStatus(400)
   })
   
 })

@@ -41,6 +41,8 @@ export default function missionParams(state = initialState, action) {
     switch(action.type) {
         case 'GET_PARAMS':
             return action.missionParams
+        case 'RESET_GAME':
+            return initialState
         default:
             return state; 
     }

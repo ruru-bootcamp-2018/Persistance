@@ -29,7 +29,7 @@ function Nav(props) {
           >
             <img style={{ borderRadius: "50%", marginRight: '1vw' }} className="image is-64x64" src={props.auth.user.img != " " ? props.auth.user.img : "https://tinyurl.com/y7drmeck"} />
           </Tooltip>
-          <Link style={{marginTop: '0.4vw'}} className={buttonStyle} to="/lobby">Home</Link>
+          <Link style={{marginTop: '0.4vw'}} className={buttonStyle} to="/">Home</Link>
           <button style={{ marginLeft: '1vw', marginTop: '0.4vw' }} className={buttonStyle} onClick={() => props.dispatch(logoutUser())}>Logout</button>
         </div>
       </div>
@@ -37,7 +37,7 @@ function Nav(props) {
          <img className="persistancetitle" src="/persistencetitle.png" />
         <div className="navbar-end">
           <Link className={buttonStyle} to="/login">Login</Link>&nbsp;
-          <Link className={buttonStyle} to="/lobby">Home</Link>
+          <Link className={buttonStyle} to="/">Home</Link>
           <Link className={buttonStyle} to="/register">Register</Link>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
 import Nav from './Nav'
+import Home from './Home'
 import Lobby from './Lobby/Lobby'
 import Game from './Game/Game'
 import Waiting from './Game/Waiting'
@@ -19,6 +20,7 @@ const App = () => (
       <div className="backdrop-image">
         <div className='app-container has-text-centered'>
           <Route path="/" component={Nav} />
+          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/Register" component={Register} />
           <Route path="/lobby" component={Lobby} />
