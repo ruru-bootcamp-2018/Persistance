@@ -23,6 +23,7 @@ class NewGameForm extends React.Component {
     if (this.state.gameName) {                                            ///////////////////////////
     request('post', 'game/new', {game_name: this.state.gameName, user: {id: this.props.auth.user.id}})
       .then((res) => {
+        console.log('game created: ' + res.body.game_name)
         let id = res.body.id                                                 /////////////////////////////
         const localSocket = this.props.socket
         localSocket.emit('createGame', id)
