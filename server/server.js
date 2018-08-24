@@ -20,6 +20,10 @@ server.get('/waiting/*', (req, res) => {
     res.redirect('/')
 })
 
+server.get('/lobby', (req, res) => {
+    res.redirect('/')
+})
+
 server.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))
 })
