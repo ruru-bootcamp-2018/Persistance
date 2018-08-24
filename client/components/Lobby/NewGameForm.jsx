@@ -26,7 +26,9 @@ class NewGameForm extends React.Component {
         let id = res.body.id                                                 /////////////////////////////
         const localSocket = this.props.socket
         localSocket.emit('createGame', id)
-        localSocket.emit('getGames')
+        localSocket.emit('getGames', () => {
+          console.log('give me games')
+        })
         //document.location = `/#/waiting/${id}`
       })
 

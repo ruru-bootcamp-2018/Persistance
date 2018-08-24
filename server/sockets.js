@@ -53,6 +53,8 @@ module.exports = http => {
         socket.on('getGames', () => {
             const keys = Object.keys(currentGames)
             const games = keys.map(key => currentGames[key].game)
+            console.log('sending games')
+            console.log(keys)
             io.emit('receiveGames', games)
         })
 
