@@ -18,7 +18,7 @@ export function registerUserRequest ({user_name, display_name, img, password}) {
         else {
           const userInfo = saveUserToken(res.body.token)
           dispatch(receiveLogin(userInfo))
-          document.location = "/#/lobby"
+          document.location = "/"
         }
       })
   }
