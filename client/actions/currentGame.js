@@ -1,6 +1,7 @@
 import request from '../utils/api'
 
 export const UPDATE_GAME = 'UPDATE_GAME'
+export const RESET_GAME = 'RESET_GAME'
 export const UPDATE_ROUND = 'UPDATE_ROUND'
 export const UPDATE_MISSION = 'UPDATE_MISSION'
 export const GET_PARAMS = 'GET_PARAMS'
