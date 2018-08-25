@@ -13,11 +13,15 @@ server.use(bodyParser.json())
 server.use(express.static(path.join(__dirname, '../public')))
 
 server.get('/game/*', (req, res) => {
-    res.redirect('/lobby')
+    res.redirect('/')
 })
 
 server.get('/waiting/*', (req, res) => {
-    res.redirect('/lobby')
+    res.redirect('/')
+})
+
+server.get('/lobby', (req, res) => {
+    res.redirect('/')
 })
 
 server.get('*', (req, res) => {

@@ -1,6 +1,7 @@
 import request from '../utils/api'
 
 export const UPDATE_GAME = 'UPDATE_GAME'
+export const RESET_GAME = 'RESET_GAME'
 export const UPDATE_ROUND = 'UPDATE_ROUND'
 export const UPDATE_MISSION = 'UPDATE_MISSION'
 export const GET_PARAMS = 'GET_PARAMS'
@@ -8,6 +9,10 @@ export const GET_PARAMS = 'GET_PARAMS'
 export const updateCurrentGame = currentGame => ({
   type: UPDATE_GAME,
   currentGame
+})
+
+export const resetCurrentGame = () => ({
+  type: RESET_GAME,  
 })
 
 export const updateCurrentRound = currentRound => ({
@@ -25,13 +30,10 @@ export const updateMissionParams = missionParams => ({
   missionParams
 })
 
-export const getGameState = () =>
+export const getGameState = (gameId) =>
   dispatch =>
-    request('get', 'game/current')
-      .then(({body}) => {
-        dispatch(updateCurrentGame(body.currentGame))
-        dispatch(updateCurrentRound(body.currentRound))
-        dispatch(updateCurrentMission(body.currentMission))
-        dispatch(updateMissionParams(body.missionParams))
+    request('post', 'game/gamedata', {gameId})
+      .then(res => {        
+        dispatch(updateCurrentGame(res.body.currentGame))        
       })
       .catch(err => console.log(err))

@@ -8,8 +8,8 @@ import { sendNomination, removeNomination } from '../../actions/playerInputs'
 
 const roundStyleObj = {
     borderRadius: "50%",
-    height: "120px",
-    width: "120px"
+    height: "80px",
+    width: "80px"
 }
 
 class Player extends React.Component {
@@ -65,7 +65,8 @@ class Player extends React.Component {
         const { round_num } = nextProps.currentGame.currentRound
         const nominations = nextProps.currentGame.missions[mission_num - 1].rounds[round_num - 1].nominations
         const nominatedUser = nominations.find(player => player.user_id == nextProps.player.id)
-        if (nominatedUser && this.state.isNominated == false) this.setState({ isNominated: true })
+        if (nominatedUser && this.state.isNominated == false) this.setState({ isNominated: true, roundId: nextProps.currentGame.currentRound.id })
+        else if (!nominatedUser && this.state.isNominated == true) this.setState({ isNominated: false, roundId: nextProps.currentGame.currentRound.id })
     }
 
     render() {
@@ -99,7 +100,7 @@ class Player extends React.Component {
                 >
 
                     <div onClick={(isNominating) && this.handleClick} className="player" >
-                        <p className="is-size-5"> {`${display_name || user_name}`}</p>
+                        <p className="has-text-white is-size-5"> {`${display_name || user_name}`}</p>
                         <img className={glow} style={roundStyleObj} src={img} />
                     </div>
 

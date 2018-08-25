@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('missionParams', (table) => {
+  return knex.schema.createTable('mission_params', (table) => {
     table.increments('id')
     table.integer('players_total')
     table.integer('team_total')
@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('missionParams')
+  return knex.schema.dropTable('mission_params')
 };

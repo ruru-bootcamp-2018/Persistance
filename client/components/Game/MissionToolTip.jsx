@@ -20,13 +20,12 @@ const MissionToolTip = props => {
                 let player = props.players.find(x => x.id == member.user_id)
                 return <p className="has-text-weight-bold">{player.display_name || player.user_name}</p>
             })}
-            <div className="level">
-                {(outcome !== null) && <div><p className="is-size-5 has-text-weight-bold">{passes ? passes : 0}</p> <img className='tinyThumbLeft level-item' src='/thumbs-up.png'></img>
-                <p className="is-size-5 has-text-weight-bold">{fails ? fails : 0}</p> <img className='tinyThumbRight level-item' src='/thumbs-down.jpg'></img></div>}
-            </div>
+            <div>
+                {(outcome !== null) && <div className="level"> <p className="is-size-5 has-text-weight-bold">{passes ? passes : 0}</p> <img className='tinyThumbLeft level-item' src='/fist.png'/>
+                <p className="is-size-5 has-text-weight-bold">{fails ? fails : 0}</p> <img className='tinyThumbLeft level-item' src='/dagger.png'></img> </div>}
+                </div>
         </div>
     )
 }
 
 export default MissionToolTip
-

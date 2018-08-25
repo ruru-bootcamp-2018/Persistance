@@ -4,11 +4,11 @@ import NewGameForm from './NewGameForm'
 import { Link } from 'react-router-dom'
 import ChatWindow from '../Game/ChatWindow'
 import { joinGame } from '../../actions/playerInputs'
+import {resetCurrentGame} from '../../actions/currentGame'
 
 
 
-
-const buttonStyling = "button is-medium is-fullwidth is-primary is-outlined"
+const buttonStyling = "button is-medium is-fullwidth is-white is-outlined"
 
 class Lobby extends React.Component {
   constructor(props) {
@@ -18,16 +18,15 @@ class Lobby extends React.Component {
     }
   }
 
-
   componentDidMount() {
     const { socket } = this.props
-    socket.emit('getGames', () => {
-    })
-    socket.on('receiveGames', (games) => {
+    socket.emit('getGames')
+    socket.on('receiveGames', (games) => {      
       this.setState({
         games: games
       })
-  })
+    })
+    this.props.dispatch(resetCurrentGame)
 }
   clickJoinGame(game, user) {
     joinGame({game, user})
@@ -45,10 +44,10 @@ class Lobby extends React.Component {
 
     return (
       <div>
-        <h1 className="is-size-1">Welcome to the lobby</h1>
+        <h1 className="is-size-1 has-text-white">Welcome to the lobby</h1>
         <NewGameForm />
         <br />
-        <p className="is-size-4">Join a game</p>
+        <p className="is-size-4 has-text-white">Join a game</p>
         <br />
         <div className="columns is-4 is-multiline">
           {games.map((game, i) => {
