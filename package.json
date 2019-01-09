@@ -24,6 +24,9 @@
     "require": "babel-register",
     "babel": "inherit"
   },
+  "jest" : {
+    "clearMocks" : true
+  },
   "babel": {
     "presets": [
       "es2015",

@@ -1,7 +1,8 @@
 // A diagnostic console log that can be switched on and off, either individually or globally. 
 
-function diag(inputString, local = true) {
-    const global = require("./global-diag")
+function diag(inputString, local = true, globalForTest) {
+    const global = (globalForTest == undefined) ? true : globalForTest
+    
     const errorLine = new Error().stack.split("\n")[2];
     const splitted = errorLine.split(":")
     
@@ -15,8 +16,7 @@ function diag(inputString, local = true) {
         Line:   ${line}
         Time:   ${new Date}
         Msg:    ${inputString}
-        ----------
-        `)
+        ----------\n`)
     }
 }
 
