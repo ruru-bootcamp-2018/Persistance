@@ -16,7 +16,7 @@ function diag(inputString, local = true, globalForTest) {
         Line:   ${line}
         Time:   ${new Date}
         Msg:    ${inputString}
-        ----------\n`)
+        -----------\n`)
     }
 }
 
