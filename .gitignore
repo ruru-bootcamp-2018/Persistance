@@ -7,3 +7,4 @@ bundle.js.map
 yarn.lock
 yarn-error.log
 .env
+utils-global/global-diag
