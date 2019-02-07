@@ -13,6 +13,7 @@ function compare (password, hash, cb) {
 }
 
 module.exports = {
+  generateSync,
   generate,
   compare
 }
