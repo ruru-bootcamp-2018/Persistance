@@ -20,7 +20,7 @@ class GameBoard extends React.Component {
     const { mission_num } = this.props.currentGame.currentMission
     const { round_num, leader_id } = this.props.currentGame.currentRound
 
-    const leader = players.find(player => player.id == leader_id)
+    let leader = players.find(player => player.id == leader_id)
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
 
