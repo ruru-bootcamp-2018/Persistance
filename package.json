@@ -10,10 +10,15 @@
     "start": "node server/index",
     "test": "jest",
     "h:deploy": "git push heroku master",
+    "h:cliff": "git push heroku deploy:master",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
     "h:seed": "heroku run knex seed:run",
     "knex": "knex"
+
+  },
+  "nodemonConfig": {
+    "ignore": ["node_modules/*"]
   },
   "jest": {
     "collectCoverage": true
@@ -30,7 +35,8 @@
   "devDependencies": {
     "enzyme": "^2.8.2",
     "nodemon": "^1.11.0",
-    "sqlite3": "^3.1.8",
+
+    "sqlite3": "^4.0.6",
     "supertest": "^3.0.0",
     "jest": "^23.4.1"
   },
@@ -41,7 +47,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.15.2",
     "bulma": "^0.7.1",
     "cors": "^2.8.3",

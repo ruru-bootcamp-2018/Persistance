@@ -1,19 +1,83 @@
 @import './my_bulma.scss';
 @import '~react-tippy/dist/tippy.css';
 
-.background-image {
-  background-image: url('/Freedom.jpg');
+
+.The-Persistence {
+  background-image: url('/persistencetitle.jpg');
   background-repeat: no-repeat;
-  height: 21vw;
-  width: 70vw;
+  height: 5vw;
+  width: 10vw;
   display: block;
   margin: 0 auto;
+  -webkit-filter: drop-shadow(5px 5px 5px rgb(0, 0, 0) );
+  filter: drop-shadow(5px 10px 10px rgb(104, 104, 104));
+  filter: drop-shadow(5px 10px 15px rgb(78, 101, 112));
 }
 
-.missionDisplay {
-  width: 65vw;
-  margin-left: 0.5vw;
+
+.navbar-menu {
+  color: rgb(0, 255, 200)
 }
+// gameboard image
+
+.mission-board {
+  background-image: url('/Boardtest.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-filter: drop-shadow(3px 3px 3px rgb(0, 0, 0) );
+  border-radius: 2%;
+}
+// blue leather background
+.backdrop-image {
+  background-image: url('/Backdrop.jpg');
+  background-repeat: no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.RoundContainer {
+  margin:0 auto;
+  position: relative;
+// is fluid
+      margin-left: $gap;
+      margin-right: $gap;
+      max-width: none;
+      width: auto;
+}
+
+
+.ChatContainer {
+  margin:0 auto;
+  position: relative;
+// is fluid
+      margin-left: $gap;
+      margin-right: $gap;
+      max-width: none;
+      width: auto;
+
+}
+
+
+.missionDisplay {
+  // width: 62vw;
+  // margin-left: 0.5vw;
+  margin-left: $gap;
+  margin-right: $gap;
+  max-width: none;
+  width: auto;
+}
+
+
 
 .circles {
   border-radius: 50%;
@@ -41,9 +105,11 @@
 .voteTrack {
     padding-top: 40px;
     padding-bottom: 20px;
-    font-style: italic;
 }
 
+.historyIcon {
+  display: absolute;
+}
 
 .tinyThumbRight {
     margin-left: 3px;
@@ -62,7 +128,7 @@
 }
 
   .spy-glow {
-    box-shadow: 0 0 50px #b30000;
+    box-shadow: 0 0 64px #b30000;
   }
 
   .button-glow {
@@ -91,8 +157,8 @@
   }
 
   @-webkit-keyframes pulse-spy {
-  0% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
-  50% { box-shadow:0 0 64px #FD8300, inset 0 0 14px #FD8300; }
+  0% { box-shadow:0 0 64px #FD8300, inset 0 0 8px #FD8300; }
+  50% { box-shadow:0 0 120px #FD8300, inset 0 0 14px #FD8300; }
   100% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
   }
 
@@ -106,8 +172,8 @@
 }
 
 @-webkit-keyframes pulse {
-0% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
-50% { box-shadow:0 0 64px #DCC646, inset 0 0 14px #DCC646; }
+0% { box-shadow:0 0 64px #DCC646, inset 0 0 8px #DCC646; }
+50% { box-shadow:0 0 120px #DCC646, inset 0 0 14px #DCC646; }
 100% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
 }
 
@@ -116,7 +182,12 @@
   }
 
   .spyIcon {
-    width: 50px;
+    width: 30px;
+  }
+
+  .persistancetitle {
+    width: 500px;
+    height: 80px;
   }
 
   .toolTipStatusIcon {
@@ -191,6 +262,11 @@
   transform: translateY(-0.25em);
 }
 
+.raiseI:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
 .raise-green:hover {
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
@@ -200,6 +276,22 @@
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
 }
+
+.raiseI-red:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-white:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+.raise-black:hover,:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+
+}
 //=== Set button colors
 // If you wonder why use Sass vars or CSS custom properties...
   // Make a map with the class names and matching colors
@@ -208,8 +300,12 @@ $colors: (
   pulse: #ef6eae,
   close: #ff7f82,
   raise: #0059ff,
+  raiseI: #0059ff,
+  raise-white: white,
+  raise-black: black,
   raise-green: #15661a,
   raise-red: #921911,
+  raiseI-red: #921911,
   up: #e4cb58,
   slide: #8fc866,
   offset: #19bc8b
@@ -236,6 +332,8 @@ button {
   }
 }
 
+
+
 //=== Pen styling, ignore
 
 
@@ -254,4 +352,132 @@ h1 { font-weight: 400; }
 code {
   color: #e4cb58;
   font: inherit;
+}
+
+
+.voteCheck {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 120px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.voteCross {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 120px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.announcement-text {
+  color: #000;
+}
+
+.modal-color {
+  background-color: grey;
+}
+
+.innerShadow {
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+}
+
+.intentionAccept {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 150px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.intentionReject {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+  height: 150px;
+  color: var(--color);
+  transition: 0.25s;
+  border-radius: 15px;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+.no {
+  border:none;
+  height: 150px;
+  outline: none;
+  a:active,
+a:focus {
+    -moz-outline-style: none;
+}
+}
+
+.nono {
+  -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+}
+
+
+.tippy-popper {
+  max-width: 100%;
+}
+
+.chatSubmit {
+  width: 5%;
+  font-size: 2em;
+  padding: 0 0;
+  text-align: center
+}
+
+.chatInput:focus  {
+  outline: none;
+  transform: none;
+  border-color: black;
+}
+
+.chatInput {
+  background: transparent;
+  border: 1px solid black;
+}
+
+.chatWindow{
+  overflow:hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }

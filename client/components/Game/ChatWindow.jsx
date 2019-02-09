@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import ReactDOM from 'react-dom'
+
+import moment from 'moment'
+
 class ChatWindow extends React.Component {
     constructor(props) {
         super(props)
@@ -9,8 +13,6 @@ class ChatWindow extends React.Component {
             chatMessage:"",
             localSocket: this.props.socket
         }
-
-        this.updateDetails = this.updateDetails.bind(this);
         this.addMsgToChat = this.addMsgToChat.bind(this);
     }
 
@@ -19,7 +21,12 @@ class ChatWindow extends React.Component {
             this.addMsgToChat(msg);
         })
         this.state.localSocket.on('joinGame', (id, user_name) => {
-            this.addMsgToChat(`${user_name} joined game ${id}`)
+            const msg = {
+                userName: user_name,
+                date: new Date(),
+                chatMessage: `${user_name} has joined the game!`
+            }
+            this.addMsgToChat(msg)
         })
     }
 
@@ -28,18 +35,26 @@ class ChatWindow extends React.Component {
     addMsgToChat(msg) {
         let prevMsgs = this.state.msgs
 
-        const newMsg = `${new Date}: ${msg}`
-        prevMsgs.unshift(newMsg)
+        // const newMsg = `${new Date}: ${msg}`
+        prevMsgs.push(msg)
         this.setState({
-            msgs:prevMsgs,
-        })
+            msgs:prevMsgs.map(msg => ({...msg})),
+        }, () => this.scrollToBot())
+    }
+
+    scrollToBot() {
+        ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
     }
 
     submit(e){
         e.preventDefault();
         if (this.state.chatMessage) {
         const userName = this.props.auth.user.user_name
-        const newMsg = `${userName}: ${this.state.chatMessage}`
+        const newMsg = {
+            userName,
+            chatMessage: this.state.chatMessage,
+            date: new Date
+        }
         const roomID = this.props.id;
 
         console.log(newMsg)
@@ -58,17 +73,18 @@ class ChatWindow extends React.Component {
     render() {
 
         //console.log("game id is", this.props.id)
-        const styleObj = { overflow: 'auto', height: '150px', width:'100%' }
-
+        const styleObj = { overflow: 'auto', height: '150px'}
         return (
-            <form className="chatWindow" onSubmit={() => this.submit.bind(this)}>
-                <p> ChatWindow</p>
-                <div className="chatDisplay" style={styleObj} >
-                    {this.state.msgs.map((msg, i) => <p key={i} className="has-text-left"> {msg} </p>)}
+            <form className="chatWindow" onSubmit={this.submit.bind(this)}>
+                <div className="column is-6 is-offset-3 innerShadow" ref="chats" style={styleObj} >
+                    {this.state.msgs.map((msg, i) => <span>
+                        <p className="level-item has-text-white level-left"><b>{msg.userName}</b> - {msg.chatMessage} - ({moment(msg.date).fromNow()})</p>
+                    </span>)}
                 </div>
-                <input className="input is-small column is-6 is-offset-3" type="text" onChange={() => this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
-                <input className="button is-info is-outlined is-small" type="submit" value="Send a message!" />
-
+                <div className="column is-6 is-offset-3">
+                <input style={{width: "95%" }} className="input is-small has-text-white innerShadow chatInput" type="text" onChange={this.updateDetails.bind(this)} name="chatMessage" value={this.state.chatMessage}/>
+                <input className="button is-dark is-small chatSubmit raise-black" type="submit" value="➤" />
+                </div>
             </form>
         )
     }
