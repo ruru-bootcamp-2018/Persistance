@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id')
     table.integer('game_id')
     table.boolean('outcome')
+    table.integer('hammer_id')
   })
 };
 

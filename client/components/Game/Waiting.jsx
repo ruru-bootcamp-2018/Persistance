@@ -39,12 +39,11 @@ class Waiting extends React.Component {
 
   render() {
     const { players } = this.props.currentGame
-    const {host_id} = this.props.currentGame.game
     const gameId = this.props.match.params.id
 
     return (
       <div>
-        <ChatWindow id={gameId} />
+        <ChatWindow key={gameId} id={gameId} />
         {this.checkStarted()}
         <div className='is-size-3 statusBar' >
           <p className="has-text-white">Waiting for Players</p>

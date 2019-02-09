@@ -12,14 +12,4 @@ function initGame(game_id){
   }
 }
 
-const initalGame = {
-  game: {},
-  players: [],
-  currentMission: {},
-  currentRound: {},
-  gameStage: "waiting",
-  missionParams: [],
-  missions: []
-}
-
 module.exports = {currentGames, initGame}

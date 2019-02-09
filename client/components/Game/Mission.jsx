@@ -5,11 +5,10 @@ import {Tooltip} from 'react-tippy'
 
 
 const Mission = props => {
-  const textStyle = 'is-uppercase is-size-5'
   const { id, outcome } = props.mission
   const glow = (props.currentGame.currentMission.mission_num == props.number + 1) ? 'cake' : ''
-  const missionNumber = props.number
   const iconDrop = props.currentGame.currentMission.mission_num > props.number + 1
+  
   return (
     <Tooltip
       // options

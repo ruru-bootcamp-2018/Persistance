@@ -4,12 +4,10 @@ import GameBoard from './GameBoard'
 import Buttons from './Buttons'
 import StatusBar from './StatusBar'
 import ChatWindow from './ChatWindow'
-import { updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams } from '../../actions/currentGame'
+import { updateCurrentGame } from '../../actions/currentGame'
 import Votes from './Votes'
-import Intentions from './Intentions'
 import GameOver from './GameOver'
 import IntentionsSuspense from './IntentionsSuspense'
-import HistoryIcon from './HistoryIcon'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 

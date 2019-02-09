@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy'
-import Template from './Template'
 import PlayerToolTip from './PlayerToolTip'
 import { sendNomination, removeNomination } from '../../actions/playerInputs'
 

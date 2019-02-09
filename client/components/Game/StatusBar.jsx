@@ -44,7 +44,7 @@ const StatusBar = props =>  {
                     }
                 break
                 case false:
-                displayText = `Team is being nominated, current team is: ${nomString}`
+                displayText = `Team is being nominated`
                 break
             }
         break

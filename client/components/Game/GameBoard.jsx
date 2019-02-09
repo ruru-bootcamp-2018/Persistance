@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import Mission from './Mission'
 import Player from './Player'
 import RoundCounter from './RoundCounter'
-import DataButton from './DataButton'
 
 import { getPlayers } from '../../actions/games'
 import { getGames } from '../../api/games'
@@ -15,36 +14,28 @@ export class GameBoard extends React.Component {
     const {currentGame} = this.props
     const {
       players,
-      game,
       missions,
       currentMission,
       currentRound
     } = currentGame
 
-    const { mission_num } = currentMission
+    const { hammer_id } = currentMission
     const { round_num, leader_id } = currentRound
 
-    let leader = players.find(player => player.id == leader_id)
     // index to decide who gets rendered on top and who gets rendered on bottom
     const halfPlayersIndex = Math.round(players.length / 2)
-
-    // finding the hammer
-    const initialLeader = missions[mission_num - 1].rounds[0].leader_id
-    const initialLeaderIndex = players.findIndex(x => x.id == initialLeader)
-    const hammer = players[initialLeaderIndex + 4 % (players.length)].id
-    const spies = players.filter(x => x.role == 'spy').length
 
     // this stuff fixed a problem with mission array only being as long as mission exists
 
     const missionDisplay = Array(5).fill(0).map((x, i) =>
       missions[i] ? missions[i] : {outcome: null}
     )
-
+    
     return (
       <div className="columns">
         <div className="column is-2">
           {players.slice(0, halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
+            return <Player key={i} player={player} leader={leader_id} hammer={hammer_id}/>
           })}
         </div>
         <div className='column is-8'>
@@ -72,7 +63,7 @@ export class GameBoard extends React.Component {
 
         <div className="column is-2">
           {players.slice(halfPlayersIndex).map((player, i) => {
-            return <Player key={i} player={player} leader={leader_id} hammer={hammer}/>
+            return <Player key={i} player={player} leader={leader_id} hammer={hammer_id}/>
           })}
         </div>
       </div>
