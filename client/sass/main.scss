@@ -128,7 +128,7 @@
 }
 
   .spy-glow {
-    box-shadow: 0 0 50px #b30000;
+    box-shadow: 0 0 64px #b30000;
   }
 
   .button-glow {
@@ -157,8 +157,8 @@
   }
 
   @-webkit-keyframes pulse-spy {
-  0% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
-  50% { box-shadow:0 0 64px #FD8300, inset 0 0 14px #FD8300; }
+  0% { box-shadow:0 0 64px #FD8300, inset 0 0 8px #FD8300; }
+  50% { box-shadow:0 0 120px #FD8300, inset 0 0 14px #FD8300; }
   100% { box-shadow:0 0 32px #FD8300, inset 0 0 8px #FD8300; }
   }
 
@@ -172,8 +172,8 @@
 }
 
 @-webkit-keyframes pulse {
-0% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
-50% { box-shadow:0 0 64px #DCC646, inset 0 0 14px #DCC646; }
+0% { box-shadow:0 0 64px #DCC646, inset 0 0 8px #DCC646; }
+50% { box-shadow:0 0 120px #DCC646, inset 0 0 14px #DCC646; }
 100% { box-shadow:0 0 32px #DCC646, inset 0 0 8px #DCC646; }
 }
 
