@@ -16,7 +16,20 @@ const StatusBar = props =>  {
 
     switch(gameStage) {
         case "voting":
-        displayText = "It's time to vote on the nominated team"
+        let nommed_players = noms.map(n => n.username)
+        let nomString = ""
+        for (let [i, nom] of nommed_players.entries()) {
+        if (i < nommed_players.length - 2) {
+            nomString += `${nom}, ` 
+        } else if (i == nommed_players.length -1) {
+            nomString += ' and '
+            nomString += nom
+        } else {
+            nomString += nom
+        }
+        }
+
+        displayText = `It's time to vote on the nominated team: ${nomString}` 
         break
         case "nominating":
             switch(props.leader){
