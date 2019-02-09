@@ -16,9 +16,6 @@ class Votes extends React.Component{
     constructor(props){
         super(props)
     }
-    capitializeName(name) {
-      return name.charAt(0).toUpperCase() + name.slice(1)
-    }
 
     render(){
     const passes = this.props.round.votes.reduce((acc, x) => {
@@ -38,7 +35,7 @@ class Votes extends React.Component{
                 <div className='columns is-multiline modal-color'>
                 {this.props.currentGame.players.map((player) => (
                   <div className={`column is-${12 / this.props.currentGame.players.length}`}>
-                    <p className="announcement-text">{this.capitializeName(player.display_name) || this.capitializeName(player.user_name)} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'approve' : 'reject'}</p>
+                    <p className="announcement-text">{player.display_name || player.user_name} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'approve' : 'reject'}</p>
                     <img src={player.img} style={photoroundStyleObj} />
                     <img className="has-text-white" style={tileStyleObj} src={this.props.round.votes.find(vote => vote.user_id == player.id).vote ? '/approve.png' : '/reject.png'} />
                   </div>))}
