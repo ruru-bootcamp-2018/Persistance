@@ -19,14 +19,14 @@ const StatusBar = props =>  {
         let nommed_players = noms.map(n => n.username)
         let nomString = ""
         for (let [i, nom] of nommed_players.entries()) {
-        if (i < nommed_players.length - 2) {
-            nomString += `${nom}, ` 
-        } else if (i == nommed_players.length -1) {
-            nomString += ' and '
-            nomString += nom
-        } else {
-            nomString += nom
-        }
+            if (i < nommed_players.length - 2) {
+                nomString += `${nom}, ` 
+            } else if (i == nommed_players.length -1) {
+                nomString += ' and '
+                nomString += nom
+            } else {
+                nomString += nom
+            }
         }
 
         displayText = `It's time to vote on the nominated team: ${nomString}` 
@@ -44,7 +44,7 @@ const StatusBar = props =>  {
                     }
                 break
                 case false:
-                displayText = "Team is being nominated"
+                displayText = `Team is being nominated, current team is: ${nomString}`
                 break
             }
         break
