@@ -18,7 +18,6 @@ class Votes extends React.Component{
     }
     capitializeName(name) {
       return name.charAt(0).toUpperCase() + name.slice(1)
-      console.log("yeah boi")
     }
 
     render(){

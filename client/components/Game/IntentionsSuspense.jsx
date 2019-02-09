@@ -44,7 +44,9 @@ class IntentionsSuspense extends React.Component {
     window.clearTimeout(this.timeout)
     this.setState({hasEnded: true})
   }
-
+  capitializeName(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1)
+  }
   render() {
     let {intentions, team, outcome} = this.props.mission
     const {hasStarted, hasEnded, revealed} = this.state
@@ -70,7 +72,7 @@ class IntentionsSuspense extends React.Component {
             The Team:
           </h2>
           <div className="columns is-multiline  modal-color">
-            {team.map(player => <div className="has-text-white column is-4">{player.user_name}<img style={roundStyleObj} src={player.img} /></div>)}
+            {team.map(player => <div className={`column is-${12 / team.length} has-text-white`}>{this.capitializeName(player.user_name)}<img style={roundStyleObj} src={player.img} /></div>)}
           </div>
           <hr />
           <div className="has-text-centered columns  modal-color is-multiline">
@@ -87,7 +89,7 @@ class IntentionsSuspense extends React.Component {
                       : '/fail.png'
                     : '/cardback.png'
                   : '/cardback.png'
-              } style={{borderRadius: '5%'}} className="modal-color image is-128x128" />
+              } style={{borderRadius: '5%'}} className="modal-color image" />
             </div>)}
 
           </div>
