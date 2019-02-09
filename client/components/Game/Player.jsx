@@ -81,7 +81,10 @@ class Player extends React.Component {
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
-        const isNominated = this.state.isNominated == true
+        const { round_num } = this.props.currentGame.currentRound
+        const { mission_num } = this.props.currentGame.currentMission
+        const noms = this.props.currentGame.missions[mission_num - 1].rounds[round_num - 1].nominations
+        const isNominated = noms.some(nom => (nom.user_id == this.props.player.id))
 
         const glow = (isNominated && isSpy) ? 'nominated-spy-glow' : isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : ''
 
