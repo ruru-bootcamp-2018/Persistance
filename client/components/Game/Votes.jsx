@@ -1,15 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const roundStyleObj = {
+const photoroundStyleObj = {
     borderRadius: "50%",
-    height: "120px",
-    width: "120px"
+    height: "100px",
+    width: "200px"
+}
+
+const tileStyleObj = {
+  height: "160px",
+  width: "160px"
 }
 
 class Votes extends React.Component{
     constructor(props){
         super(props)
+    }
+    capitializeName(name) {
+      return name.charAt(0).toUpperCase() + name.slice(1)
+      console.log("yeah boi")
     }
 
     render(){
@@ -30,9 +39,9 @@ class Votes extends React.Component{
                 <div className='columns is-multiline modal-color'>
                 {this.props.currentGame.players.map((player) => (
                   <div className={`column is-${12 / this.props.currentGame.players.length}`}>
-                    <p>{player.display_name || player.user_name} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'Approve' : 'Reject'}</p>
-                    <img src={player.img} style={roundStyleObj} />
-                    <img className="has-text-white" style={roundStyleObj} src={this.props.round.votes.find(vote => vote.user_id == player.id).vote ? '/approve.png' : '/reject.png'} />
+                    <p className="announcement-text">{this.capitializeName(player.display_name) || this.capitializeName(player.user_name)} voted {this.props.round.votes.find(vote => vote.user_id == player.id).vote ? 'approve' : 'reject'}</p>
+                    <img src={player.img} style={photoroundStyleObj} />
+                    <img className="has-text-white" style={tileStyleObj} src={this.props.round.votes.find(vote => vote.user_id == player.id).vote ? '/approve.png' : '/reject.png'} />
                   </div>))}
                 </div>
               </section>
