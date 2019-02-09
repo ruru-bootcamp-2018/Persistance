@@ -5,10 +5,6 @@ import Mission from './Mission'
 import Player from './Player'
 import RoundCounter from './RoundCounter'
 
-import { getPlayers } from '../../actions/games'
-import { getGames } from '../../api/games'
-import { updateCurrentGame } from '../../actions/currentGame'
-
 export class GameBoard extends React.Component {
   render() {
     const {currentGame} = this.props

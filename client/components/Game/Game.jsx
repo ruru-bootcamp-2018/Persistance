@@ -5,9 +5,10 @@ import Buttons from './Buttons'
 import StatusBar from './StatusBar'
 import ChatWindow from './ChatWindow'
 import { updateCurrentGame } from '../../actions/currentGame'
-import Votes from './Votes'
-import GameOver from './GameOver'
-import IntentionsSuspense from './IntentionsSuspense'
+import Votes from '../Modals/Votes'
+import GameOver from '../Modals/GameOver'
+import IntentionsSuspense from '../Modals/IntentionsSuspense'
+import Hammer from '../Modals/Hammer'
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
 
@@ -18,6 +19,7 @@ class Game extends React.Component {
       stage: '',
       showVotes: false,
       showIntentions: false,
+      showHammerInfo: false,
       gameOver: false,
       mission: {},
       round: {}
@@ -42,6 +44,7 @@ class Game extends React.Component {
     if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.grabVotes(newProps.currentGame.missions)
     if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.sortIntentions(newProps.currentGame.missions)
     if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({ gameOver: true })
+    if (newProps.currentGame.currentRound.leader_id == newProps.currentGame.currentMission.hammer_id) this.setState({ showHammerInfo: true })
     this.setState({ stage: newProps.currentGame.gameStage })
   }
 
@@ -76,7 +79,7 @@ class Game extends React.Component {
   }
 
   hideModal() {
-    this.setState({ showVotes: false, showIntentions: false})
+    this.setState({ showVotes: false, showIntentions: false, showHammerInfo: false })
   }
 
   hideGameOver() {
@@ -85,6 +88,7 @@ class Game extends React.Component {
 
 
   render() {
+    let hammerPlayer = this.props.currentGame.players.find(x => x.id == this.props.currentGame.currentMission.hammer_id)
     return (
       <div className="container">
           <StatusBar leader={(this.props.currentGame.currentRound.leader_id == this.props.auth.user.id)} />
@@ -92,7 +96,8 @@ class Game extends React.Component {
             <GameBoard />
             {this.state.showVotes && <Votes hideModal={this.hideModal.bind(this)} round={this.state.round} />}
             {this.state.gameOver && <GameOver hideModal={this.hideGameOver.bind(this)} />}
-            {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />}            
+            {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />} 
+            {this.state.showHammerInfo && <Hammer hideModal={this.hideModal.bind(this)} hammer={hammerPlayer} />}   
             <div style={{marginTop: '1vw'}} className="ChatContainer">
             <ChatWindow id={this.props.match.params.id} />
         </div>

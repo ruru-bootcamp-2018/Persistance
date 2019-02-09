@@ -7,11 +7,6 @@ import Nav from './Nav'
 import Lobby from './Lobby/Lobby'
 import Game from './Game/Game'
 import Waiting from './Game/Waiting'
-import History from './Game/History'
-import HistoryIcon from './Game/HistoryIcon'
-
-
-
 
 const App = () => (
   <Router>

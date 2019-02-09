@@ -73,12 +73,12 @@ class ChatWindow extends React.Component {
     render() {
 
         //console.log("game id is", this.props.id)
-        const styleObj = { overflow: 'auto', height: '150px'}
+        const styleObj = { overflow: 'auto', height: '120px'}
         return (
             <form className="chatWindow" onSubmit={this.submit.bind(this)}>
-                <div className="column is-6 is-offset-3 innerShadow" ref="chats" style={styleObj} >
+                <div className="column is-10 is-offset-1 innerShadow" ref="chats" style={styleObj} >
                     {this.state.msgs.map((msg, i) => <span>
-                        <p className="level-item has-text-white level-left"><b>{msg.userName}</b> - {msg.chatMessage} - ({moment(msg.date).fromNow()})</p>
+                        <p className="level-item has-text-white is-size-7 level-left"><b>{msg.userName}</b> - {msg.chatMessage} - ({moment(msg.date).fromNow()})</p>
                     </span>)}
                 </div>
                 <div className="column is-6 is-offset-3">

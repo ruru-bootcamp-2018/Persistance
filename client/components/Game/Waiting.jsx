@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import EmptyPlayer from './EmptyPlayer'
-import DataButtonW from './DataButtonW'
 import ReadyButton from './ReadyButton'
 import ChatWindow from './ChatWindow'
-import {updateCurrentRound, updateCurrentGame, updateCurrentMission, updateMissionParams} from '../../actions/currentGame'
+import {updateCurrentGame, updateMissionParams} from '../../actions/currentGame'
 
 
 // ReadyButton appears to leader, when socket is occupied by > 5 and < 10
@@ -30,8 +29,6 @@ class Waiting extends React.Component {
     localSocket.emit('joinGame', gameId, user_name)
     localSocket.on('receiveUpdateWaiting', (gameData) => {
       const {dispatch} = this.props
-      // dispatch(updateCurrentRound(gameData.currentRound))
-      // dispatch(updateCurrentMission(gameData.currentMission))
       dispatch(updateMissionParams(gameData.missionParams))
       dispatch(updateCurrentGame(gameData.currentGame))
     })
