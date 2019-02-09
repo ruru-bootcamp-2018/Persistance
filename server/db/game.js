@@ -99,9 +99,9 @@ function getRound(round_id, testDb){
   return db('rounds').where('id', round_id).first()
 }
 
-function castNomination(round_id, user_id, testDb){
+function castNomination(round_id, user_id, username, testDb){
   const db = testDb || conn
-  return db.insert([{round_id, user_id}], 'user_id')
+  return db.insert([{round_id, user_id, username}], 'user_id')
   .into('nominations')
 }
 

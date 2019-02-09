@@ -75,10 +75,11 @@ router.post('/nominate', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'nominating') return res.sendStatus(400)  
   const user_id = req.body.nomination.user.id
+  const username = req.body.nomination.user.display_name
   const round_id = currentGames[game_id].currentRound.id
   const round_num = currentGames[game_id].currentRound.round_num
   const mission_num = currentGames[game_id].currentMission.mission_num
-  db.castNomination(round_id, user_id).then(() => {
+  db.castNomination(round_id, user_id, username).then(() => {
     db.getNominations(round_id).then(nominations => {
       console.log('nomination recieved')
         currentGames[game_id].missions[mission_num-1].rounds[round_num-1].nominations = nominations
