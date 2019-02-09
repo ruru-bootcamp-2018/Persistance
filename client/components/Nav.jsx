@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logoutUser } from '../actions/logout'
+import { leaveGame } from '../actions/games'
 import { Tooltip } from 'react-tippy'
 
 function Nav(props) {
@@ -31,6 +32,7 @@ function Nav(props) {
               </Tooltip>
               <Link style={{marginTop: '0.4vw'}} className={buttonStyle} to="/lobby">Home</Link>
               <button style={{ marginLeft: '1vw', marginTop: '0.4vw' }} className={buttonStyle} onClick={() => props.dispatch(logoutUser())}>Logout</button>
+              <Link style={{ marginLeft: '1vw', marginTop: '0.4vw' }} className={buttonStyle} onClick={() => props.dispatch(leaveGame())} to="/lobby">Quit Game</Link>
             </div>
           </div>
           : <div className="navbar-start">
