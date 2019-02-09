@@ -47,9 +47,7 @@ function initMission(game_id){
         let mission = missions[missions.length - 1] 
         let hammerSet = (missions.length == 1) 
           ? Math.floor(Math.random() * Math.floor(roles.length)) //if it's the first mission generate random index
-          : (missions.length == roles.length) 
-            ? 0 //if mission length is same as amount of players need to go back to beginning
-            : roles.findIndex(role => currentGames[game_id].currentMission.hammer_id == role.user_id) + 1  //this is where we iterate up for subsequent missions
+          : roles.findIndex(role => currentGames[game_id].currentMission.hammer_id == role.user_id) + 1  //this is where we iterate up for subsequent missions
         let hammerFinal = roles[hammerSet].user_id  //grab user id of player at this position
         mission.rounds = []
         mission.intentions = []
@@ -76,7 +74,9 @@ function initRound(game_id){
        let firstLeaderIdx = (adjustedLeaderIdx < 0)  //adjust index for amount of players if goes higher 
         ? roles.length + adjustedLeaderIdx
         : adjustedLeaderIdx
+        console.log(allRounds)
         let lastLeader = roles.findIndex(role => ((allRounds.length > 0 ? allRounds[allRounds.length-1].leader_id : roles[firstLeaderIdx-1].user_id) == role.user_id))        
+        console.log("last leader is=", lastLeader)
         const nextLeader = (lastLeader+1 > roles.length-1) ? 0 : lastLeader+1   //if next leader index is greater than player list roll over             
         const leader_id = (round_num == 1)  // if it's the first round of a mission, return the first leader id
           ? roles[firstLeaderIdx].user_id
