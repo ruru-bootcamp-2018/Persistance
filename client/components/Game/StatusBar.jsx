@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import HistoryIcon from './HistoryIcon'
 
 const StatusBar = props =>  {
     const { round_num } = props.currentGame.currentRound
@@ -15,7 +16,20 @@ const StatusBar = props =>  {
 
     switch(gameStage) {
         case "voting":
-        displayText = "It's time to vote on the nominated team"
+        let nommed_players = noms.map(n => n.username)
+        let nomString = ""
+        for (let [i, nom] of nommed_players.entries()) {
+            if (i < nommed_players.length - 2) {
+                nomString += `${nom}, ` 
+            } else if (i == nommed_players.length -1) {
+                nomString += ' and '
+                nomString += nom
+            } else {
+                nomString += nom
+            }
+        }
+
+        displayText = `It's time to vote on the nominated team: ${nomString}` 
         break
         case "nominating":
             switch(props.leader){
@@ -30,7 +44,7 @@ const StatusBar = props =>  {
                     }
                 break
                 case false:
-                displayText = "Team is being nominated"
+                displayText = `Team is being nominated`
                 break
             }
         break
@@ -45,18 +59,19 @@ const StatusBar = props =>  {
           }
         break
         case "goodWin":
-        displayText = "The loyalists have persited in their attempts"
+        displayText = "The Resistance has won! The Spies could not sabotage them."
         break
         case "spyWin":
-        displayText = "The spies have succeded in throwing the missions"
+        displayText = "The Spies have won! They have sabotaged the Resistance."
         break
         default:
         displayText = "404 this is not the page you were looking for - game stage not correctly defined"
     }
 
     return (
-    <div className='is-size-3 statusBar' >
+    <div className='is-size-3 statusBar has-text-white' >
         <p>{displayText}</p>
+        <HistoryIcon className="historyIcon" />
     </div>
   )
 }

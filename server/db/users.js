@@ -2,6 +2,8 @@ var hash = require('../auth/hash')
 const db = require('./connection')
 
 function createUser (user_name, display_name, img, password) {
+  display_name = display_name.charAt(0).toUpperCase() + display_name.slice(1)
+  
   return new Promise ((resolve, reject) => {
     hash.generate(password, (err, hash) => {
       console.log({err, hash});

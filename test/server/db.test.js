@@ -25,7 +25,8 @@ const fakeGameName = 'Some game'
 
 test('get game returns a game object', () => {
   const id = 1
-  gameDb.getGame(id, testDb)
+  gameDb.getGame(id, testDb)ev
+  
     .then(game => {
       expect(game.id).toBe(id)
       expect(game.length).toBe(1)

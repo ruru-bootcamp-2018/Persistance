@@ -24,7 +24,7 @@ class ReadyButton extends React.Component {
             })
     }
     render() {
-        return <button onClick={this.startGame} style={{marginBottom: '0.5vw'}} className={`button is-medium is-dark is-outlined ${this.state.isLoading ? 'is-loading' : ''}`}>START GAME</button>
+        return <button onClick={this.startGame} style={{marginBottom: '0.5vw'}} className={`button is-medium is-white is-outlined ${this.state.isLoading ? 'is-loading' : ''}`}>START GAME</button>
     }
 }
 

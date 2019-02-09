@@ -37,11 +37,11 @@ class NewGameForm extends React.Component {
     return (
       <div className="columns">
         <form className="column is-5 Login container" name="newGame">
-          <label className="is-size-4">Start A New Game:
+          <label className="is-size-4 has-text-white">Start A New Game:
           <input style={{margin: '1vw'}} className="input is-rounded" type="text" name="gameName" onChange={this.updateDetails} />
           </label>
           <br />
-          <button style={{margin: '1vw'}} className="button is-medium is-link is-outlined raise" onClick={this.submit}>submit</button>
+          <button style={{margin: '1vw'}} className="button is-medium is-white is-outlined raise" onClick={this.submit}>submit</button>
         </form>
       </div>
     )

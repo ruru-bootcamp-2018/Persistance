@@ -1,15 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy'
-import Template from './Template'
 import PlayerToolTip from './PlayerToolTip'
 import { sendNomination, removeNomination } from '../../actions/playerInputs'
 
 
 const roundStyleObj = {
     borderRadius: "50%",
-    height: "120px",
-    width: "120px"
+    height: "80px",
+    width: "80px"
 }
 
 class Player extends React.Component {
@@ -81,7 +80,10 @@ class Player extends React.Component {
         const isNominating = (this.props.leader == authID && this.props.currentGame.gameStage == 'nominating')
         const isHammer = this.props.hammer == this.props.player.id
         const isSpy = this.props.player.role == 'spy' && userIsSpy
-        const isNominated = this.state.isNominated == true
+        const { round_num } = this.props.currentGame.currentRound
+        const { mission_num } = this.props.currentGame.currentMission
+        const noms = this.props.currentGame.missions[mission_num - 1].rounds[round_num - 1].nominations
+        const isNominated = noms.some(nom => (nom.user_id == this.props.player.id))
 
         const glow = (isNominated && isSpy) ? 'nominated-spy-glow' : isSpy ? 'spy-glow' : isNominated ? 'nominated-glow' : ''
 
@@ -99,7 +101,7 @@ class Player extends React.Component {
                 >
 
                     <div onClick={(isNominating) && this.handleClick} className="player" >
-                        <p className="is-size-5"> {`${display_name || user_name}`}</p>
+                        <p className="has-text-white is-size-5"> {`${display_name || user_name}`}</p>
                         <img className={glow} style={roundStyleObj} src={img} />
                     </div>
 

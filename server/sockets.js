@@ -1,5 +1,5 @@
 const db = require('./db/game')
-const {currentGame} = require('./currentGame')
+const {currentGames} = require('./currentGames')
 
 module.exports = http => {
     var io = require('socket.io')(http)
@@ -31,7 +31,7 @@ module.exports = http => {
         // tis is copied form socket-voting
 
         socket.on('chat-down', (gameID, msg) => {
-            console.log(msg)
+            console.log({msg})
             //io.emit('chat-up', msg) //This is global
             io.to(gameID).emit('chat-up', msg) //This is Game specific
         })
@@ -42,12 +42,18 @@ module.exports = http => {
 
         socket.on('updateGameRoom', (gameData, gameId) => {
             io.to(gameId).emit('receiveUpdateGame', gameData)
+            if (gameData.currentGame.game.is_finished) delete currentGames[gameId]
+        })
+
+        socket.on('startReveal', (gameId) => {
+          io.to(gameId).emit('startReveal')
         })
 
 
         socket.on('getGames', () => {
-            const games = currentGame.game.id ? [currentGame.game] : []            
-            io.emit('receiveGames', games)            
+            const keys = Object.keys(currentGames)
+            const games = keys.map(key => currentGames[key].game)
+            io.emit('receiveGames', games)
         })
 
     });
