@@ -44,7 +44,7 @@ class Game extends React.Component {
     if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.grabVotes(newProps.currentGame.missions)
     if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.sortIntentions(newProps.currentGame.missions)
     if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({ gameOver: true })
-    if (newProps.currentGame.currentRound.leader_id == newProps.currentGame.currentMission.hammer_id) this.setState({ showHammerInfo: true })
+    if (this.state.stage == 'nominating' && (newProps.currentGame.currentRound.leader_id == newProps.currentGame.currentMission.hammer_id)) this.setState({ showHammerInfo: true })
     this.setState({ stage: newProps.currentGame.gameStage })
   }
 
