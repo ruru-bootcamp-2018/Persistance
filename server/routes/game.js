@@ -14,7 +14,7 @@ router.post('/new', token.decode,(req, res) => {
   db.createGame(game_name, user.id).then(ids => { 
     const game_id = ids[0]
     initGame(game_id)
-    db.getGame(ids[0]).then(game => {
+    db.getGame(game_id).then(game => {
       console.log('new game')
       currentGames[game_id].game = game
       res.json(game)
@@ -45,7 +45,7 @@ router.post('/join', token.decode,(req, res) => {
 router.post('/start', token.decode,(req, res) => {
   const game_id = req.body.game.id
   if (currentGames[game_id].gameStage !== 'waiting') return res.sendStatus(400)
-  if (currentGames[game_id].players.length < 2) return res.sendStatus(400)   // change back to five  
+  if (currentGames[game_id].players.length < 5) return res.sendStatus(400)  
   db.getRoles(game_id).then(roles => {
     assignRoles(roles)
     db.delRoles(game_id).then(() => {
@@ -126,7 +126,7 @@ router.post('/vote', token.decode,(req, res) => {
   const vote = req.body.vote
   const round_id = currentGames[game_id].currentRound.id
   db.castVote(round_id, user_id, vote).then(() => {
-    console.log('vote recieved')
+    console.log('vote received')
     checkVotes(game_id, round_id).then(() => {
       const {game, players, gameStage, missions, currentRound, currentMission, missionParams} = currentGames[game_id]
       const gameData = {currentGame: {game, players, gameStage, missions, currentRound, currentMission}, missionParams}

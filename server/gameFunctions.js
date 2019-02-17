@@ -39,19 +39,49 @@ function assignRandomSpy(roles){
   else roles[idx].role = 'spy'
 }
 
+function workOutLeaderIndexFromHammer(hammerIndex, roles) {
+  hammerIndex -= 4
+  return (hammerIndex < 0) ? hammerIndex + roles.length : hammerIndex 
+}
+
+function checkLengthOfIndex(currentIndex, roles) {
+  return (currentIndex >= roles.length) ? currentIndex - roles.length : currentIndex
+}
+
+function randomFirstHammerIndex(roles) {
+  return Math.floor(Math.random() * Math.floor(roles.length))
+}
+
+function findIndex(param, roles) {
+  return roles.findIndex(role => param == role.user_id)
+}
+
+function castIntentionAutoFail(team_total, mission_id, game_id, mission_num) {
+  let intention = 0
+  let user_id = 0
+  for (let i = 0; i < team_total; i++){
+    db.castIntention(mission_id, user_id, intention).then(() => {
+      console.log('intentions received')
+    })
+    currentGames[game_id].missions[mission_num-1].intentions.push({mission_id, user_id, intention})
+  }
+  currentGames[game_id].gameStage = "intentions"
+}
+
 //new Mission functions
 function initMission(game_id){
   return db.newMission(game_id).then(ids => {
     return db.getMissions(game_id).then(missions => {
       return db.getRoles(game_id).then(roles => {
         let mission = missions[missions.length - 1] 
-        let hammerSet = (missions.length == 1) 
-          ? Math.floor(Math.random() * Math.floor(roles.length)) //if it's the first mission generate random index
-          : roles.findIndex(role => currentGames[game_id].currentMission.hammer_id == role.user_id) + 1  //this is where we iterate up for subsequent missions
-        let hammerFinal = roles[hammerSet].user_id  //grab user id of player at this position
+        let hammerInitialIndex = (missions.length == 1) 
+          ?  randomFirstHammerIndex(roles)
+          :  findIndex(currentGames[game_id].currentRound.leader_id, roles) + 4  
+        let finalHammerIndex = checkLengthOfIndex(hammerInitialIndex, roles) 
+        let hammerUserId = roles[finalHammerIndex].user_id
         mission.rounds = []
         mission.intentions = []
-        mission.hammer_id = hammerFinal
+        mission.hammer_id = hammerUserId
         currentGames[game_id].missions.push(mission)
         currentGames[game_id].currentMission = {id: ids[0], mission_num: missions.length, hammer_id: mission.hammer_id, approved: false}
         return initRound(game_id)
@@ -62,28 +92,27 @@ function initMission(game_id){
 
 //new Round functions
 function initRound(game_id){
- return db.getMissions(game_id).then(missions => {   
+  return db.getMissions(game_id).then(missions => { 
     const mission_id = missions[missions.length-1].id    
-   return db.getAllRounds(game_id).then(allRounds => {
+    return db.getAllRounds(game_id).then(allRounds => {
       const rounds = allRounds.filter(round => round.mission_id == mission_id)
-      const round_num = rounds.length > 0 ? rounds[rounds.length-1].round_num+1 : 1  
-     return db.getRoles(game_id).then(roles => { 
-       let missionHammer = currentGames[game_id].currentMission.hammer_id // grab missions hammer
-       let indexOfHammer = roles.findIndex(role => missionHammer == role.user_id) // find the index of that user in player list
-       let adjustedLeaderIdx = indexOfHammer - 4  // move back necessary spaces for vote track
-       let firstLeaderIdx = (adjustedLeaderIdx < 0)  //adjust index for amount of players if goes higher 
-        ? roles.length + adjustedLeaderIdx
-        : adjustedLeaderIdx
-        let lastLeader = roles.findIndex(role => ((allRounds.length > 0) ? allRounds[allRounds.length-1].leader_id : roles[firstLeaderIdx-1].user_id) == role.user_id)        
-        const nextLeader = (lastLeader+1 > roles.length-1) ? 0 : lastLeader+1   //if next leader index is greater than player list roll over             
-        const leader_id = (round_num == 1)  // if it's the first round of a mission, return the first leader id
-          ? roles[firstLeaderIdx].user_id
-          : (roles[nextLeader].user_id) || roles[0].user_id  //else work out next leader as per normal
-       return db.newRound(mission_id, leader_id, round_num).then(ids => {          
-         return db.getRound(ids[0]).then(round => {
+      const round_num = rounds.length > 0 ? rounds[rounds.length - 1].round_num + 1 : 1  
+      return db.getRoles(game_id).then(roles => { 
+        let missionHammer = currentGames[game_id].currentMission.hammer_id 
+        let indexOfHammer = findIndex(missionHammer, roles) 
+        if (missions.length == 1 && round_num == 1) {
+          leaderIdx = workOutLeaderIndexFromHammer(indexOfHammer, roles)
+        } else {
+          let lastLeaderId = allRounds[allRounds.length-1].leader_id 
+          let lastLeaderIndex = findIndex(lastLeaderId, roles)
+          let nextLeaderIndex = checkLengthOfIndex(lastLeaderIndex + 1, roles)
+          leaderIdx = nextLeaderIndex
+        }
+        const leader_id = roles[leaderIdx].user_id
+        return db.newRound(mission_id, leader_id, round_num).then(ids => { 
+          return db.getRound(ids[0]).then(round => {
             currentGames[game_id].currentRound = round
             currentGames[game_id].gameStage = "nominating"
-            console.log('nominate the team!!')
             currentGames[game_id].missions[missions.length - 1].rounds.push({...round, nominations: [], votes: []})
           })
         })
@@ -97,7 +126,6 @@ function checkNominations(game_id, round_id) {
   return db.getNominations(round_id).then(nominations => {
     if (nominations.length === missionParams.team_total) {
       currentGames[game_id].gameStage = "voting"
-      console.log('vote on this team!!')
     }
   })
 }
@@ -106,19 +134,19 @@ function checkNominations(game_id, round_id) {
 function checkVotes(game_id, round_id){
   const round_num = currentGames[game_id].currentRound.round_num
   const mission_num = currentGames[game_id].currentMission.mission_num
+  const mission_id = currentGames[game_id].currentMission.id
+  const {team_total} = currentGames[game_id].missionParams[mission_num-1]
   return db.getVotes(round_id).then(votes => {
     currentGames[game_id].missions[mission_num-1].rounds[round_num-1].votes = votes
     if (votes.length == currentGames[game_id].players.length) {
       if (countVotes(votes)) {
-        approveMission(game_id, currentGames[game_id].currentMission.id)
-      }
-      else {
-        if (currentGames[game_id].currentRound.round_num < 5) {
-          console.log('rejected')
-          return initRound(game_id)
-          
-        }
-        else missionFails(game_id, currentGames[game_id].currentMission.id)
+        approveMission(game_id, mission_id)
+      } else if (round_num == 5) {
+        currentGames[game_id].currentMission.approved = true
+        castIntentionAutoFail(team_total, mission_id, game_id, mission_num)
+        missionFails(game_id, currentGames[game_id].currentMission.id)
+      } else {
+        return initRound(game_id)
       }
     }
   })
@@ -173,6 +201,7 @@ function missionSucceeds(game_id, mission_id){
 function missionFails(game_id, mission_id){
   const mission_num = currentGames[game_id].currentMission.mission_num
   currentGames[game_id].missions[mission_num-1].outcome = false
+  console.log(currentGames[game_id].missions[mission_num-1].outcome, "outcome set")
   return db.finishMission(mission_id, false).then(() => {
     console.log("FAILURE")
     return isGameFinished(game_id)    

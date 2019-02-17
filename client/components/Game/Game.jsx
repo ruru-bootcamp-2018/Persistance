@@ -9,8 +9,7 @@ import Votes from '../Modals/Votes'
 import GameOver from '../Modals/GameOver'
 import IntentionsSuspense from '../Modals/IntentionsSuspense'
 import Hammer from '../Modals/Hammer'
-
-// ReadyButton appears to leader, when socket is occupied by > 5 and < 10
+import HammerFail from '../Modals/HammerFail'
 
 class Game extends React.Component {
   constructor(props) {
@@ -20,6 +19,7 @@ class Game extends React.Component {
       showVotes: false,
       showIntentions: false,
       showHammerInfo: false,
+      hammerFail: false,
       gameOver: false,
       mission: {},
       round: {}
@@ -44,7 +44,8 @@ class Game extends React.Component {
     if (this.state.stage == 'voting' && newProps.currentGame.gameStage !== 'voting') this.grabVotes(newProps.currentGame.missions)
     if (this.state.stage == 'intentions' && newProps.currentGame.gameStage !== 'intentions') this.sortIntentions(newProps.currentGame.missions)
     if (newProps.currentGame.gameStage == 'goodWin' || newProps.currentGame.gameStage == 'spyWin') this.setState({ gameOver: true })
-    if (newProps.currentGame.currentRound.leader_id == newProps.currentGame.currentMission.hammer_id) this.setState({ showHammerInfo: true })
+    if (this.state.stage == 'nominating' && (newProps.currentGame.currentRound.leader_id == newProps.currentGame.currentMission.hammer_id)) this.setState({ showHammerInfo: true })
+    if ((this.state.round.round_num == 5) && (newProps.currentMission.mission_approved == false)) this.setState({ hammerFail: true })
     this.setState({ stage: newProps.currentGame.gameStage })
   }
 
@@ -79,7 +80,7 @@ class Game extends React.Component {
   }
 
   hideModal() {
-    this.setState({ showVotes: false, showIntentions: false, showHammerInfo: false })
+    this.setState({ showVotes: false, showIntentions: false, showHammerInfo: false, hammerFail: false })
   }
 
   hideGameOver() {
@@ -98,6 +99,7 @@ class Game extends React.Component {
             {this.state.gameOver && <GameOver hideModal={this.hideGameOver.bind(this)} />}
             {this.state.showIntentions && <IntentionsSuspense hideModal={this.hideModal.bind(this)} mission={this.state.mission} />} 
             {this.state.showHammerInfo && <Hammer hideModal={this.hideModal.bind(this)} hammer={hammerPlayer} />}   
+            {this.state.hammerFail && <HammerFail hideModal={this.hideModal.bind(this)} />}
             <div style={{marginTop: '1vw'}} className="ChatContainer">
             <ChatWindow id={this.props.match.params.id} />
         </div>
