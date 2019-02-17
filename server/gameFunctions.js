@@ -56,17 +56,16 @@ function findIndex(param, roles) {
   return roles.findIndex(role => param == role.user_id)
 }
 
-function getExtraMembers(numberNeeded, roles) {
-  goodies = roles.filter(role => role.role == 'good').slice(0, numberNeeded)
-  return goodies.map(g => g.user_id)
-}
-
-function castIntention(user_id, mission_id, game_id, mission_num) {
+function castIntentionAutoFail(team_total, mission_id, game_id, mission_num) {
   let intention = 0
-  db.castIntention(mission_id, user_id, intention).then(() => {
-    console.log('intentions received')
-  })
-  currentGames[game_id].missions[mission_num-1].intentions.push({mission_id, user_id, intention})
+  let user_id = 0
+  for (let i = 0; i < team_total; i++){
+    db.castIntention(mission_id, user_id, intention).then(() => {
+      console.log('intentions received')
+    })
+    currentGames[game_id].missions[mission_num-1].intentions.push({mission_id, user_id, intention})
+  }
+  currentGames[game_id].gameStage = "intentions"
 }
 
 //new Mission functions
@@ -143,14 +142,9 @@ function checkVotes(game_id, round_id){
       if (countVotes(votes)) {
         approveMission(game_id, mission_id)
       } else if (round_num == 5) {
-        return db.getRoles(game_id).then(roles => {
-          spies = roles.filter(role => role.role == 'spy').slice(0, team_total)
-          team = spies.length < team_total ? spies.concat(getExtraMembers(team_total - spies.length, roles)) : spies
-          console.log(team, "team stuff")
-          user_ids = team.map(t => t.user_id)
-          user_ids.map(user => castIntention(user, mission_id, game_id, mission_num))
-          missionFails(game_id, currentGames[game_id].currentMission.id)
-        })
+        currentGames[game_id].currentMission.approved = true
+        castIntentionAutoFail(team_total, mission_id, game_id, mission_num)
+        missionFails(game_id, currentGames[game_id].currentMission.id)
       } else {
         return initRound(game_id)
       }
@@ -207,6 +201,7 @@ function missionSucceeds(game_id, mission_id){
 function missionFails(game_id, mission_id){
   const mission_num = currentGames[game_id].currentMission.mission_num
   currentGames[game_id].missions[mission_num-1].outcome = false
+  console.log(currentGames[game_id].missions[mission_num-1].outcome, "outcome set")
   return db.finishMission(mission_id, false).then(() => {
     console.log("FAILURE")
     return isGameFinished(game_id)    
