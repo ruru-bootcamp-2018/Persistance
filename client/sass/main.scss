@@ -42,7 +42,7 @@
   height: auto;
 
   /* Set up positioning */
-  position: fixed;
+  //position: fixed; //prevents scrolling and thus small windows
   top: 0;
   left: 0;
 }
