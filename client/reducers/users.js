@@ -1,12 +1,10 @@
-export const initialState = []
+export const initialState = [];
 
 export default function players(state = initialState, action) {
-    
-    switch(action.type) {
+    switch (action.type) {
         case 'RECEIVE_PLAYERS':
-            return action.players
-         default:
-             return state
+            return action.players;
+        default:
+            return state;
     }
 }
-

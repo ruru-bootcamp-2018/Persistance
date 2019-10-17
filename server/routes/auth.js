@@ -1,23 +1,23 @@
-var router = require('express').Router()
+var router = require('express').Router();
 
-var {userExists, createUser} = require('../db/users')
-var token = require('../auth/token')
+var { userExists, createUser } = require('../db/users');
+var token = require('../auth/token');
 
-router.post('/register', register, token.issue)
+router.post('/register', register, token.issue);
 
-function register (req, res, next) {
-  const {user_name, display_name, img, password} = req.body
-  userExists(user_name)
-    .then(exists => {
-      if (exists) return res.status(400).send({message: "User exists"})
-      createUser(user_name, display_name, img, password)
-        .then(() => next())
-    })
-    .catch(err => res.status(500).send({message: err.message}))
+function register(req, res, next) {
+    const { user_name, display_name, img, password } = req.body;
+    userExists(user_name)
+        .then(exists => {
+            if (exists) return res.status(400).send({ message: 'User exists' });
+            createUser(user_name, display_name, img, password).then(() =>
+                next()
+            );
+        })
+        .catch(err => res.status(500).send({ message: err.message }));
 }
 
-router.post('/login', token.issue)
-
+router.post('/login', token.issue);
 
 // router.get('/protected', token.decode, (req, res) => {
 //   req.user === the user token info
@@ -27,4 +27,4 @@ router.post('/login', token.issue)
 //   gamesDb.createGame(req.user.id, req.body)
 // })
 
-module.exports = router
+module.exports = router;
