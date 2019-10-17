@@ -16,12 +16,9 @@ module.exports = {
     }),
   ],
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
+    rules: [
+      { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader' }, exclude: /node_modules/ },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /\.scss$/,
         use: [{
@@ -32,10 +29,10 @@ module.exports = {
           loader: "sass-loader?sourceMap" // compiles Sass to CSS
         }]
       }
-    ]
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   devtool: 'source-map'
 }
