@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./public/",
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "module": "es6",
+        "jsx": "react",
+        "target": "es5",
+        "allowJs": true
+    }
+}
