@@ -102,6 +102,6 @@
         "style-loader": "^0.21.0",
         "superagent": "^2.2.0",
         "webpack": "^2.3.3",
-        "webpack-dev-server": "^2.4.2"
+        "webpack-dev-server": "^3.1.11"
     }
 }
