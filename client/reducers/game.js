@@ -1,12 +1,12 @@
-export const initialState = [] 
+export const initialState = [];
 
 export default function games(state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case 'JOIN_GAME':
-            return action.game
+            return action.game;
         case 'LEAVE_GAME':
-            return null
+            return null;
         default:
-            return state; 
+            return state;
     }
 }
