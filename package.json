@@ -83,7 +83,7 @@
         "jsonwebtoken": "^7.4.3",
         "jsx-loader": "^0.13.2",
         "jwt-decode": "^2.2.0",
-        "knex": "^0.13.0",
+        "knex": "^0.19.5",
         "nock": "^9.4.2",
         "node-sass": "^4.9.2",
         "passport": "^0.4.0",
