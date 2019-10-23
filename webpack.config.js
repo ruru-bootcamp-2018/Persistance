@@ -1,6 +1,6 @@
-const webpack = require('webpack')
+const webpack = require('webpack');
 
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports = {
   entry: './client/index.js',
