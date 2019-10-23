@@ -100,14 +100,14 @@
         "react-router-dom": "^4.1.1",
         "react-test-renderer": "^15.5.4",
         "react-tippy": "^1.2.2",
-        "redux": "^3.6.0",
-        "redux-thunk": "^2.2.0",
+        "redux": "^4.0",
+        "redux-thunk": "^2.3.0",
         "sass-loader": "^7.0.3",
         "socket.io": "^2.1.1",
         "socket.io-client": "^2.1.1",
         "style-loader": "^0.21.0",
         "superagent": "^2.2.0",
-        "webpack": "^2.3.3",
+        "webpack": "^4.41.2",
         "webpack-dev-server": "^2.4.2"
     }
 }
