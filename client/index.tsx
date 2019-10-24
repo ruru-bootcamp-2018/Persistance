@@ -9,15 +9,14 @@ import App from './components/App';
 
 import './sass/main.scss';
 
-console.log(process.env);
-
-let store = createStore(
-    reducers,
-    compose(
-        applyMiddleware(thunkMiddleware),
-        window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
-);
+declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+  }
+  
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, compose(applyMiddleware(thunkMiddleware), composeEnhancers()));
 
 document.addEventListener('DOMContentLoaded', () => {
     render(

@@ -3,7 +3,7 @@ const webpack = require('webpack');
 require('dotenv').config();
 
 module.exports = {
-    entry: './client/index.js',
+    entry: './client/index.tsx',
     output: {
         path: __dirname + '/public',
         filename: 'bundle.js',
@@ -16,12 +16,13 @@ module.exports = {
         }),
     ],
     module: {
-        loaders: [
+        rules: [
             {
-                test: /\.jsx?$/,
-                loader: 'babel-loader',
+                test: /\.(t|j)sx?$/,
+                use: { loader: 'awesome-typescript-loader' },
                 exclude: /node_modules/,
             },
+            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
             {
                 test: /\.scss$/,
                 use: [
@@ -39,7 +40,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     devtool: 'source-map',
 };
