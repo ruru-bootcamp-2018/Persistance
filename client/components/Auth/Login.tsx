@@ -6,12 +6,7 @@ const Login = () => {
   const [user_name, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  
-  const updateDetails = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'user_name') setUserName(e.target.value);
-    if (e.target.name === 'password') setPassword(e.target.value);
-  }
-  
+    
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser({ user_name, password }));
@@ -26,7 +21,7 @@ const Login = () => {
             className="input is-medium is-rounded"
             type="text"
             name="user_name"
-            onChange={updateDetails}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {setUserName(e.target.value)}}
           />
         </label>
         <br />
@@ -37,7 +32,7 @@ const Login = () => {
             className="input is-medium is-rounded"
             type="password"
             name="password"
-            onChange={updateDetails}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}
           />
         </label>
         <br />
