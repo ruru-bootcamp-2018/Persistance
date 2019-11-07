@@ -10,17 +10,17 @@ const Register = () => {
     const [img, setImage] = useState('');
     const dispatch = useDispatch();
 
-      const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         if (password == confirm_password) {
             dispatch(
                 registerUserRequest({ user_name, display_name, img, password })
-                );
-            }
-      }
+            );
+        }
+    }
 
-      return (
+    return (
         <form className="Register container" onSubmit={handleSubmit}>
             <label className="has-text-white is-size-4">
                 Username:

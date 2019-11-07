@@ -71,6 +71,7 @@
         "webpack-cli": "^3.3.9"
     },
     "dependencies": {
+        "@types/socket.io": "^2.1.4",
         "babel-core": "^6.26.3",
         "babel-loader": "^8.0.6",
         "babel-preset-es2015": "^6.24.1",

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import reducers from './reducers';
+import { rootReducer } from './reducers';
 import App from './components/App';
 
 import './sass/main.scss';
@@ -16,7 +16,7 @@ declare global {
   }
   
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, compose(applyMiddleware(thunkMiddleware), composeEnhancers()));
+const store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleware), composeEnhancers()));
 
 document.addEventListener('DOMContentLoaded', () => {
     render(

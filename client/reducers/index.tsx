@@ -10,7 +10,7 @@ import currentMission from './currentMission';
 import currentRound from './currentRound';
 import missionParams from './missionParams';
 
-export default combineReducers({
+export const rootReducer = combineReducers({
     auth,
     games,
     users,
@@ -21,3 +21,5 @@ export default combineReducers({
     socket,
     missionParams,
 });
+
+export type AppState = ReturnType<typeof rootReducer>;

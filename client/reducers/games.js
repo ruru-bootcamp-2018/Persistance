@@ -3,7 +3,7 @@ export const initialState = [
     {
         id: 1,
         is_finished: false,
-        is_progress: false,
+        in_progress: false,
         timestamp: 63465475684,
         game_name: "PLAGUE'S GAME",
         host_id: 7,
@@ -11,7 +11,7 @@ export const initialState = [
     {
         id: 2,
         is_finished: false,
-        is_progress: false,
+        in_progress: false,
         timestamp: 83745767386,
         game_name: "PLAGUE'S OTHER GAME",
         host_id: 5,
@@ -19,7 +19,7 @@ export const initialState = [
     {
         id: 3,
         is_finished: false,
-        is_progress: false,
+        in_progress: false,
         timestamp: 33546476876,
         game_name: "PLAGUE'S OTHER OTHER GAME",
         host_id: 3,
