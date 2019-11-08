@@ -12,13 +12,13 @@ const Register = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (password == confirm_password) {
             dispatch(
                 registerUserRequest({ user_name, display_name, img, password })
             );
         }
-    }
+    };
 
     return (
         <form className="Register container" onSubmit={handleSubmit}>
@@ -29,7 +29,9 @@ const Register = () => {
                     className="input is-medium is-rounded"
                     type="text"
                     name="user_name"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {setUserName(e.target.value)}}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        setUserName(e.target.value);
+                    }}
                 />
             </label>
             <br />
@@ -40,7 +42,9 @@ const Register = () => {
                     className="input is-medium is-rounded"
                     type="text"
                     name="display_name"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {setDisplayName(e.target.value)}}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        setDisplayName(e.target.value);
+                    }}
                 />
             </label>
             <br />
@@ -51,7 +55,9 @@ const Register = () => {
                     className="input is-medium is-rounded"
                     type="text"
                     name="img"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {setImage(e.target.value)}}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        setImage(e.target.value);
+                    }}
                 />
             </label>
             <br />
@@ -62,7 +68,9 @@ const Register = () => {
                     className="input is-medium is-rounded"
                     type="password"
                     name="password"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        setPassword(e.target.value);
+                    }}
                 />
             </label>
             <br />
@@ -73,7 +81,9 @@ const Register = () => {
                     className="input is-medium is-rounded"
                     type="password"
                     name="confirm_password"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {setConfirmPassword(e.target.value)}}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        setConfirmPassword(e.target.value);
+                    }}
                 />
             </label>
             <br />
@@ -83,6 +93,6 @@ const Register = () => {
             />
         </form>
     );
-}
+};
 
 export default Register;

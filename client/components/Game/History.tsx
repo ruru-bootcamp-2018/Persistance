@@ -1,26 +1,33 @@
 import React from 'react';
-import { useSelector as useReduxSelector, TypedUseSelectorHook } from 'react-redux';
+import {
+    useSelector as useReduxSelector,
+    TypedUseSelectorHook,
+} from 'react-redux';
 import { AppState } from '../../reducers';
 
 type RoundProps = {
     round_num: number;
     leader_id: number;
     nominations: {
-        user_id: number
+        user_id: number;
     }[];
     votes: {
         vote: boolean;
     }[];
-}
+};
 
 type IntentionsProps = { intention: boolean }[];
 
-type MissionProps = { rounds: RoundProps[]; intentions: IntentionsProps, i: number }
+type MissionProps = {
+    rounds: RoundProps[];
+    intentions: IntentionsProps;
+    i: number;
+};
 
 type PlayerProps = {
     display_name?: string;
     id?: number;
-}
+};
 
 const History = () => {
     const useSelector: TypedUseSelectorHook<AppState> = useReduxSelector;
@@ -28,19 +35,27 @@ const History = () => {
 
     const getName = (id: number) => {
         return showName(findPlayer(id));
-    }
+    };
 
     const findPlayer = (targetId: number) => {
-        return useSelector(state => state.currentGame.players.find((player: PlayerProps) => {
-            return player.id === targetId;
-        }));
-    }
+        return useSelector(state =>
+            state.currentGame.players.find((player: PlayerProps) => {
+                return player.id === targetId;
+            })
+        );
+    };
 
     const showName = (player: PlayerProps) => {
         return player.display_name;
-    }
+    };
 
-    const displayRound = (round: RoundProps, i: number, j: number, roundLength: number, intentions: IntentionsProps) => {
+    const displayRound = (
+        round: RoundProps,
+        i: number,
+        j: number,
+        roundLength: number,
+        intentions: IntentionsProps
+    ) => {
         const pass = 'Pass, ';
         const fail = 'Fail, ';
         const approve = 'Yes';
@@ -69,15 +84,15 @@ const History = () => {
                 <td>
                     {j === roundLength - 1
                         ? intentions.map((intention, i) => (
-                            <span key={i}>
-                                {intention.intention ? pass : fail}
-                            </span>
-                        ))
+                              <span key={i}>
+                                  {intention.intention ? pass : fail}
+                              </span>
+                          ))
                         : ''}
                 </td>
             </tr>
         );
-    }
+    };
 
     return (
         <div className="container">
@@ -88,7 +103,10 @@ const History = () => {
                         <th>Round:</th>
                         <th>Leader:</th>
                         <th>Team:</th>
-                        <th colSpan={currentGame.players.length} className="has-text-centered">
+                        <th
+                            colSpan={currentGame.players.length}
+                            className="has-text-centered"
+                        >
                             Votes:
                         </th>
                         <th>Result</th>
@@ -97,29 +115,31 @@ const History = () => {
                 <thead>
                     <tr>
                         <th colSpan={4}></th>
-                        {currentGame.players.map((player: PlayerProps, i: number) => {
-                            return (
-                                <th key={i}>{showName(player)}:</th>
-                            );
-                        })}
+                        {currentGame.players.map(
+                            (player: PlayerProps, i: number) => {
+                                return <th key={i}>{showName(player)}:</th>;
+                            }
+                        )}
                     </tr>
                 </thead>
                 <tbody>
-                    {currentGame.missions.map((mission: MissionProps, i: number) => {
-                        return mission.rounds.map((round, j) => {
-                            return displayRound(
-                                round,
-                                i,
-                                j,
-                                mission.rounds.length,
-                                mission.intentions
-                            );
-                        });
-                    })}
+                    {currentGame.missions.map(
+                        (mission: MissionProps, i: number) => {
+                            return mission.rounds.map((round, j) => {
+                                return displayRound(
+                                    round,
+                                    i,
+                                    j,
+                                    mission.rounds.length,
+                                    mission.intentions
+                                );
+                            });
+                        }
+                    )}
                 </tbody>
             </table>
         </div>
     );
-}
+};
 
 export default History;

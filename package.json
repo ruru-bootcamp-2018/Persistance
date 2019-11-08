@@ -16,7 +16,7 @@
         "h:seed": "heroku run knex seed:run",
         "knex": "knex",
         "lint": "eslint . --fix",
-        "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+        "format": "prettier --write \"**/*.+(js|jsx|json|css|md|ts|tsx)\""
     },
     "nodemonConfig": {
         "ignore": [

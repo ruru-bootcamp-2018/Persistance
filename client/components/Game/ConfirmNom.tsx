@@ -1,5 +1,8 @@
 import React, { MouseEvent, useState } from 'react';
-import { useSelector as useReduxSelector, TypedUseSelectorHook } from 'react-redux';
+import {
+    useSelector as useReduxSelector,
+    TypedUseSelectorHook,
+} from 'react-redux';
 import { confirmNominations } from '../../actions/playerInputs';
 import { AppState } from '../../reducers';
 
@@ -16,12 +19,12 @@ const ConfirmNom = () => {
                 const localSocket = socket;
                 const gameData = res.body;
                 const game_id = currentGame.game.id;
-                
+
                 localSocket.emit('updateGameRoom', gameData, game_id);
                 setHasFinishedNomming(true);
             });
         }
-    }
+    };
 
     return hasFinishedNomming ? (
         <div>
@@ -47,6 +50,6 @@ const ConfirmNom = () => {
             </button>
         </div>
     );
-}
+};
 
 export default ConfirmNom;
