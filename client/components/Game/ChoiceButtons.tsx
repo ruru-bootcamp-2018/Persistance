@@ -15,7 +15,7 @@ const ChoiceButton = () => {
         const vote = {
             user,
             game: useSelector(state => state.currentGame.game),
-            vote: e.currentTarget.value === 'true'
+            vote: e.currentTarget.value === 'true',
         };
         sendVote(vote).then(res => {
             const localSocket = useSelector(state => state.socket);
@@ -24,8 +24,8 @@ const ChoiceButton = () => {
 
             localSocket.emit('updateGameRoom', gameData, game_id);
             setHasVoted(true);
-        })
-    }
+        });
+    };
 
     return hasVoted ? (
         <div>
@@ -68,6 +68,6 @@ const ChoiceButton = () => {
             </button>
         </div>
     );
-}
+};
 
 export default ChoiceButton;

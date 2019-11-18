@@ -6,9 +6,9 @@ type Player = {
 };
 
 type Props = {
-    isHammer: boolean;
-    authID: number;
-    isLeader: boolean;
+    isHammer?: boolean;
+    authID?: number;
+    isLeader?: boolean;
     player: Player;
 };
 
