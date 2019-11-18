@@ -1,6 +1,36 @@
 import React from 'react';
 
-const MissionToolTip = props => {
+type Round = {
+    nominations: Member[];
+};
+
+type Member = {
+    user_id: number;
+};
+
+type Player = {
+    id?: number;
+    user_id?: number;
+    user_name: string;
+    display_name: string;
+};
+
+type Intention = {
+    intention: string;
+};
+
+type Mission = {
+    outcome: string | null;
+    rounds: Round[];
+    intentions: Intention[];
+};
+
+type Props = {
+    mission: Mission;
+    players: Player[];
+};
+
+const MissionToolTip = (props: Props) => {
     let missionTeam, intentions, passes, fails;
     if (props.mission.outcome !== null) {
         let rounds = props.mission.rounds;
@@ -18,15 +48,17 @@ const MissionToolTip = props => {
         <div>
             {missionTeam &&
                 missionTeam.map(member => {
-                    let player = props.players.find(
+                    let player: Player | undefined = props.players.find(
                         x => x.id == member.user_id
                     );
                     return (
                         <p
-                            key={player.user_id}
+                            key={player ? player.user_id : ''}
                             className="has-text-weight-bold"
                         >
-                            {player.display_name || player.user_name}
+                            {player
+                                ? player.display_name || player.user_name
+                                : ''}
                         </p>
                     );
                 })}

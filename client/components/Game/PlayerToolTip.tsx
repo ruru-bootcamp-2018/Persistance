@@ -3,14 +3,14 @@ import React from 'react';
 type Player = {
     id: number;
     user_name: string;
-}
+};
 
 type Props = {
     isHammer: boolean;
     authID: number;
     isLeader: boolean;
     player: Player;
-}
+};
 
 const PlayerToolTip = (props: Props) => {
     const { isHammer, authID, isLeader } = props;
