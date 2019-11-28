@@ -52,7 +52,7 @@
     "license": "ISC",
     "devDependencies": {
         "@types/react": "^16.9.10",
-        "@types/react-dom": "^16.9.2",
+        "@types/react-dom": "^16.9.4",
         "@types/react-redux": "^7.1.5",
         "@types/react-router-dom": "^5.1.0",
         "awesome-typescript-loader": "^5.2.1",
