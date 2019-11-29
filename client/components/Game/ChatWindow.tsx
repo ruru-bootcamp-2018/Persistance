@@ -11,7 +11,7 @@ type Message = {
     chatMessage: string;
     date: Date;
     userName: string;
-}
+};
 
 type Messages = Message[];
 
@@ -23,16 +23,16 @@ const ChatWindow = () => {
     const localSocket = useSelector(state => state.socket);
 
     const addMessageToChat = (message: Message) => {
-        let newMessages = [ ...messages, message ];
+        let newMessages = [...messages, message];
         setMessages(newMessages);
         scrollToBottom();
-    }
+    };
 
     const scrollToBottom = () => {
         findDOMNode(this.refs.chats).scrollTop = findDOMNode(
             this.refs.chats
         ).scrollHeight;
-    }
+    };
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
@@ -44,12 +44,12 @@ const ChatWindow = () => {
                 date: new Date(),
             };
             const roomID = useSelector(state => state.id);
-        
+
             console.log(newMsg);
             localSocket.emit('chat-down', roomID, newMsg);
         }
         setChatMessage('');
-    }
+    };
 
     const styleObj = { overflow: 'auto', height: '120px' };
 
@@ -63,8 +63,8 @@ const ChatWindow = () => {
                 {messages.map((message: Message, i: number) => (
                     <span>
                         <p className="level-item has-text-white is-size-7 level-left">
-                            <b>{message.userName}</b> - {message.chatMessage} - (
-                            {moment(message.date).fromNow()})
+                            <b>{message.userName}</b> - {message.chatMessage} -
+                            ({moment(message.date).fromNow()})
                         </p>
                     </span>
                 ))}
@@ -86,6 +86,6 @@ const ChatWindow = () => {
             </div>
         </form>
     );
-}
+};
 
 export default ChatWindow;
