@@ -11,7 +11,7 @@ import RoundCounter from './RoundCounter';
 
 type Player = {
     role: string;
-}
+};
 
 const GameBoard = () => {
     const useSelector: TypedUseSelectorHook<AppState> = useReduxSelector;
@@ -27,16 +27,18 @@ const GameBoard = () => {
     return (
         <div className="columns">
             <div className="column is-2">
-                {players.slice(0, halfPlayersIndex).map((player: Player, i: number) => {
-                    return (
-                        <Player
-                            key={i}
-                            player={player}
-                            leader={leader_id}
-                            hammer={hammer_id}
-                        />
-                    );
-                })}
+                {players
+                    .slice(0, halfPlayersIndex)
+                    .map((player: Player, i: number) => {
+                        return (
+                            <Player
+                                key={i}
+                                player={player}
+                                leader={leader_id}
+                                hammer={hammer_id}
+                            />
+                        );
+                    })}
             </div>
             <div className="column is-8">
                 <h1>
@@ -56,11 +58,7 @@ const GameBoard = () => {
                     <div className="level missionDisplay">
                         {missionDisplay.map((mission, i) => {
                             return (
-                                <Mission
-                                    key={i}
-                                    mission={mission}
-                                    number={i}
-                                />
+                                <Mission key={i} mission={mission} number={i} />
                             );
                         })}
                     </div>
@@ -83,19 +81,21 @@ const GameBoard = () => {
                 </div>
             </div>
             <div className="column is-2">
-                {players.slice(halfPlayersIndex).map((player: Player, i: number) => {
-                    return (
-                        <Player
-                            key={i}
-                            player={player}
-                            leader={leader_id}
-                            hammer={hammer_id}
-                        />
-                    );
-                })}
+                {players
+                    .slice(halfPlayersIndex)
+                    .map((player: Player, i: number) => {
+                        return (
+                            <Player
+                                key={i}
+                                player={player}
+                                leader={leader_id}
+                                hammer={hammer_id}
+                            />
+                        );
+                    })}
             </div>
         </div>
-    );    
-}
+    );
+};
 
 export default GameBoard;
