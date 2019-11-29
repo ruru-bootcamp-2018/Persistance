@@ -19,7 +19,7 @@ type Intention = {
     intention: string;
 };
 
-type Mission = {
+export type Mission = {
     outcome: string | null;
     rounds: Round[];
     intentions: Intention[];

@@ -6,8 +6,8 @@ import * as CSS from 'csstype';
 const style: CSS.Properties = {
     ['marginTop' as any]: '-2vw',
     ['zIndex' as any]: '1',
-    ['float' as any]: 'right'
-  };
+    ['float' as any]: 'right',
+};
 
 const HistoryIcon = () => {
     return (
@@ -29,6 +29,6 @@ const HistoryIcon = () => {
             />
         </Tooltip>
     );
-}
+};
 
 export default HistoryIcon;

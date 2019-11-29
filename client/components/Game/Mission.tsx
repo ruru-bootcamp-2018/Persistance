@@ -1,26 +1,36 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {
+    useSelector as useReduxSelector,
+    TypedUseSelectorHook,
+} from 'react-redux';
+import { AppState } from '../../reducers';
 import MissionToolTip from './MissionToolTip';
 import { Tooltip } from 'react-tippy';
+import { Mission } from './MissionToolTip';
 
-const Mission = props => {
-    const { id, outcome } = props.mission;
+type Props = {
+    mission: Mission;
+    number: number;
+}
+
+const Mission = (props: Props) => {
+    const useSelector: TypedUseSelectorHook<AppState> = useReduxSelector;
+    const { outcome } = props.mission;
     const glow =
-        props.currentGame.currentMission.mission_num == props.number + 1
+        useSelector(state => state.currentGame.currentMission.mission_num === props.number + 1)
             ? 'cake'
             : '';
     const iconDrop =
-        props.currentGame.currentMission.mission_num > props.number + 1;
+        useSelector(state => state.currentGame.currentMission.mission_num > props.number + 1);
 
     return (
         <Tooltip
-            // options
             position="bottom"
             trigger="mouseenter"
             html={
                 <MissionToolTip
                     mission={props.mission}
-                    players={props.currentGame.players}
+                    players={useSelector(state => state.currentGame.players)}
                 />
             }
         >
@@ -30,7 +40,7 @@ const Mission = props => {
                 {iconDrop ? (
                     <img src={outcome ? '/fist.png' : '/dagger.png'} />
                 ) : (
-                    props.missionParams[props.number].team_total
+                    useSelector(state => state.missionParams[props.number].team_total)
                 )}
             </h2>
             <br />
@@ -38,6 +48,4 @@ const Mission = props => {
     );
 };
 
-const mapStateToProps = state => state;
-
-export default connect(mapStateToProps)(Mission);
+export default Mission;
